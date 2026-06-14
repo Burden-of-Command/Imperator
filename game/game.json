@@ -1,0 +1,129 @@
+{
+  "title": "IMPERATOR: The Burden of the Danube",
+  "version": "0.1",
+  "theaters": [
+    {"id": "raetia", "name": "Raetia", "adjacent": ["aquileia", "noricum"]},
+    {"id": "noricum", "name": "Noricum", "adjacent": ["aquileia", "raetia", "upper_pannonia"]},
+    {"id": "upper_pannonia", "name": "Upper Pannonia", "adjacent": ["aquileia", "noricum", "lower_pannonia"]},
+    {"id": "lower_pannonia", "name": "Lower Pannonia", "adjacent": ["upper_pannonia"]},
+    {"id": "aquileia", "name": "Aquileia / Reserve", "adjacent": ["raetia", "noricum", "upper_pannonia"]}
+  ],
+  "scenarios": [
+    {
+      "id": "S01", "name": "The Gathering Storm", "years": "166-168 CE", "rounds": 6,
+      "difficulty": 1, "groups": ["A", "A", "B", "B", "C", "C"],
+      "tracks": {"rome": 6, "senate": 5, "resolve": 6, "treasury": 5, "supply": 5, "fatigue": 1, "mercy": 0},
+      "threat": {"raetia": 2, "noricum": 2, "upper_pannonia": 3, "lower_pannonia": 2},
+      "legions": {"aquileia": 2, "raetia": 1, "noricum": 1, "upper_pannonia": 1, "lower_pannonia": 1},
+      "objective": {"momentum": 4, "max_total_threat": 8},
+      "rule": "The first Petition each game costs no Treasury.",
+      "history": "Pressure builds while disease and the eastern war limit Rome's freedom of action."
+    },
+    {
+      "id": "S02", "name": "Italy Invaded", "years": "c. 169-171 CE", "rounds": 7,
+      "difficulty": 2, "groups": ["B", "B", "B", "C", "C", "D", "D"],
+      "tracks": {"rome": 5, "senate": 5, "resolve": 6, "treasury": 4, "supply": 5, "fatigue": 2, "mercy": 0},
+      "threat": {"raetia": 3, "noricum": 3, "upper_pannonia": 4, "lower_pannonia": 3},
+      "legions": {"aquileia": 2, "raetia": 1, "noricum": 1, "upper_pannonia": 1, "lower_pannonia": 1},
+      "objective": {"momentum": 4, "max_total_threat": 10, "aquileia_secure": true},
+      "rule": "If Upper Pannonia reaches Threat 6, lose 2 Rome instead of losing immediately; lose if it remains 6 at round end.",
+      "history": "A coalition breaks through the frontier and threatens Aquileia in northern Italy."
+    },
+    {
+      "id": "S03", "name": "Beyond the Danube", "years": "172 CE", "rounds": 6,
+      "difficulty": 2, "groups": ["C", "C", "D", "D", "E", "E"],
+      "tracks": {"rome": 6, "senate": 5, "resolve": 5, "treasury": 4, "supply": 5, "fatigue": 3, "mercy": 1},
+      "threat": {"raetia": 1, "noricum": 2, "upper_pannonia": 3, "lower_pannonia": 2},
+      "legions": {"aquileia": 1, "raetia": 0, "noricum": 1, "upper_pannonia": 3, "lower_pannonia": 1},
+      "objective": {"momentum": 5, "named": {"upper_pannonia": 2}},
+      "rule": "Campaigns in Upper Pannonia gain +1 Roman total, but every Exertion there costs 1 Resolve.",
+      "history": "Marcus carries the war north, seeking leverage against the Marcomanni."
+    },
+    {
+      "id": "S04", "name": "Among the Quadi", "years": "173-174 CE", "rounds": 7,
+      "difficulty": 3, "groups": ["C", "D", "D", "E", "E", "F", "F"],
+      "tracks": {"rome": 6, "senate": 4, "resolve": 5, "treasury": 3, "supply": 4, "fatigue": 3, "mercy": 1},
+      "threat": {"raetia": 1, "noricum": 3, "upper_pannonia": 3, "lower_pannonia": 2},
+      "legions": {"aquileia": 1, "raetia": 0, "noricum": 2, "upper_pannonia": 2, "lower_pannonia": 1},
+      "objective": {"momentum": 5, "named": {"noricum": 2}, "mercy": 2},
+      "rule": "Once per game after losing a battle, set both dice to 4; then lose 1 Treasury. This represents the contested rain-miracle tradition without choosing an explanation.",
+      "history": "The Quadi campaign combines hard fighting, disputed kingship, thirst, weather, and propaganda."
+    },
+    {
+      "id": "S05", "name": "The Sarmatian Plain", "years": "174-175 CE", "rounds": 7,
+      "difficulty": 3, "groups": ["D", "D", "E", "E", "F", "F", "G"],
+      "tracks": {"rome": 6, "senate": 5, "resolve": 5, "treasury": 4, "supply": 5, "fatigue": 3, "mercy": 1},
+      "threat": {"raetia": 1, "noricum": 1, "upper_pannonia": 2, "lower_pannonia": 4},
+      "legions": {"aquileia": 1, "raetia": 0, "noricum": 1, "upper_pannonia": 1, "lower_pannonia": 3},
+      "objective": {"momentum": 5, "named": {"lower_pannonia": 3}, "max_total_threat": 9},
+      "rule": "The Enemy die gains +1 in Lower Pannonia unless at least three Legions are committed.",
+      "history": "Roman forces confront the mobile Iazyges and seek prisoners, auxiliaries, and a durable settlement."
+    },
+    {
+      "id": "S06", "name": "The Eastern Usurper", "years": "175 CE", "rounds": 5,
+      "difficulty": 3, "groups": ["E", "F", "G", "G", "H"],
+      "tracks": {"rome": 5, "senate": 3, "resolve": 5, "treasury": 3, "supply": 4, "fatigue": 4, "mercy": 2},
+      "threat": {"raetia": 1, "noricum": 2, "upper_pannonia": 2, "lower_pannonia": 2},
+      "legions": {"aquileia": 2, "raetia": 0, "noricum": 1, "upper_pannonia": 1, "lower_pannonia": 2},
+      "objective": {"momentum": 3, "senate": 4, "mercy": 3},
+      "rule": "Each Campaign costs 1 Treasury. The first time Senate reaches 5, gain 2 Momentum.",
+      "history": "Avidius Cassius is proclaimed emperor in the east, forcing Marcus to balance speed, legitimacy, and clemency."
+    },
+    {
+      "id": "S07", "name": "The Second Expedition", "years": "178-180 CE", "rounds": 8,
+      "difficulty": 4, "groups": ["E", "F", "F", "G", "G", "H", "H", "H"],
+      "tracks": {"rome": 5, "senate": 4, "resolve": 5, "treasury": 4, "supply": 5, "fatigue": 2, "mercy": 2},
+      "threat": {"raetia": 1, "noricum": 2, "upper_pannonia": 3, "lower_pannonia": 3},
+      "legions": {"aquileia": 1, "raetia": 0, "noricum": 1, "upper_pannonia": 2, "lower_pannonia": 2},
+      "objective": {"momentum": 6, "max_total_threat": 9, "resolve": 2},
+      "rule": "At the end of rounds 4 and 7, lose 1 Resolve unless you Meditated that round.",
+      "history": "War resumes. Marcus pursues an unfinished northern settlement while age, fatigue, and succession narrow his time."
+    },
+    {
+      "id": "S08", "name": "The Burden of the Danube", "years": "166-180 CE", "rounds": 10,
+      "difficulty": 4, "groups": ["A", "B", "C", "D", "E", "F", "G", "G", "H", "H"],
+      "tracks": {"rome": 6, "senate": 5, "resolve": 6, "treasury": 5, "supply": 5, "fatigue": 1, "mercy": 0},
+      "threat": {"raetia": 2, "noricum": 2, "upper_pannonia": 3, "lower_pannonia": 2},
+      "legions": {"aquileia": 2, "raetia": 1, "noricum": 1, "upper_pannonia": 1, "lower_pannonia": 1},
+      "objective": {"momentum": 8, "max_total_threat": 11, "senate": 3, "mercy": 2},
+      "rule": "After rounds 3 and 6, reduce Fatigue by 1 but increase the highest Threat by 1. At round 8, lose 1 Resolve.",
+      "history": "A compressed full reign: epidemic, invasion, counteroffensive, revolt, renewed war, and the question of what peace will survive."
+    }
+  ],
+  "commands": [
+    {"id": "C01", "name": "Redeploy the Vexillations", "imperium": "March, then March again with one of the moved Legions.", "officium": "Gain 1 Senate; then move one Legion to Aquileia.", "tag": "movement"},
+    {"id": "C02", "name": "Secure the River", "imperium": "Pay 1 Supply: reduce Threat by 1 in two adjacent theaters containing Legions.", "officium": "Gain 2 Supply; lose 1 Treasury.", "tag": "logistics"},
+    {"id": "C03", "name": "Pompeianus Commands", "imperium": "Campaign with +2 Roman total. Marcus cannot use Assent in that battle.", "officium": "Gain 1 Senate and reduce Fatigue by 1.", "tag": "general"},
+    {"id": "C04", "name": "Auction the Palace", "imperium": "Gain 3 Treasury, then Campaign.", "officium": "Gain 4 Treasury; lose 1 Rome.", "tag": "finance"},
+    {"id": "C05", "name": "Raise New Legions", "imperium": "Pay 3 Treasury: return one lost Legion to Aquileia.", "officium": "Pay 2 Treasury and 1 Senate: return one lost Legion to Aquileia and gain 1 Rome.", "tag": "levy"},
+    {"id": "C06", "name": "Fortify Italy and the Alps", "imperium": "Reduce Threat by 2 in Raetia or Noricum; pay 1 Supply.", "officium": "Gain 2 Rome. Then lose 1 Treasury.", "tag": "defense"},
+    {"id": "C07", "name": "Divide the Coalition", "imperium": "Choose two adjacent Threats. Reduce one by 2 and increase the other by 1.", "officium": "Spend 1 Senate: reduce any Threat by 1 and gain 1 Mercy.", "tag": "diplomacy"},
+    {"id": "C08", "name": "Forced March", "imperium": "Move up to three Legions through one extra connection; increase Fatigue by 1.", "officium": "Gain 1 Supply and 1 Resolve.", "tag": "movement"},
+    {"id": "C09", "name": "Winter Quarters", "imperium": "Reduce Fatigue by 2. You may Fortify once.", "officium": "Gain 1 Resolve, 1 Supply, and 1 Senate; increase the highest Threat by 1.", "tag": "rest"},
+    {"id": "C10", "name": "Address the Troops", "imperium": "Campaign. On a tie or loss, gain 1 Resolve after consequences.", "officium": "Gain 2 Resolve; lose 1 Senate unless Mercy is 3+.", "tag": "resolve"},
+    {"id": "C11", "name": "Take Hostages", "imperium": "After winning a battle, reduce Threat by 1 more; lose 1 Mercy.", "officium": "Gain 2 Senate if total Threat is 8 or less; otherwise gain 1 Treasury.", "tag": "settlement"},
+    {"id": "C12", "name": "Return the Prisoners", "imperium": "Spend 1 Momentum: reduce a Threat at 2 or less to 0 and gain 2 Mercy.", "officium": "Gain 1 Rome and 1 Mercy; lose 1 Treasury.", "tag": "mercy"},
+    {"id": "C13", "name": "Danube Fleet", "imperium": "Move any number of Legions between Upper and Lower Pannonia, then gain +1 in a battle there.", "officium": "Gain 2 Supply or 1 Treasury.", "tag": "logistics"},
+    {"id": "C14", "name": "Council at Carnuntum", "imperium": "Look at the next two Crises. Return them in either order, then Fortify.", "officium": "Look at the next three Crises. Put one on the bottom.", "tag": "planning"},
+    {"id": "C15", "name": "No More Than Duty", "imperium": "Campaign without increasing Fatigue this round.", "officium": "Meditate, then Petition without paying Treasury.", "tag": "stoic"},
+    {"id": "C16", "name": "Clemency After Victory", "imperium": "Campaign. If you win, gain Mercy instead of Momentum and reduce Fatigue by 1.", "officium": "Spend 1 Senate: gain 1 Mercy, 1 Rome, and 1 Resolve.", "tag": "mercy"}
+  ],
+  "crises": [
+    {"id": "E01", "group": "A", "name": "Langobardi Cross the River", "arrival": "Increase Upper Pannonia Threat by 1.", "design": "If no Legion is in Upper Pannonia, increase it by 1 again.", "pressure": {"upper_pannonia": 1}},
+    {"id": "E02", "group": "A", "name": "Eleven Envoys", "arrival": "Choose: spend 1 Senate to reduce the highest Threat by 1, or gain 1 Treasury and increase it by 1.", "design": "If two Threats are tied for highest, both press this round.", "pressure": {}},
+    {"id": "E03", "group": "B", "name": "The Plague Returns", "arrival": "Lose 1 Rome or remove one Legion to the lost box.", "design": "If Fatigue is 4+, lose 1 Resolve.", "pressure": {}, "track_loss": {"rome": 1}},
+    {"id": "E04", "group": "B", "name": "Lucius Is Dead", "arrival": "Lose 1 Resolve. Choose a theater; Legions there cannot March this round.", "design": "Gain 1 Senate if you used Officium.", "pressure": {}, "track_loss": {"resolve": 1}},
+    {"id": "E05", "group": "C", "name": "The Road to Aquileia", "arrival": "Increase Upper Pannonia and Noricum Threat by 1.", "design": "If their combined Threat is 8+, lose 1 Rome.", "pressure": {"upper_pannonia": 1, "noricum": 1}},
+    {"id": "E06", "group": "C", "name": "Opitergium Burned", "arrival": "Lose 1 Rome. Requisition gains 3 Supply this round.", "design": "If you did not Campaign or Fortify, lose 1 Senate.", "pressure": {}, "track_loss": {"rome": 1}},
+    {"id": "E07", "group": "D", "name": "Ballomar's Coalition", "arrival": "Increase the highest Threat by 2.", "design": "Reduce a different Threat by 1 if you used diplomacy this round.", "pressure": {"highest": 2}},
+    {"id": "E08", "group": "D", "name": "The Costoboci Raid South", "arrival": "Pay 2 Treasury or lose 1 Rome and 1 Senate.", "design": "Lower Pannonia presses regardless of its Threat.", "pressure": {"lower_pannonia": 1}},
+    {"id": "E09", "group": "E", "name": "Across the Frozen Danube", "arrival": "Campaigns in Pannonia gain +1 this round; each Roman loss also costs 1 Supply.", "design": "Increase Fatigue by 1 if you fought.", "pressure": {}},
+    {"id": "E10", "group": "E", "name": "The Rain and the Thirst", "arrival": "Lose 2 Supply or 1 Resolve.", "design": "If you used Assent, reduce the battled theater's Threat by 1.", "pressure": {}, "track_loss": {"supply": 1}},
+    {"id": "E11", "group": "F", "name": "Ariogaesus Defies Rome", "arrival": "Increase Noricum Threat by 2 unless you spend 1 Senate.", "design": "If Noricum is at 1 or less, gain 1 Momentum.", "pressure": {"noricum": 1}},
+    {"id": "E12", "group": "F", "name": "Horsemen of the Iazyges", "arrival": "Move one Legion out of Lower Pannonia or increase its Threat by 2.", "design": "The Enemy die gains +1 in Lower Pannonia this round.", "pressure": {"lower_pannonia": 1}},
+    {"id": "E13", "group": "G", "name": "One Hundred Thousand Captives", "arrival": "Choose: gain 2 Rome, or gain 1 Mercy and reduce Lower Pannonia Threat by 1.", "design": "Lose 1 Supply if Lower Pannonia is not pacified.", "pressure": {}},
+    {"id": "E14", "group": "G", "name": "Cassius Takes the Purple", "arrival": "Lose 2 Senate. You may spend 2 Treasury to lose only 1.", "design": "If Senate is 2 or less, lose 1 Rome.", "pressure": {}, "track_loss": {"senate": 1}},
+    {"id": "E15", "group": "H", "name": "Commodus at the Front", "arrival": "Gain 1 Rome or 1 Senate. Then lose 1 Resolve unless Mercy is 3+.", "design": "If you Campaign, gain +1 Roman total and increase Fatigue by 1.", "pressure": {}, "track_loss": {"resolve": 1}},
+    {"id": "E16", "group": "H", "name": "Time Is a River", "arrival": "Choose: lose 1 Resolve, or increase two Threats by 1.", "design": "If this is the final round, gain 1 VP for each pacified theater.", "pressure": {"highest": 1}}
+  ]
+}

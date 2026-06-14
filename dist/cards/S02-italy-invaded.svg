@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2.5in" height="3.5in" viewBox="0 0 750 1050">
+<rect width="750" height="1050" rx="34" fill="#e8e3d8"/>
+<rect x="20" y="20" width="710" height="1010" rx="28" fill="none" stroke="#8b2f2b" stroke-width="4"/>
+<path d="M55 165H695M55 550H695M55 914H695" stroke="#8b2f2b" stroke-width="2"/>
+<text x="55" y="78" fill="#8b2f2b" font-family="Arial,sans-serif" font-size="18" font-weight="bold" letter-spacing="2">S02  SCENARIO / DIFFICULTY 2</text>
+<text x="55" y="137" fill="#272722" font-family="Georgia,serif" font-size="42" font-weight="bold">Italy Invaded</text>
+<text x="55" y="215" fill="#8b2f2b" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">c. 169-171 CE</text>
+<text x="55" y="270" fill="#272722" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">A coalition breaks through the frontier</tspan><tspan x="55" dy="34">and threatens Aquileia in northern Italy.</tspan></text>
+<text x="55" y="602" fill="#8b2f2b" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">7 ROUNDS</text>
+<text x="55" y="657" fill="#272722" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">Objective: 4 Momentum; Threat total &lt;=</tspan><tspan x="55" dy="34">10. If Upper Pannonia reaches Threat 6,</tspan><tspan x="55" dy="34">lose 2 Rome instead of losing</tspan><tspan x="55" dy="34">immediately; lose if it remains 6 at</tspan><tspan x="55" dy="34">round end.</tspan></text>
+<text x="375" y="965" text-anchor="middle" fill="#8b2f2b" font-family="Arial,sans-serif" font-size="14" font-weight="bold" letter-spacing="2">HISTORY SETS THE BURDEN. YOUR JUDGMENT SETS THE END.</text>
+<circle cx="375" cy="995" r="7" fill="#8b2f2b"/>
+</svg>

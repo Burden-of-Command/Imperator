@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2.5in" height="3.5in" viewBox="0 0 750 1050">
+<rect width="750" height="1050" rx="34" fill="#202522"/>
+<rect x="20" y="20" width="710" height="1010" rx="28" fill="none" stroke="#ad8c4b" stroke-width="4"/>
+<path d="M55 165H695M55 550H695M55 914H695" stroke="#ad8c4b" stroke-width="2"/>
+<text x="55" y="78" fill="#ad8c4b" font-family="Arial,sans-serif" font-size="18" font-weight="bold" letter-spacing="2">C08  COMMAND / MOVEMENT</text>
+<text x="55" y="137" fill="#eee8d8" font-family="Georgia,serif" font-size="42" font-weight="bold">Forced March</text>
+<text x="55" y="215" fill="#ad8c4b" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">IMPERIUM</text>
+<text x="55" y="270" fill="#eee8d8" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">Move up to three Legions through one</tspan><tspan x="55" dy="34">extra connection; increase Fatigue by 1.</tspan></text>
+<text x="55" y="602" fill="#ad8c4b" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">OFFICIUM</text>
+<text x="55" y="657" fill="#eee8d8" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">Gain 1 Supply and 1 Resolve.</tspan></text>
+<text x="375" y="965" text-anchor="middle" fill="#ad8c4b" font-family="Arial,sans-serif" font-size="14" font-weight="bold" letter-spacing="2">THE FRONTIER AND ROME CLAIM THE SAME HOUR</text>
+<circle cx="375" cy="995" r="7" fill="#ad8c4b"/>
+</svg>
