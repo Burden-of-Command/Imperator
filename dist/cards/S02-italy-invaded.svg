@@ -7,7 +7,7 @@
 <text x="55" y="215" fill="#8b2f2b" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">c. 169-171 CE</text>
 <text x="55" y="270" fill="#272722" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">A coalition breaks through the frontier</tspan><tspan x="55" dy="34">and threatens Aquileia in northern Italy.</tspan></text>
 <text x="55" y="602" fill="#8b2f2b" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">7 ROUNDS</text>
-<text x="55" y="657" fill="#272722" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">Objective: 4 Momentum; Threat total &lt;=</tspan><tspan x="55" dy="34">10. If Upper Pannonia reaches Threat 6,</tspan><tspan x="55" dy="34">lose 2 Rome instead of losing</tspan><tspan x="55" dy="34">immediately; lose if it remains 6 at</tspan><tspan x="55" dy="34">round end.</tspan></text>
+<text x="55" y="657" fill="#272722" font-family="Georgia,serif" font-size="22"><tspan x="55" dy="0">Start tracks: R5 Se5 Re6 Tr4 Su5 F2 Me0. Legions:</tspan><tspan x="55" dy="28">Aq1 La2 Ca2 Si1. Threat: Ra3 Ma3 Qu4 Ia3.</tspan><tspan x="55" dy="28">Objective: 4 Momentum; Threat total &lt;= 10. If</tspan><tspan x="55" dy="28">Quadi Threat reaches 6, lose 2 Rome instead of</tspan><tspan x="55" dy="28">losing immediately; lose if it remains 6 at round</tspan><tspan x="55" dy="28">end.</tspan></text>
 <text x="375" y="965" text-anchor="middle" fill="#8b2f2b" font-family="Arial,sans-serif" font-size="14" font-weight="bold" letter-spacing="2">HISTORY SETS THE BURDEN. YOUR JUDGMENT SETS THE END.</text>
 <circle cx="375" cy="995" r="7" fill="#8b2f2b"/>
 </svg>

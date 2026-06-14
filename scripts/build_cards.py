@@ -45,11 +45,13 @@ def card_svg(kind: str, card: dict) -> str:
         upper_label, lower_label = "IMPERIUM", "OFFICIUM"
         upper, lower = card["imperium"], card["officium"]
         footer = "THE FRONTIER AND ROME CLAIM THE SAME HOUR"
+        lower_width, lower_limit, lower_size, lower_gap = 41, 7, 27, 34
     elif kind == "crisis":
         kicker = f'{card["id"]}  CRISIS / GROUP {card["group"]}'
         upper_label, lower_label = "ARRIVAL", "ENEMY DESIGN"
         upper, lower = card["arrival"], card["design"]
         footer = "WHAT ARRIVES IS NOT YOURS. WHAT YOU DO IS."
+        lower_width, lower_limit, lower_size, lower_gap = 41, 7, 27, 34
     else:
         kicker = f'{card["id"]}  SCENARIO / DIFFICULTY {card["difficulty"]}'
         upper_label, lower_label = card["years"], f'{card["rounds"]} ROUNDS'
@@ -61,8 +63,30 @@ def card_svg(kind: str, card: dict) -> str:
             bits.append(f'Mercy {objective["mercy"]}+')
         if "senate" in objective:
             bits.append(f'Senate {objective["senate"]}+')
-        upper, lower = card["history"], "Objective: " + "; ".join(bits) + ". " + card["rule"]
+        tracks = card["tracks"]
+        track_setup = (
+            f'R{tracks["rome"]} Se{tracks["senate"]} Re{tracks["resolve"]} '
+            f'Tr{tracks["treasury"]} Su{tracks["supply"]} F{tracks["fatigue"]} Me{tracks["mercy"]}'
+        )
+        abbreviations = {
+            "aquileia": "Aq", "virunum": "Vi", "lauriacum": "La",
+            "carnuntum": "Ca", "sirmium": "Si",
+            "raetian_frontier": "Ra", "marcomannia": "Ma",
+            "quadi": "Qu", "iazyges": "Ia",
+        }
+        legion_setup = " ".join(
+            f'{abbreviations[key]}{value}' for key, value in card["legions"].items() if value
+        )
+        threat_setup = " ".join(
+            f'{abbreviations[key]}{value}' for key, value in card["threat"].items()
+        )
+        upper = card["history"]
+        lower = (
+            f'Start tracks: {track_setup}. Legions: {legion_setup}. '
+            f'Threat: {threat_setup}. Objective: {"; ".join(bits)}. {card["rule"]}'
+        )
         footer = "HISTORY SETS THE BURDEN. YOUR JUDGMENT SETS THE END."
+        lower_width, lower_limit, lower_size, lower_gap = 49, 10, 22, 28
 
     title_size = 42 if len(title) < 24 else 34
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="2.5in" height="3.5in" viewBox="0 0 750 1050">
@@ -74,7 +98,7 @@ def card_svg(kind: str, card: dict) -> str:
 <text x="55" y="215" fill="{accent}" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">{html.escape(upper_label)}</text>
 <text x="55" y="270" fill="{ink}" font-family="Georgia,serif" font-size="27">{tspans(text_lines(upper, 41, 7), 55, 34)}</text>
 <text x="55" y="602" fill="{accent}" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">{html.escape(lower_label)}</text>
-<text x="55" y="657" fill="{ink}" font-family="Georgia,serif" font-size="27">{tspans(text_lines(lower, 41, 7), 55, 34)}</text>
+<text x="55" y="657" fill="{ink}" font-family="Georgia,serif" font-size="{lower_size}">{tspans(text_lines(lower, lower_width, lower_limit), 55, lower_gap)}</text>
 <text x="375" y="965" text-anchor="middle" fill="{accent}" font-family="Arial,sans-serif" font-size="14" font-weight="bold" letter-spacing="2">{footer}</text>
 <circle cx="375" cy="995" r="7" fill="{accent}"/>
 </svg>'''
@@ -138,4 +162,3 @@ def main() -> None:
 
 if __name__ == "__main__":
     main()
-

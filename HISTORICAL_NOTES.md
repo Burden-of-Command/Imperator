@@ -54,9 +54,11 @@ diplomacy. Mercy measures whether force is paired with restraint and settlement.
 
 ## Compression and Uncertainty
 
-The four theaters are operational abstractions, not a scale map. Legions are
-strength points rather than named full formations. Crisis order varies so that
-history creates constraints without becoming a scripted quiz.
+The nine-space network is an operational abstraction, not a scale map. Aquileia,
+Virunum, Lauriacum, Carnuntum, and Sirmium anchor recognizable Roman routes and
+bases; the four enemy spaces compress much larger and shifting territories.
+Legions are strength points rather than named full formations. Crisis order
+varies so that history creates constraints without becoming a scripted quiz.
 
 The date of the invasion of Italy, details of individual battles, Marcus's
 annexation intentions, and the interpretation of the rain miracle remain

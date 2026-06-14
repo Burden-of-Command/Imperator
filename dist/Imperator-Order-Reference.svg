@@ -5,8 +5,8 @@
 <path d="M55 175H695" stroke="#ad8c4b"/>
 <text x="55" y="235" fill="#ad8c4b" font-family="Arial" font-size="20" font-weight="bold">BASIC ORDERS: CHOOSE TWO DIFFERENT</text>
 <text x="55" y="290" fill="#eee8d8" font-family="Georgia" font-size="26">
-<tspan x="55">March: move up to two Legions.</tspan><tspan x="55" dy="40">Fortify: 1 Supply; -1 Threat.</tspan>
-<tspan x="55" dy="40">Campaign: fight one battle.</tspan><tspan x="55" dy="40">Petition: 1 Treasury; +1 Senate.</tspan>
+<tspan x="55">March: two Legions, one connection.</tspan><tspan x="55" dy="40">Fortify: 1 Supply; -1 adjacent Threat.</tspan>
+<tspan x="55" dy="40">Campaign: battle in enemy settlement.</tspan><tspan x="55" dy="40">Petition: 1 Treasury; +1 Senate.</tspan>
 <tspan x="55" dy="40">Requisition: +2 Supply; -1 Rome/Senate.</tspan><tspan x="55" dy="40">Meditate: +1 Resolve; possibly -1 Fatigue.</tspan></text>
 <path d="M55 570H695" stroke="#ad8c4b"/>
 <text x="55" y="625" fill="#ad8c4b" font-family="Arial" font-size="20" font-weight="bold">BATTLE</text>
@@ -15,5 +15,6 @@
 <tspan x="55" dy="55">Win 3+: -2 Threat, +1 Momentum</tspan><tspan x="55" dy="38">Win 1-2: -1 Threat, +1 Momentum</tspan>
 <tspan x="55" dy="38">Tie: -1 Threat; -1 Supply or +1 Fatigue</tspan><tspan x="55" dy="38">Lose 1-2: -1 Supply, -1 Resolve</tspan>
 <tspan x="55" dy="38">Lose 3+: lose Legion, -1 Rome</tspan></text>
-<text x="375" y="990" text-anchor="middle" fill="#ad8c4b" font-family="Arial" font-size="15" letter-spacing="2">EXERT +2 / ASSENT ONCE PER ROUND</text>
+<text x="375" y="965" text-anchor="middle" fill="#ad8c4b" font-family="Arial" font-size="14" letter-spacing="2">BASE SUPPORT +1 / EXERT +2</text>
+<text x="375" y="995" text-anchor="middle" fill="#ad8c4b" font-family="Arial" font-size="14" letter-spacing="2">ASSENT ONCE PER ROUND</text>
 </svg>

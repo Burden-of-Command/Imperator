@@ -3,7 +3,7 @@
 ## Record Each Game
 
 1. Scenario, result, score, rounds, and strategy.
-2. Final tracks, surviving Legions, total Threat, and Momentum.
+2. Final tracks, Legion locations, total Threat, and Momentum.
 3. Command cards used for Imperium versus Officium.
 4. Battles, Exertions, Assents, negotiations, and Legion losses.
 5. The hardest decision and any turn with an obvious answer.
@@ -15,7 +15,7 @@
 - Late-scenario win rate: 30-50%.
 - No starting move chosen in more than 70% of games.
 - Imperium/Officium use between 35/65 and 65/35.
-- At least one meaningful Legion move in 80% of games.
+- At least one meaningful choice between routes or settlements in 80% of games.
 - Median duration below 50 minutes.
 - Fewer than two rulebook lookups after the first game.
 - Fewer than 10% of losses described as predetermined.
@@ -34,4 +34,3 @@ Rate 1-10:
 Do not treat simulator results as proof of quality. They identify obvious
 balance failures; human play must validate tension, clarity, and historical
 meaning.
-

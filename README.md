@@ -10,8 +10,8 @@ the Senate; clemency may secure peace or give an enemy time to gather.
 ## Design Pillars
 
 - **Small footprint:** 40 cards, one A4 campaign mat, 18 cubes, and two d6.
-- **Meaningful command:** legions must move through connected theaters before
-  they can fight.
+- **Geographical command:** legions march between named bases, river crossings,
+  and enemy settlements before they can fight.
 - **One burden, two claims:** every Command card is used either for its military
   order or its civil order.
 - **History under pressure:** plague, Aquileia, the Quadi, the Iazyges,
@@ -26,7 +26,7 @@ the Senate; clemency may secure peace or give an enemy time to gather.
 - 16 Command cards
 - 16 Crisis cards
 - 8 Scenario cards
-- 1 campaign mat
+- 1 compact node-map campaign mat
 - 6 legion cubes, 4 threat cubes, and 8 track cubes
 - 2 standard six-sided dice
 
@@ -37,7 +37,7 @@ as shown on its Scenario card. A first game takes about 35-50 minutes.
 
 ## Repository
 
-- `game/game.json` - canonical cards, scenarios, and theater data
+- `game/game.json` - canonical cards, scenarios, and map data
 - `game/simulate.py` - strategy-aware balance simulator
 - `scripts/build_cards.py` - individual cards and duplex-ready SVG sheets
 - `scripts/build_map.py` - A4 campaign mat and compact player aid
@@ -56,4 +56,3 @@ python3 scripts/build_map.py
 
 This is a development prototype. Historical dates and sequences are sometimes
 compressed, but uncertainty is identified rather than presented as fact.
-

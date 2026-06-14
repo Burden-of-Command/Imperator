@@ -7,7 +7,7 @@ before its final round while keeping **Rome**, **Senate**, and **Resolve** above
 zero. You lose immediately if:
 
 - Rome, Senate, or Resolve reaches 0;
-- at Endure, any Threat is 6 with fewer than two Legions there;
+- at Endure, any Threat is 6 without a sufficient local defense;
 - you cannot pay a required Legion loss; or
 - a Scenario states another defeat condition.
 
@@ -17,12 +17,21 @@ Your score is:
 
 ## 2. The Map
 
-The four connected theaters are:
+The map has nine connected spaces. Five are Roman bases:
 
-`Raetia <-> Noricum <-> Upper Pannonia <-> Lower Pannonia`
+`Aquileia - Virunum - Lauriacum - Carnuntum - Sirmium`
 
-Aquileia is a reserve box connected to Raetia, Noricum, and Upper Pannonia.
-Each theater holds a Threat cube from 0-6 and any number of Legion cubes.
+Four are enemy settlements or campaigning regions:
+
+- **Raetian Frontier**, connected to Lauriacum.
+- **Marcomannia**, connected to Lauriacum and Carnuntum.
+- **Lands of the Quadi**, connected to Carnuntum and Sirmium.
+- **Plain of the Iazyges**, connected to Sirmium.
+
+Each enemy space holds one Threat cube from 0-6. Any space may hold any number
+of Legion cubes. Printed lines are the only legal movement connections. Rivers
+and roads are already represented by those lines; there are no movement points,
+terrain costs, or supply lines to count.
 
 Tracks run from 0-7 unless noted:
 
@@ -37,7 +46,8 @@ Tracks run from 0-7 unless noted:
 ## 3. Setup
 
 1. Place the mat and choose a Scenario.
-2. Set tracks, Threat, Legions, round limit, and special rules from the card.
+2. Set tracks, Threat, Legions, round limit, and special rules from the Scenario
+   card. Location abbreviations are printed in the map legend below.
 3. Shuffle the 16 Command cards. Draw three.
 4. Build the Crisis deck from the Scenario's listed Crisis groups. Shuffle each
    group separately and stack later groups beneath earlier groups.
@@ -45,6 +55,9 @@ Tracks run from 0-7 unless noted:
 6. Put two dice nearby. Begin Round 1.
 
 For a first game use **S01 The Gathering Storm**.
+
+Scenario abbreviations: Aq Aquileia, Vi Virunum, La Lauriacum, Ca Carnuntum,
+Si Sirmium, Ra Raetian Frontier, Ma Marcomannia, Qu Quadi, Ia Iazyges.
 
 ## 4. Round Sequence
 
@@ -69,9 +82,10 @@ After resolving it, discard it. Draw back to three cards.
 
 Take two different Basic Orders. A card effect may permit repetition.
 
-- **March:** move up to two Legions from one space to one adjacent space.
-- **Fortify:** pay 1 Supply to reduce Threat by 1 where you have a Legion.
-- **Campaign:** fight one battle where you have at least one Legion.
+- **March:** move up to two Legions together across one printed connection.
+- **Fortify:** pay 1 Supply to reduce Threat by 1 at an enemy space containing
+  a Legion or connected to a Roman base containing a Legion.
+- **Campaign:** fight one battle in an enemy space containing a Legion.
 - **Petition:** pay 1 Treasury to gain 1 Senate.
 - **Requisition:** gain 2 Supply; lose 1 Rome or 1 Senate.
 - **Meditate:** gain 1 Resolve; if no battle is fought this round, also reduce
@@ -79,26 +93,33 @@ Take two different Basic Orders. A card effect may permit repetition.
 
 ### IV. Enemy Design
 
-Resolve the Crisis card's **Design** text. Then the theater with the highest
-Threat at 4 or more presses the frontier: lose 1 Rome unless you have at least
-two Legions there. You choose if several theaters are tied.
+Resolve the Crisis card's **Design** text. Then the enemy space with the highest
+Threat at 4 or more presses the frontier: lose 1 Rome unless it contains a
+Legion or a connected Roman base contains at least two Legions. You choose if
+several fronts are tied.
 
 ### V. Endure
 
 1. If you fought, increase Fatigue by 1. If you fought twice, increase it by 2.
 2. If Fatigue is 5+, lose 1 Resolve.
-3. Lose if any Threat is 6 with fewer than two Legions there.
+3. Lose if any Threat is 6 and neither it nor a connected Roman base contains
+   at least two Legions.
 4. Check the Scenario objective and other defeat conditions.
 5. Advance the round. If the final round ended, score the Scenario.
 
 ## 5. Battle
 
-1. Choose a theater containing at least one Legion.
-2. Commit any number of Legions there. Pay 1 Supply per committed Legion beyond
+1. Choose an enemy space containing at least one Legion.
+2. Commit any number of Legions in that space. Pay 1 Supply per committed Legion beyond
    the first.
 3. Roll one Roman die and one Enemy die.
 4. Roman total = committed Legions + Roman die + bonuses.
 5. Enemy total = current Threat + Enemy die + Scenario bonuses.
+
+Add **+1 Roman total** if a Roman base connected to the enemy space contains at
+least one Legion. This is **Base Support**. Several bases never grant more than
++1. A Legion in the enemy space and one behind it on the road is therefore a
+useful formation without creating a separate supply-line system.
 
 Resolve the difference:
 
@@ -109,8 +130,8 @@ Resolve the difference:
 - **Rome loses by 3+:** remove one committed Legion and lose 1 Rome.
 
 Momentum is not a track. Mark each point on the Scenario card. It never exceeds
-the Scenario objective. Some objectives require Momentum in named theaters;
-record those points beside the theater.
+the Scenario objective. Some objectives require Momentum in named enemy spaces;
+record those points beside that settlement.
 
 Before rolling, you may take one **Exertion**: gain +2 Roman total, then increase
 Fatigue by 1 after battle.
@@ -125,15 +146,17 @@ The rule rewards accepting danger, not harvesting certainty.
 
 ## 7. Peace
 
-If a theater is at Threat 1 or less and you have at least one Legion there, you
+If an enemy space is at Threat 1 or less and you have at least one Legion there, you
 may use Petition as **Negotiate**:
 
 - spend 1 Senate or 1 Treasury;
 - reduce that Threat to 0;
 - gain 1 Mercy; and
-- remove one Legion there to Aquileia as a garrison commitment.
+- leave one Legion there as its garrison. That Legion may March normally later,
+  but doing so immediately reopens the settlement at Threat 1.
 
-Threat 0 is pacified, but later Crises can reopen it.
+Threat 0 with a Legion present is a pacified settlement. Later Crises can reopen
+it. This uses the Legion itself as the control marker; no new component is needed.
 
 ## 8. Command Deck
 
@@ -157,5 +180,5 @@ chapters set Supply to at least 2, reduce Fatigue by 2, and draw a fresh hand.
 - "Lose" is mandatory. "Spend" requires the resource; if you cannot spend it,
   you cannot choose that option.
 - Threat reductions cannot pass below zero.
-- A reopened theater moves from Threat 0 to the stated value.
+- A reopened settlement moves from Threat 0 to the stated value.
 - Card text overrides this rulebook.

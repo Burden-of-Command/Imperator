@@ -7,7 +7,7 @@
 <text x="55" y="215" fill="#8b2f2b" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">175 CE</text>
 <text x="55" y="270" fill="#272722" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">Avidius Cassius is proclaimed emperor in</tspan><tspan x="55" dy="34">the east, forcing Marcus to balance</tspan><tspan x="55" dy="34">speed, legitimacy, and clemency.</tspan></text>
 <text x="55" y="602" fill="#8b2f2b" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">5 ROUNDS</text>
-<text x="55" y="657" fill="#272722" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">Objective: 3 Momentum; Mercy 3+; Senate</tspan><tspan x="55" dy="34">4+. Each Campaign costs 1 Treasury. The</tspan><tspan x="55" dy="34">first time Senate reaches 5, gain 2</tspan><tspan x="55" dy="34">Momentum.</tspan></text>
+<text x="55" y="657" fill="#272722" font-family="Georgia,serif" font-size="22"><tspan x="55" dy="0">Start tracks: R5 Se3 Re5 Tr3 Su4 F4 Me2. Legions:</tspan><tspan x="55" dy="28">Aq2 La1 Ca1 Si2. Threat: Ra1 Ma2 Qu2 Ia2.</tspan><tspan x="55" dy="28">Objective: 3 Momentum; Mercy 3+; Senate 4+. Each</tspan><tspan x="55" dy="28">Campaign costs 1 Treasury. The first time Senate</tspan><tspan x="55" dy="28">reaches 5, gain 2 Momentum.</tspan></text>
 <text x="375" y="965" text-anchor="middle" fill="#8b2f2b" font-family="Arial,sans-serif" font-size="14" font-weight="bold" letter-spacing="2">HISTORY SETS THE BURDEN. YOUR JUDGMENT SETS THE END.</text>
 <circle cx="375" cy="995" r="7" fill="#8b2f2b"/>
 </svg>
