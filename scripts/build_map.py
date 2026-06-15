@@ -31,7 +31,7 @@ def front_node(x: int, y: int, name: str) -> str:
     )
     return f'''<path d="M{x - 112} {y - 62}L{x + 112} {y - 62}L{x + 98} {y + 70}L{x - 98} {y + 70}Z" class="front"/>
 <text x="{x}" y="{y - 25}" text-anchor="middle" class="place">{name}</text>
-<text x="{x}" y="{y + 7}" text-anchor="middle" class="small">HOST HOME / STRENGTH</text>{threat}'''
+<text x="{x}" y="{y + 7}" text-anchor="middle" class="small">ARMY HOME / STRENGTH</text>{threat}'''
 
 
 def main() -> None:
@@ -83,7 +83,7 @@ def main() -> None:
 <text x="1175" y="946" class="label">LOST LEGIONS / DEVASTATION</text>
 <g>{"".join(tracks)}</g>
 <text x="72" y="1140" class="small">NOT EVENTS WHICH DISTURB MEN, BUT THEIR JUDGMENTS CONCERNING THEM</text>
-<text x="1582" y="1140" text-anchor="end" class="tiny">PROTOTYPE 0.5</text>
+<text x="1582" y="1140" text-anchor="end" class="tiny">PROTOTYPE 0.6</text>
 </svg>'''
     (OUT / "Imperator-Campaign-Mat.svg").write_text(svg)
 

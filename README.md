@@ -28,6 +28,10 @@ the Senate; clemency may secure peace or give an enemy time to gather.
   surrendering judgment, legitimacy, or humanity.
 - **A remembered reign:** historical epilogues and a decision-based legacy
   judge not only whether Marcus prevailed, but how he governed.
+- **Historically distinct mandates:** frontier preparation, road defense,
+  winter occupation, rival kings, Sarmatian settlement, political legitimacy,
+  and a reign-wide three-part burden make each scenario ask a different
+  strategic question.
 - **Replayable scenarios:** seven historical episodes and a linked grand
   campaign use the same compact system.
 

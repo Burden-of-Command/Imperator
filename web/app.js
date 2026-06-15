@@ -89,6 +89,7 @@ function startGame() {
     actionPending: false,
     fought: 0,
     bonusVP: 0,
+    mandate: {value: 0, flags: {}},
     doctrines: {contain: 0, set: 0, force: 0},
     commandSides: {imperium: 0, officium: 0},
     meditated: false,
@@ -248,7 +249,7 @@ function renderScenario() {
   $("#scenarioKicker").textContent = `Round ${state.round} of ${scenario.rounds} · ${scenario.years}`;
   $("#scenarioName").textContent = scenario.name;
   $("#scenarioHistory").textContent = scenario.history;
-  $("#scenarioRule").textContent = scenario.rule;
+  $("#scenarioRule").innerHTML = `<strong>Historical Mandate — ${scenario.mandate.name}</strong><br>${scenario.mandate.text}<br><span>${scenario.rule}</span>`;
   const objective = scenario.objective;
   const parts = [`${state.momentum}/${objective.momentum} Momentum`];
   if (state.bonusVP) parts.push(`${state.bonusVP} Legacy VP`);
@@ -256,6 +257,7 @@ function renderScenario() {
   if (objective.mercy) parts.push(`Mercy ${state.tracks.mercy}/${objective.mercy}`);
   if (objective.senate) parts.push(`Senate ${state.tracks.senate}/${objective.senate}`);
   if (objective.resolve) parts.push(`Resolve ${state.tracks.resolve}/${objective.resolve}`);
+  if (objective.mandate) parts.push(`${scenario.mandate.name} ${mandateValue()}/${objective.mandate}`);
   if (objective.named) {
     for (const [host, target] of Object.entries(objective.named)) {
       parts.push(`${HOST_NAMES[host]} victories ${state.namedMomentum[host]}/${target}`);
@@ -554,6 +556,10 @@ async function resolveCommand(card, side) {
       if (eligible.length) {
         const host = await chooseHost("Return the Prisoners", "Choose an Army to settle.", fronts.filter(h => !eligible.includes(h)));
         state.momentum -= 1; state.strength[host] = 0; state.hosts[host] = host; changeTrack("mercy", 2);
+        if (state.scenario.id === "S04" && host === "quadi") {
+          state.mandate.value = state.scenario.objective.mandate;
+          log("Returning Quadi prisoners resolves the contest of kings.");
+        }
       }
     } else if (id === "C13") { await fleetMove(); state.freeCampaignBonus = 1; }
     else if (id === "C14") {
@@ -899,6 +905,10 @@ async function petition(free = false) {
     ]);
     changeTrack(resource, -1); state.strength[host] = 0; state.hosts[host] = host; changeTrack("mercy", 1);
     log(`A treaty is made with the ${HOST_NAMES[host]}.`);
+    if (state.scenario.id === "S04" && host === "quadi") {
+      state.mandate.value = state.scenario.objective.mandate;
+      log("A recognized Quadi settlement resolves the contest of kings.");
+    }
   } else {
     const firstFree = state.scenario.id === "S01" && state.firstPetition;
     if (!free && !firstFree) {
@@ -909,6 +919,9 @@ async function petition(free = false) {
     if (choice === "envoys") {
       changeCoalition(-2);
       log("Envoys divide the coalition and delay its next surge.");
+      if (state.scenario.id === "S04" && state.strength.quadi <= 3) {
+        advanceMandate(`quadi-envoys-${state.round}`, "Diplomatic leverage grows among the rival Quadi kings.");
+      }
     } else {
       changeTrack("senate", 1);
     }
@@ -1059,6 +1072,7 @@ async function endure() {
     }
     if (state.round === 8) changeTrack("resolve", -1);
   }
+  evaluateScenarioMandate();
   state.noFatigueBattle = false;
   if (checkImmediateLoss()) return;
   if (state.round >= state.scenario.rounds) return finishScenario();
@@ -1088,6 +1102,7 @@ function finishScenario() {
         <span>Set ${state.doctrines.set}</span>
         <span>Force ${state.doctrines.force}</span>
         <span>Treaties ${pacifiedCount()}</span>
+        <span>Mandate ${mandateValue()}/${state.scenario.objective.mandate}</span>
       </div>
     </div>`);
 }
@@ -1124,6 +1139,7 @@ function objectiveMet() {
   if (o.senate && state.tracks.senate < o.senate) return false;
   if (o.resolve && state.tracks.resolve < o.resolve) return false;
   if (o.mercy && state.tracks.mercy < o.mercy) return false;
+  if (o.mandate && mandateValue() < o.mandate) return false;
   if (o.named && Object.entries(o.named).some(([host,target]) => state.namedMomentum[host] < target)) return false;
   return !Object.values(state.hosts).includes("aquileia");
 }
@@ -1203,6 +1219,9 @@ function moveLegions(source, destination, count) {
     }
   }
   log(`${count} Legion${count === 1 ? "" : "s"} march from ${spaces[source].name} to ${spaces[destination].name}.`);
+  if (state.scenario.id === "S03" && state.legions.marcomannia >= 2) {
+    advanceMandate("winter-camp", "Roman winter camps are established beyond the Danube.");
+  }
 }
 
 async function forcedMoveFrom(source) {
@@ -1280,6 +1299,61 @@ function totalStrength() { return fronts.reduce((sum, host) => sum + state.stren
 function totalLegions() { return Object.values(state.legions).reduce((sum, count) => sum + count, 0); }
 function devastatedCount() { return Object.values(state.devastated).filter(Boolean).length; }
 function pacifiedCount() { return fronts.filter(host => state.strength[host] === 0).length; }
+function mandateValue() {
+  if (!state.scenario.objective.mandate) return 0;
+  if (state.scenario.id === "S01") {
+    return ["lauriacum", "carnuntum", "sirmium"].filter(space =>
+      state.legions[space] > 0 &&
+      !state.devastated[space] &&
+      !fronts.some(host => state.hosts[host] === space)
+    ).length;
+  }
+  if (state.scenario.id === "S02") {
+    return ["aquileia", "virunum", "lauriacum"].filter(space =>
+      !state.devastated[space] && !fronts.some(host => state.hosts[host] === space)
+    ).length;
+  }
+  if (state.scenario.id === "S05") {
+    return state.strength.iazyges <= 1 && state.tracks.mercy >= 3 ? 1 : 0;
+  }
+  return state.mandate.value;
+}
+
+function advanceMandate(key, message) {
+  if (state.mandate.flags[key]) return;
+  state.mandate.flags[key] = true;
+  state.mandate.value = Math.min(
+    state.scenario.objective.mandate || 0,
+    state.mandate.value + 1
+  );
+  log(`${message} <strong>${state.scenario.mandate.name} ${state.mandate.value}/${state.scenario.objective.mandate}.</strong>`);
+}
+
+function evaluateScenarioMandate() {
+  const id = state.scenario.id;
+  if (
+    id === "S06" &&
+    state.lastCommandSide === "officium" &&
+    state.tracks.senate >= 5
+  ) {
+    advanceMandate(`legitimacy-${state.round}`, "Civil authority sustains the eastern command.");
+  }
+  if (id === "S07" && state.legions.marcomannia > 0 && state.legions.quadi > 0) {
+    advanceMandate(`occupation-${state.round}`, "The forward occupation holds across both northern theaters.");
+  }
+  if (id === "S08") {
+    if (
+      state.round >= 3 &&
+      ["aquileia", "virunum", "lauriacum"].every(space =>
+        !state.devastated[space] && !fronts.some(host => state.hosts[host] === space)
+      )
+    ) advanceMandate("reign-defense", "The road into Italy is secured.");
+    if (state.round >= 6 && state.tracks.senate >= 4 && state.tracks.mercy >= 2) {
+      advanceMandate("reign-state", "Authority and restraint survive the middle years.");
+    }
+    if (pacifiedCount() >= 1) advanceMandate("reign-treaty", "A negotiated settlement survives the campaigning.");
+  }
+}
 function d6() { return Math.floor(Math.random() * 6) + 1; }
 
 function phaseName() {
@@ -1295,6 +1369,7 @@ function log(text) {
 function showRules() {
   $("#modalContent").innerHTML = `<div class="modal-inner"><p class="eyebrow">Quick rules</p><h2>How to play</h2>
     <p>Each round reveals a Crisis and its Army order. Choose one Command half, then two different Basic Orders. Coalition pressure can trigger one additional Army surge.</p>
+    <p><strong>Historical Mandate:</strong> every Scenario has one exclusive geographic or political condition. Its progress appears beside the normal objective and is required for victory.</p>
     <p><strong>Campaign:</strong> commit Legions and choose Contain, Set Battle, or Force Decision before rolling. Devastated bases provide no support until restored with Fortify.</p>
     <p><strong>Foresight:</strong> once per round, replace one Command before choosing a card. Each Army's doctrine appears on the Crisis card.</p>
     <p><strong>Victory:</strong> complete the Scenario objective while Rome, Senate, and Resolve remain above zero. Do not let an Army remain in Aquileia.</p>

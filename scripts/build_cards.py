@@ -49,8 +49,8 @@ def card_svg(kind: str, card: dict) -> str:
     elif kind == "crisis":
         kicker = f'{card["id"]}  CRISIS / GROUP {card["group"]}'
         host_names = {
-            "raetian_frontier": "RAETIAN HOST", "marcomannia": "MARCOMANNI HOST",
-            "quadi": "QUADI HOST", "iazyges": "IAZYGES HOST", "highest": "HIGHEST HOST",
+            "raetian_frontier": "RAETIAN ARMY", "marcomannia": "MARCOMANNI ARMY",
+            "quadi": "QUADI ARMY", "iazyges": "IAZYGES ARMY", "highest": "HIGHEST ARMY",
         }
         upper_label = "ARRIVAL"
         lower_label = f'{host_names[card["host"]]}: {card["order"].upper()}'
@@ -68,6 +68,8 @@ def card_svg(kind: str, card: dict) -> str:
             bits.append(f'Mercy {objective["mercy"]}+')
         if "senate" in objective:
             bits.append(f'Senate {objective["senate"]}+')
+        if "mandate" in objective:
+            bits.append(f'{card["mandate"]["name"]} {objective["mandate"]}')
         tracks = card["tracks"]
         track_setup = (
             f'R{tracks["rome"]} Se{tracks["senate"]} Re{tracks["resolve"]} '
@@ -93,7 +95,7 @@ def card_svg(kind: str, card: dict) -> str:
         lower = (
             f'Start tracks: {track_setup}. Legions: {legion_setup}. '
             f'Armies: {host_setup}. Strength: {threat_setup}. '
-            f'Objective: {"; ".join(bits)}. {card["rule"]}'
+            f'Objective: {"; ".join(bits)}. Mandate: {card["mandate"]["text"]} {card["rule"]}'
         )
         footer = "HISTORY SETS THE BURDEN. YOUR JUDGMENT SETS THE END."
         lower_width, lower_limit, lower_size, lower_gap = 53, 11, 20, 25

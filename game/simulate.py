@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Coarse Monte Carlo balance model for IMPERATOR v0.5."""
+"""Coarse Monte Carlo balance model for IMPERATOR v0.6."""
 from __future__ import annotations
 
 import argparse
@@ -29,6 +29,8 @@ class Result:
     momentum: int
     total_threat: int
     legions: int
+    mandate: int
+    named_complete: bool
 
 
 def clamp(value: int, low: int = 0, high: int = 7) -> int:
@@ -135,6 +137,8 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
     devastated: set[str] = set()
     senate_five_awarded = False
     rain_miracle_used = False
+    mandate = 0
+    mandate_flags: set[str] = set()
 
     for round_no in range(scenario["rounds"]):
         crisis = rng.choice(CRISES_BY_GROUP[scenario["groups"][round_no]])
@@ -152,26 +156,77 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
             FRONTS,
             key=lambda t: strength[t] + max(0, 4 - len(route(hosts[t], "aquileia")))
             - legions[hosts[t]] * 0.7
-            + (2 if named_momentum[t] < named_objectives.get(t, 0) else 0),
+            + (5 if named_momentum[t] < named_objectives.get(t, 0) else 0),
         )
         target_space = hosts[urgent]
-        if legions[target_space] == 0:
+        mandate_target = None
+        if scenario["id"] == "S01":
+            missing = [
+                base for base in ("lauriacum", "carnuntum", "sirmium")
+                if legions[base] == 0
+            ]
+            if missing:
+                mandate_target = min(
+                    missing,
+                    key=lambda base: min(
+                        len(route(source, base))
+                        for source in SPACES if legions[source] > 0
+                    ),
+                )
+        elif scenario["id"] == "S03" and legions["marcomannia"] < 2:
+            mandate_target = "marcomannia"
+        elif scenario["id"] == "S05":
+            mandate_target = hosts["iazyges"]
+            urgent = "iazyges"
+        elif scenario["id"] == "S07":
+            missing = [
+                front for front in ("marcomannia", "quadi")
+                if legions[front] == 0
+            ]
+            if missing:
+                mandate_target = missing[0]
+        if mandate_target:
+            target_space = mandate_target
+        needs_reinforcement = legions[target_space] == 0 or (
+            scenario["id"] == "S03"
+            and target_space == "marcomannia"
+            and legions[target_space] < 2
+        )
+        if needs_reinforcement:
             candidates = [space for space in SPACES if legions[space] > 0]
+            if mandate_target:
+                candidates = [space for space in candidates if space != target_space]
             if candidates:
                 source = min(candidates, key=lambda space: len(route(space, target_space)))
                 path = route(source, target_space)
                 destination = path[min(2 if strength[urgent] >= 4 else 1, len(path) - 1)]
-                moved = min(2, legions[source])
+                reserve = 0
+                if scenario["id"] == "S01" and source in ("lauriacum", "carnuntum", "sirmium"):
+                    reserve = 1
+                elif scenario["id"] == "S03" and source == "marcomannia":
+                    reserve = 2
+                elif scenario["id"] == "S07" and source in ("marcomannia", "quadi"):
+                    reserve = 1
+                moved = min(2, max(0, legions[source] - reserve))
                 legions[source] -= moved
                 legions[destination] += moved
+                if scenario["id"] == "S03" and legions["marcomannia"] >= 2:
+                    mandate = 1
 
         # Civil investment competes directly with a second military action.
         civil_need = min(tracks["rome"], tracks["senate"], tracks["resolve"], tracks["supply"])
         needs_mercy = mercy < scenario["objective"].get("mercy", 0)
         needs_senate = tracks["senate"] < scenario["objective"].get("senate", 0)
+        needs_mandate = mandate < scenario["objective"].get("mandate", 0)
         civil = (
             (style == "civic" and rng.random() < 0.68)
-            or (style == "adaptive" and (civil_need <= 3 or needs_mercy or needs_senate))
+            or (
+                style == "adaptive"
+                and (
+                    civil_need <= 3 or needs_mercy or needs_senate
+                    or (scenario["id"] in ("S04", "S05", "S06") and needs_mandate)
+                )
+            )
             or (style == "martial" and civil_need <= 2)
         )
         if civil:
@@ -180,7 +235,9 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
             ):
                 tracks["treasury"] -= 1
                 coalition = max(0, coalition - 2)
-            elif needs_mercy and tracks["senate"] > 1:
+                if scenario["id"] == "S04" and strength["quadi"] <= 3:
+                    mandate = min(2, mandate + 1)
+            elif (needs_mercy or scenario["id"] == "S05") and tracks["senate"] > 1:
                 eligible = [
                     front for front in FRONTS
                     if hosts[front] == front and strength[front] <= 1 and legions[front] > 0
@@ -190,6 +247,8 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
                     strength[settled] = 0
                     mercy = clamp(mercy + 1, 0, 6)
                     tracks["senate"] -= 1
+                    if scenario["id"] == "S04" and settled == "quadi":
+                        mandate = 2
                 else:
                     tracks["resolve"] = clamp(tracks["resolve"] + 1)
             elif needs_senate:
@@ -241,7 +300,7 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
             urgent = max(
                 engaged_hosts,
                 key=lambda t: strength[t] - legions[hosts[t]] * 0.6
-                + (2 if named_momentum[t] < named_objectives.get(t, 0) else 0),
+                + (5 if named_momentum[t] < named_objectives.get(t, 0) else 0),
             )
             should_fight = (
                 strength[urgent] >= 2 or need >= remaining or style == "martial"
@@ -385,6 +444,29 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
         if style != "martial" and not fought:
             tracks["fatigue"] = max(0, tracks["fatigue"] - 1)
 
+        if scenario["id"] == "S06" and civil and tracks["senate"] >= 5:
+            mandate_flags.add(f"legitimacy-{round_no}")
+            mandate = min(2, mandate + 1)
+        if (
+            scenario["id"] == "S07"
+            and legions["marcomannia"] > 0
+            and legions["quadi"] > 0
+        ):
+            mandate_flags.add(f"occupation-{round_no}")
+            mandate = min(2, mandate + 1)
+        if scenario["id"] == "S08":
+            if (
+                round_no + 1 >= 3
+                and all(base not in devastated for base in ("aquileia", "virunum", "lauriacum"))
+                and all(hosts[front] not in ("aquileia", "virunum", "lauriacum") for front in FRONTS)
+            ):
+                mandate_flags.add("defense")
+            if round_no + 1 >= 6 and tracks["senate"] >= 4 and mercy >= 2:
+                mandate_flags.add("state")
+            if any(strength[front] == 0 for front in FRONTS):
+                mandate_flags.add("treaty")
+            mandate = len(mandate_flags)
+
         for key in tracks:
             tracks[key] = clamp(tracks[key], 0, 6 if key == "fatigue" else 7)
         if min(tracks["rome"], tracks["senate"], tracks["resolve"]) <= 0:
@@ -394,6 +476,20 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
 
     objective = scenario["objective"]
     total_threat = sum(strength.values())
+    if scenario["id"] == "S01":
+        mandate = sum(
+            legions[base] > 0
+            and base not in devastated
+            and all(hosts[front] != base for front in FRONTS)
+            for base in ("lauriacum", "carnuntum", "sirmium")
+        )
+    elif scenario["id"] == "S02":
+        mandate = sum(
+            base not in devastated and all(hosts[front] != base for front in FRONTS)
+            for base in ("aquileia", "virunum", "lauriacum")
+        )
+    elif scenario["id"] == "S05":
+        mandate = int(strength["iazyges"] <= 1 and mercy >= 3)
     won = (
         momentum >= objective.get("momentum", 0)
         and all(named_momentum[key] >= value for key, value in objective.get("named", {}).items())
@@ -401,6 +497,7 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
         and tracks["senate"] >= objective.get("senate", 0)
         and tracks["resolve"] >= objective.get("resolve", 0)
         and mercy >= objective.get("mercy", 0)
+        and mandate >= objective.get("mandate", 0)
         and min(tracks["rome"], tracks["senate"], tracks["resolve"]) > 0
         and "aquileia" not in hosts.values()
     )
@@ -408,7 +505,14 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
         momentum + tracks["rome"] + tracks["senate"] + tracks["resolve"]
         + tracks["treasury"] - tracks["fatigue"] - total_threat - len(devastated)
     )
-    return Result(won, score, momentum, total_threat, sum(legions.values()))
+    named_complete = all(
+        named_momentum[key] >= value
+        for key, value in objective.get("named", {}).items()
+    )
+    return Result(
+        won, score, momentum, total_threat, sum(legions.values()),
+        mandate, named_complete
+    )
 
 
 def main() -> None:

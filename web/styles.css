@@ -332,6 +332,15 @@ select {
   background: rgba(133,46,41,.08);
   font-style: italic;
 }
+.rule strong {
+  color: var(--imperial-dark);
+  font-family: ui-sans-serif, system-ui, sans-serif;
+  font-size: 11px;
+  font-style: normal;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.rule span { color: #66554b; font-size: 12px; }
 .objective { color: var(--imperial-dark); font-family: ui-sans-serif, system-ui, sans-serif; font-size: 13px; font-weight: 850; }
 
 .tracks { display: grid; grid-template-columns: repeat(5, 1fr); gap: 8px; }

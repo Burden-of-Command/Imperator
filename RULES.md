@@ -160,8 +160,9 @@ worth -1 point at the end of the Scenario.
 
 1. If you fought, increase Fatigue by 1. If you fought twice, increase it by 2.
 2. If Fatigue is 5+, lose 1 Resolve.
-3. Check the Scenario objective and other defeat conditions.
-4. Advance the round. If the final round ended, score the Scenario.
+3. Record any Historical Mandate progress earned this round.
+4. Check the Scenario objective and other defeat conditions.
+5. Advance the round. If the final round ended, score the Scenario.
 
 ## 5. Battle
 
@@ -250,6 +251,27 @@ Then increase Fatigue by 1. The administrative machine is being used again
 without rest.
 
 ## 9. Scenario Results
+
+Each Scenario has a **Historical Mandate** in addition to its numeric
+objective. Mandates use the normal map and orders but make each episode demand
+a different kind of command:
+
+- **The Gathering Storm - Prepared Frontier:** finish with Legions at intact,
+  enemy-free Lauriacum, Carnuntum, and Sirmium.
+- **Italy Invaded - Road from Italy:** finish with Aquileia, Virunum, and
+  Lauriacum intact and free of enemy Armies.
+- **Beyond the Danube - Winter Camps:** place at least two Legions in
+  Marcomannia at the same time.
+- **Among the Quadi - Rival Kings:** in two different rounds, send Envoys while
+  Quadi Strength is 3 or less. A Quadi settlement completes the mandate.
+- **The Sarmatian Plain - Terms on the Plain:** bring Iazyges Strength to 1 or
+  less while holding Mercy 3+.
+- **The Eastern Usurper - Legitimate Command:** end two rounds at Senate 5+
+  after using Officium.
+- **The Second Expedition - Forward Occupation:** end two rounds with Legions
+  in both Marcomannia and the Lands of the Quadi.
+- **The Burden of the Danube - Three Burdens:** after round 3 secure the
+  Italian road; after round 6 hold Senate 4 and Mercy 2; make one treaty.
 
 - **Decisive:** win and score 18+.
 - **Hard Peace:** win and score 12-17.

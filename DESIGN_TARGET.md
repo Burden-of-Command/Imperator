@@ -6,12 +6,13 @@ A designer cannot honestly assign a 9.8 BGG rating. That score would require a
 large body of independent ratings after publication. The useful target is to
 build a prototype capable of earning exceptional repeat play.
 
-## Version 0.5 Thesis
+## Version 0.6 Thesis
 
 The player should read geography, enemy character, and political consequence
 at a glance. Four doctrinally distinct Armies move through the Legion map;
 visible Crises and Command replacement support foresight; persistent damage and
-a decision-based legacy make both failure and victory memorable.
+a decision-based legacy make both failure and victory memorable. Historical
+Mandates alter the meaning of good play without adding another subsystem.
 
 ## Exceptional-Game Gates
 
@@ -27,6 +28,8 @@ a decision-based legacy make both failure and victory memorable.
 - Losses are legible: the player can name the neglected route or accepted risk.
 - The historical situation changes priorities rather than merely changing
   numeric difficulty.
+- No two scenarios can be won by satisfying the same geographic and political
+  conditions.
 - Every printed Crisis and Command effect is implemented literally in the web
   edition unless a documented digital exception is unavoidable.
 - Experienced players can identify each Army from its behavior without seeing

@@ -7,8 +7,9 @@
 3. Command cards used for Imperium versus Officium.
 4. Battles, Exertions, Assents, negotiations, and Legion losses.
 5. Battle doctrines, Coalition surges, Envoys, and devastated/restored bases.
-6. The hardest decision and any turn with an obvious answer.
-7. Rules questions and setup-to-finish duration.
+6. Historical Mandate progress and the decision made specifically because of it.
+7. The hardest decision and any turn with an obvious answer.
+8. Rules questions and setup-to-finish duration.
 
 ## Prototype Targets
 
@@ -37,6 +38,7 @@ Rate 1-10:
 - Rome and the Senate created real military tradeoffs.
 - The game felt restrained and severe rather than busy.
 - The scenario evoked a distinct historical crisis.
+- I could describe this scenario's strategic problem without naming its events.
 - The historical epilogue and legacy felt earned by my decisions.
 - I wanted to try another scenario immediately.
 
