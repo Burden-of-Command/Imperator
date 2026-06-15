@@ -84,6 +84,7 @@ function startGame() {
     crisis: null,
     commandUsed: false,
     basicOrders: [],
+    actionPending: false,
     fought: 0,
     meditated: false,
     assentUsed: false,
@@ -113,6 +114,7 @@ async function beginRound() {
   state.phase = "crisis";
   state.commandUsed = false;
   state.basicOrders = [];
+  state.actionPending = false;
   state.fought = 0;
   state.meditated = false;
   state.assentUsed = false;
@@ -340,8 +342,11 @@ function renderActions() {
     $("#actionTitle").textContent = "Choose one Command half";
     $("#actionText").textContent = "Use Imperium for the frontier or Officium for Rome. The other half is lost.";
   } else if (state.phase === "orders") {
-    $("#actionTitle").textContent = `Basic Orders (${state.basicOrders.length}/2)`;
-    $("#actionText").textContent = "Choose two different orders. Map selections will be highlighted.";
+    const completedOrders = Math.min(state.basicOrders.length, 2);
+    $("#actionTitle").textContent = `Basic Orders (${completedOrders}/2)`;
+    $("#actionText").textContent = state.actionPending || mapMode
+      ? "Complete the current order before issuing another."
+      : "Choose two different orders. Map selections will be highlighted.";
     const orders = [
       ["March", startMarch, canMarch()],
       ["Fortify", startFortify, canFortify() || canRestore()],
@@ -354,11 +359,23 @@ function renderActions() {
       const button = document.createElement("button");
       button.className = "secondary";
       button.textContent = label;
-      button.disabled = !allowed || state.basicOrders.includes(label.toLowerCase());
-      button.addEventListener("click", fn);
+      button.disabled = !allowed || state.basicOrders.length >= 2 ||
+        state.actionPending || Boolean(mapMode) ||
+        state.basicOrders.includes(label.toLowerCase());
+      button.addEventListener("click", async () => {
+        if (state.actionPending || mapMode || state.basicOrders.length >= 2) return;
+        state.actionPending = true;
+        renderActions();
+        try {
+          await fn();
+        } finally {
+          state.actionPending = false;
+          renderActions();
+        }
+      });
       box.append(button);
     }
-    if (state.basicOrders.length === 2) {
+    if (state.basicOrders.length >= 2) {
       const end = document.createElement("button");
       end.className = "primary";
       end.textContent = "Resolve Enemy Design";
@@ -490,7 +507,9 @@ function drawCommand() {
 }
 
 function addBasicOrder(name) {
-  if (!state.basicOrders.includes(name)) state.basicOrders.push(name);
+  if (state.basicOrders.length < 2 && !state.basicOrders.includes(name)) {
+    state.basicOrders.push(name);
+  }
   mapMode = null;
   render();
 }
