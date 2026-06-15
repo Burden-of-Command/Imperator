@@ -363,14 +363,16 @@ function renderActions() {
       ? "Complete the current order before issuing another."
       : "Choose two different orders. Map selections will be highlighted.";
     const orders = [
-      ["March", startMarch, canMarch()],
-      ["Fortify", startFortify, canFortify() || canRestore()],
-      ["Campaign", startCampaign, canCampaign()],
-      ["Petition", petition, true],
-      ["Requisition", requisition, true],
-      ["Meditate", meditate, true]
+      ["March", "Move up to 2 Legions across one connection.", startMarch, canMarch()],
+      ["Fortify", "Spend 1 Supply to weaken a nearby Army or restore a devastated base.", startFortify, canFortify() || canRestore()],
+      ["Campaign", "Battle an Army sharing a space with Legions. Extra Legions require Supply.", startCampaign, canCampaign()],
+      ["Petition", "Spend 1 Treasury to gain Senate or reduce Coalition. Peace may also be possible.", petition, true],
+      ["Requisition", "Gain 2 Supply, then lose 1 Rome or 1 Senate.", requisition, true],
+      ["Meditate", "Gain 1 Resolve.", meditate, true]
     ];
-    for (const [label, fn, allowed] of orders) {
+    for (const [label, description, fn, allowed] of orders) {
+      const option = document.createElement("div");
+      option.className = "order-option";
       const button = document.createElement("button");
       button.className = "secondary";
       button.textContent = label;
@@ -388,11 +390,14 @@ function renderActions() {
           renderActions();
         }
       });
-      box.append(button);
+      const outline = document.createElement("p");
+      outline.textContent = description;
+      option.append(button, outline);
+      box.append(option);
     }
     if (state.basicOrders.length >= 2) {
       const end = document.createElement("button");
-      end.className = "primary";
+      end.className = "primary resolve-design";
       end.textContent = "Resolve Enemy Design";
       end.addEventListener("click", resolveEnemyDesign);
       box.append(end);

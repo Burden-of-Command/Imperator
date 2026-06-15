@@ -579,8 +579,36 @@ select {
 }
 .orders { background: linear-gradient(145deg, #eee5d4, #cdbd9f); }
 .orders #actionText { min-height: 45px; color: var(--ink-soft); }
-.orders .actions { gap: 7px; }
-.orders .secondary { flex: 1 1 44%; }
+.orders .actions {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+.order-option {
+  display: grid;
+  grid-template-columns: minmax(88px, .42fr) minmax(0, 1fr);
+  align-items: stretch;
+  min-height: 62px;
+  overflow: hidden;
+  border: 1px solid rgba(111,83,47,.3);
+  border-radius: 3px;
+  background: rgba(255,255,255,.24);
+}
+.order-option .secondary {
+  width: 100%;
+  border: 0;
+  border-right: 1px solid rgba(214,178,98,.4);
+  border-radius: 0;
+  box-shadow: none;
+}
+.order-option p {
+  align-self: center;
+  margin: 0;
+  padding: 8px 9px;
+  color: #5c5040;
+  font: 650 11px/1.32 ui-sans-serif, system-ui, sans-serif;
+}
+.orders .resolve-design { grid-column: 1 / -1; }
 
 .lower-grid { display: grid; grid-template-columns: 1.4fr .8fr; gap: 16px; margin-top: 16px; }
 .command-hand { display: grid; grid-template-columns: repeat(3, 1fr); gap: 11px; margin-top: 12px; }
@@ -752,6 +780,6 @@ dialog::backdrop { background: rgba(5,8,6,.82); backdrop-filter: blur(7px) satur
   .command-hand { grid-template-columns: 1fr; }
   .map { min-height: 660px; aspect-ratio: .82; overflow-x: auto; }
   .space { min-width: 94px; width: 24%; }
-  .orders .secondary { flex-basis: 100%; }
+  .orders .actions { grid-template-columns: 1fr; }
   .legacy-ledger { grid-template-columns: repeat(2, 1fr); }
 }
