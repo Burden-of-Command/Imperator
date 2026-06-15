@@ -4,14 +4,17 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>IMPERATOR: The Burden of the Danube</title>
-  <link rel="stylesheet" href="styles.css?v=0.5">
+  <link rel="stylesheet" href="styles.css?v=0.6">
 </head>
 <body>
   <header class="masthead">
-    <div>
-      <p class="eyebrow">Digital playtest edition</p>
-      <h1>IMPERATOR</h1>
-      <p class="subtitle">The Burden of the Danube</p>
+    <div class="brand">
+      <div class="imperial-seal" aria-hidden="true">M</div>
+      <div>
+        <p class="eyebrow">Imperial field headquarters</p>
+        <h1>IMPERATOR</h1>
+        <p class="subtitle">The Burden of the Danube</p>
+      </div>
     </div>
     <div class="header-actions">
       <button id="rulesButton" class="ghost">Rules</button>
@@ -22,24 +25,34 @@
   <main>
     <section id="setupScreen" class="setup">
       <div class="setup-copy">
-        <p class="eyebrow">Marcus Aurelius, 166-180 CE</p>
+        <p class="eyebrow">Marcus Aurelius · Northern command · 166-180 CE</p>
         <h2>Hold the frontier. Preserve the state. Endure yourself.</h2>
         <p>Move six Legions against four coalition Hosts. Every round one Crisis
           tells you which Host will act, but Rome and the Senate demand the same
           scarce attention.</p>
+        <blockquote>“The impediment to action advances action.”</blockquote>
         <div class="setup-form">
           <label>Scenario <select id="scenarioSelect"></select></label>
           <label class="check"><input id="guidedToggle" type="checkbox" checked> Guided play</label>
-          <button id="startButton" class="primary">Begin campaign</button>
+          <button id="startButton" class="primary">Assume command</button>
         </div>
       </div>
       <div class="setup-map">
-        <img src="../dist/Imperator-Campaign-Mat.svg" alt="Campaign map">
+        <img src="assets/marcus-command-key-art.jpg" alt="Marcus Aurelius studying the Danube campaign map">
+        <div class="art-caption"><strong>Carnuntum</strong><span>Imperial field headquarters</span></div>
       </div>
     </section>
 
     <section id="gameScreen" class="game hidden">
       <div id="guide" class="guide"></div>
+      <div class="imperial-presence">
+        <div class="portrait-crop" aria-hidden="true"></div>
+        <div>
+          <p class="eyebrow">The emperor's burden</p>
+          <strong>You are not moving pieces. You are deciding what Rome can afford to save.</strong>
+        </div>
+        <div class="stoic-maxim">Judge the act.<br>Accept the event.</div>
+      </div>
 
       <section class="top-grid">
         <article class="scenario panel">
@@ -97,6 +110,6 @@
   </main>
 
   <dialog id="modal"><div id="modalContent"></div></dialog>
-  <script type="module" src="app.js?v=0.5"></script>
+  <script type="module" src="app.js?v=0.6"></script>
 </body>
 </html>

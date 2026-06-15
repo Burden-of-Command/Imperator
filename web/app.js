@@ -263,7 +263,7 @@ function renderTracks() {
   ];
   $("#tracks").innerHTML = [
     ...TRACK_LABELS.map(key => [key, state.tracks[key]]), ...extra
-  ].map(([label, value]) => `<div class="track"><strong>${value}</strong><span>${label}</span></div>`).join("");
+  ].map(([label, value]) => `<div class="track track-${label.replace(" ", "-")}"><strong>${value}</strong><span>${label}</span></div>`).join("");
 }
 
 function renderMap() {
@@ -311,7 +311,7 @@ function routeHtml(a,b) {
 function renderCrisis() {
   if (!state.crisis) return;
   const host = state.crisis.host === "highest" ? "Highest Host" : `${HOST_NAMES[state.crisis.host]} Host`;
-  $("#crisisCard").innerHTML = `<div class="crisis-card">
+  $("#crisisCard").innerHTML = `<div class="crisis-card crisis-${state.crisis.host}">
     <div><p class="eyebrow">${state.crisis.id} · Group ${state.crisis.group}</p>
     <h3>${state.crisis.name}</h3><p><strong>Arrival:</strong> ${state.crisis.arrival}</p>
     <p><strong>Design:</strong> ${state.crisis.design}</p></div>
@@ -321,7 +321,7 @@ function renderCrisis() {
 
 function renderCommands() {
   $("#deckCount").textContent = `${state.commandDeck.length} cards in deck`;
-  $("#commandHand").innerHTML = state.hand.map(card => `<article class="command-card ${state.phase !== "command" ? "disabled" : ""}">
+  $("#commandHand").innerHTML = state.hand.map(card => `<article class="command-card tag-${card.tag} ${state.phase !== "command" ? "disabled" : ""}">
     <header><p class="eyebrow">${card.id} · ${card.tag}</p><h4>${card.name}</h4></header>
     <button class="command-side" data-card="${card.id}" data-side="imperium"><strong>IMPERIUM</strong><span>${card.imperium}</span></button>
     <button class="command-side" data-card="${card.id}" data-side="officium"><strong>OFFICIUM</strong><span>${card.officium}</span></button>
