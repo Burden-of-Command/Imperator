@@ -6,17 +6,17 @@ A designer cannot honestly assign a 9.8 BGG rating. That score would require a
 large body of independent ratings after publication. The useful target is to
 build a prototype capable of earning exceptional repeat play.
 
-## Version 0.4 Thesis
+## Version 0.5 Thesis
 
-The player should see both geography and enemy tempo. Four Hosts move through
-the Legion map, a visible Coalition clock creates occasional coordinated
-pressure, and devastated settlements make failed defense persist. Combat asks
-for intent before chance through three doctrines.
+The player should read geography, enemy character, and political consequence
+at a glance. Four doctrinally distinct Armies move through the Legion map;
+visible Crises and Command replacement support foresight; persistent damage and
+a decision-based legacy make both failure and victory memorable.
 
 ## Exceptional-Game Gates
 
 - The map state creates the hardest decision in at least 70% of plays.
-- A normal enemy turn requires one Host action; a predictable surge may add one
+- A normal enemy turn requires one Army action; a predictable surge may add one
   more action without a flowchart or card draw.
 - Players identify the threatened route before reading explanatory text.
 - At least three distinct strategic openings remain viable in Scenario 1.
@@ -27,6 +27,11 @@ for intent before chance through three doctrines.
 - Losses are legible: the player can name the neglected route or accepted risk.
 - The historical situation changes priorities rather than merely changing
   numeric difficulty.
+- Every printed Crisis and Command effect is implemented literally in the web
+  edition unless a documented digital exception is unavoidable.
+- Experienced players can identify each Army from its behavior without seeing
+  its name.
+- The final epilogue makes players discuss how they ruled, not only their score.
 - Median third-play rating reaches 8.5+ in blind testing before any public claim
   of excellence is made.
 

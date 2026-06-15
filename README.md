@@ -10,9 +10,11 @@ the Senate; clemency may secure peace or give an enemy time to gather.
 ## Design Pillars
 
 - **Small footprint:** 40 cards, one A4 campaign mat, 18 cubes, and two d6.
-- **Armies on the map:** legions and four coalition Hosts march between named
+- **Armies on the map:** legions and four coalition Armies march between named
   bases, crossings, and homelands.
-- **Visible coalition tempo:** each Crisis activates one Host with one order;
+- **Distinct enemy doctrines:** each Army changes one familiar rule, making its
+  route and behavior recognizable without an automa chart.
+- **Visible coalition tempo:** each Crisis activates one Army with one order;
   a five-step pressure clock occasionally produces one legible second surge.
 - **One burden, two claims:** every Command card is used either for its military
   order or its civil order.
@@ -24,6 +26,8 @@ the Senate; clemency may secure peace or give an enemy time to gather.
   Avidius Cassius, taxation, diplomacy, and succession appear as linked crises.
 - **Stoic rather than heroic:** victory means preserving the state without
   surrendering judgment, legitimacy, or humanity.
+- **A remembered reign:** historical epilogues and a decision-based legacy
+  judge not only whether Marcus prevailed, but how he governed.
 - **Replayable scenarios:** seven historical episodes and a linked grand
   campaign use the same compact system.
 
@@ -33,7 +37,7 @@ the Senate; clemency may secure peace or give an enemy time to gather.
 - 16 Crisis cards
 - 8 Scenario cards
 - 1 compact node-map campaign mat
-- 6 legion cubes, 4 Host markers, 4 Strength cubes, and 9 track/round cubes
+- 6 legion cubes, 4 Army markers, 4 Strength cubes, and 9 track/round cubes
 - 2 standard six-sided dice
 
 ## Start Here
@@ -48,7 +52,7 @@ python3 -m http.server 4173
 ```
 
 Open `http://localhost:4173/web/`. The browser edition automates setup, legal
-movement, Crisis sequencing, Host orders, battles, retreats, tracks, and
+movement, Crisis sequencing, Army orders, battles, retreats, tracks, and
 scenario scoring.
 
 ## Repository

@@ -5,16 +5,16 @@
 <path d="M55 175H695" stroke="#ad8c4b"/>
 <text x="55" y="235" fill="#ad8c4b" font-family="Arial" font-size="20" font-weight="bold">BASIC ORDERS: CHOOSE TWO DIFFERENT</text>
 <text x="55" y="290" fill="#eee8d8" font-family="Georgia" font-size="26">
-<tspan x="55">March: two Legions, one connection each.</tspan><tspan x="55" dy="40">Fortify: weaken Host or restore base.</tspan>
-<tspan x="55" dy="40">Campaign: battle a Host in your space.</tspan><tspan x="55" dy="40">Petition: +1 Senate or Coalition -2.</tspan>
+<tspan x="55">March: two Legions, one connection each.</tspan><tspan x="55" dy="40">Fortify: weaken Army or restore base.</tspan>
+<tspan x="55" dy="40">Campaign: battle an Army in your space.</tspan><tspan x="55" dy="40">Petition: +1 Senate or Coalition -2.</tspan>
 <tspan x="55" dy="40">Requisition: +2 Supply; -1 Rome/Senate.</tspan><tspan x="55" dy="40">Meditate: +1 Resolve; possibly -1 Fatigue.</tspan></text>
 <path d="M55 570H695" stroke="#ad8c4b"/>
 <text x="55" y="625" fill="#ad8c4b" font-family="Arial" font-size="20" font-weight="bold">BATTLE</text>
 <text x="55" y="680" fill="#eee8d8" font-family="Georgia" font-size="22">
-<tspan x="55">Rome = Legions + d6 + bonuses</tspan><tspan x="55" dy="34">Enemy = Host Strength + d6</tspan>
+<tspan x="55">Rome = Legions + d6 + bonuses</tspan><tspan x="55" dy="34">Enemy = Army Strength + d6</tspan>
 <tspan x="55" dy="49">Contain: +1; no Momentum/deep retreat</tspan><tspan x="55" dy="34">Set Battle: standard; may Exert +2</tspan>
 <tspan x="55" dy="34">Force: +2, +1 Fatigue; failure loses L</tspan><tspan x="55" dy="49">Win 3+: -2 Strength, retreat home</tspan>
 <tspan x="55" dy="34">Win 1-2: -1 Strength, retreat one</tspan><tspan x="55" dy="34">Loss: pay result and doctrine risk</tspan></text>
-<text x="375" y="984" text-anchor="middle" fill="#ad8c4b" font-family="Arial" font-size="13" letter-spacing="2">COALITION 5: SECOND HOST SURGES</text>
+<text x="375" y="984" text-anchor="middle" fill="#ad8c4b" font-family="Arial" font-size="13" letter-spacing="2">COALITION 5: SECOND ARMY SURGES</text>
 <text x="375" y="1010" text-anchor="middle" fill="#ad8c4b" font-family="Arial" font-size="13" letter-spacing="2">ASSENT ONCE PER ROUND</text>
 </svg>

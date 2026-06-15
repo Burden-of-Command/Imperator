@@ -92,7 +92,7 @@ def card_svg(kind: str, card: dict) -> str:
         upper = card["history"]
         lower = (
             f'Start tracks: {track_setup}. Legions: {legion_setup}. '
-            f'Hosts: {host_setup}. Strength: {threat_setup}. '
+            f'Armies: {host_setup}. Strength: {threat_setup}. '
             f'Objective: {"; ".join(bits)}. {card["rule"]}'
         )
         footer = "HISTORY SETS THE BURDEN. YOUR JUDGMENT SETS THE END."

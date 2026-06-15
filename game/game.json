@@ -1,7 +1,25 @@
 {
   "title": "IMPERATOR: The Burden of the Danube",
-  "version": "0.4",
+  "version": "0.5",
   "coalition_threshold": 5,
+  "army_traits": {
+    "raetian_frontier": {
+      "name": "Alpine Pressure",
+      "text": "After this Army Musters to Strength 4 or more, lose 1 Supply."
+    },
+    "marcomannia": {
+      "name": "Deep Incursion",
+      "text": "When this Army devastates a Roman base, lose 1 additional Rome."
+    },
+    "quadi": {
+      "name": "Fractured Kingship",
+      "text": "Whenever this Army Musters, increase Coalition by 1."
+    },
+    "iazyges": {
+      "name": "Sarmatian Horsemen",
+      "text": "In a Clash, the Enemy gains +1 unless Rome commits at least two Legions."
+    }
+  },
   "spaces": [
     {"id": "aquileia", "name": "Aquileia", "kind": "base", "adjacent": ["virunum"]},
     {"id": "virunum", "name": "Virunum", "kind": "base", "adjacent": ["aquileia", "lauriacum"]},
@@ -23,7 +41,11 @@
       "legions": {"aquileia": 1, "lauriacum": 2, "carnuntum": 2, "sirmium": 1},
       "objective": {"momentum": 4, "max_total_threat": 8},
       "rule": "The first Petition each game costs no Treasury.",
-      "history": "Pressure builds while disease and the eastern war limit Rome's freedom of action."
+      "history": "Pressure builds while disease and the eastern war limit Rome's freedom of action.",
+      "epilogue": {
+        "victory": "The frontier bends without breaking. Rome has bought the time needed to understand the scale of the northern war.",
+        "defeat": "The first warnings were answered too slowly. What seemed a frontier disturbance has become an imperial emergency."
+      }
     },
     {
       "id": "S02", "name": "Italy Invaded", "years": "c. 169-171 CE", "rounds": 7,
@@ -33,8 +55,12 @@
       "hosts": {"raetian_frontier": "raetian_frontier", "marcomannia": "lauriacum", "quadi": "carnuntum", "iazyges": "iazyges"},
       "legions": {"aquileia": 1, "lauriacum": 2, "carnuntum": 2, "sirmium": 1},
       "objective": {"momentum": 3, "max_total_threat": 11, "aquileia_secure": true},
-      "rule": "The first time the Quadi Host enters Carnuntum, lose 1 additional Rome.",
-      "history": "A coalition breaks through the frontier and threatens Aquileia in northern Italy."
+      "rule": "The first time the Quadi Army enters Carnuntum, lose 1 additional Rome.",
+      "history": "A coalition breaks through the frontier and threatens Aquileia in northern Italy.",
+      "epilogue": {
+        "victory": "Aquileia endures. The invasion has been turned back, but Italy now understands that the Danube is no distant border.",
+        "defeat": "The road into Italy remains open. Confidence in the emperor and the frontier system collapses together."
+      }
     },
     {
       "id": "S03", "name": "Beyond the Danube", "years": "172 CE", "rounds": 6,
@@ -45,7 +71,11 @@
       "legions": {"aquileia": 1, "lauriacum": 1, "carnuntum": 3, "sirmium": 1},
       "objective": {"momentum": 4, "named": {"marcomannia": 2}},
       "rule": "Campaigns in Marcomannia gain +1 Roman total, but every Exertion there costs 1 Resolve.",
-      "history": "Marcus carries the war north, seeking leverage against the Marcomanni."
+      "history": "Marcus carries the war north, seeking leverage against the Marcomanni.",
+      "epilogue": {
+        "victory": "Roman camps stand beyond the river. The Marcomanni have learned that withdrawal does not end Marcus's purpose.",
+        "defeat": "The northern offensive spends men and endurance without securing the leverage Marcus sought."
+      }
     },
     {
       "id": "S04", "name": "Among the Quadi", "years": "173-174 CE", "rounds": 7,
@@ -56,7 +86,11 @@
       "legions": {"aquileia": 1, "lauriacum": 2, "carnuntum": 2, "sirmium": 1},
       "objective": {"momentum": 3, "named": {"quadi": 1}, "mercy": 2},
       "rule": "Once per game after losing a battle, set both dice to 4; then lose 1 Treasury. This represents the contested rain-miracle tradition without choosing an explanation.",
-      "history": "The Quadi campaign combines hard fighting, disputed kingship, thirst, weather, and propaganda."
+      "history": "The Quadi campaign combines hard fighting, disputed kingship, thirst, weather, and propaganda.",
+      "epilogue": {
+        "victory": "The Quadi submit to a settlement that force alone could not have made durable. Rome will remember the storm differently than those who stood beneath it.",
+        "defeat": "The campaign dissolves into exhaustion, disputed memory, and a peace too weak to outlast the season."
+      }
     },
     {
       "id": "S05", "name": "The Sarmatian Plain", "years": "174-175 CE", "rounds": 7,
@@ -67,7 +101,11 @@
       "legions": {"aquileia": 1, "lauriacum": 1, "carnuntum": 1, "sirmium": 3},
       "objective": {"momentum": 3, "named": {"iazyges": 2}, "max_total_threat": 9},
       "rule": "The Enemy die gains +1 on the Plain of the Iazyges unless at least three Legions are committed.",
-      "history": "Roman forces confront the mobile Iazyges and seek prisoners, auxiliaries, and a durable settlement."
+      "history": "Roman forces confront the mobile Iazyges and seek prisoners, auxiliaries, and a durable settlement.",
+      "epilogue": {
+        "victory": "The Iazyges yield prisoners and military service. Mobility has been answered by concentration, patience, and negotiated compulsion.",
+        "defeat": "The Sarmatian plain consumes Roman effort faster than decision can be forced."
+      }
     },
     {
       "id": "S06", "name": "The Eastern Usurper", "years": "175 CE", "rounds": 5,
@@ -78,7 +116,11 @@
       "legions": {"aquileia": 2, "lauriacum": 1, "carnuntum": 1, "sirmium": 2},
       "objective": {"momentum": 3, "senate": 4, "mercy": 3},
       "rule": "Each Campaign costs 1 Treasury. The first time Senate reaches 5, gain 2 Momentum.",
-      "history": "Avidius Cassius is proclaimed emperor in the east, forcing Marcus to balance speed, legitimacy, and clemency."
+      "history": "Avidius Cassius is proclaimed emperor in the east, forcing Marcus to balance speed, legitimacy, and clemency.",
+      "epilogue": {
+        "victory": "The usurpation ends without turning clemency into weakness. Marcus returns north with legitimacy scarred but intact.",
+        "defeat": "The eastern revolt exposes a government unable to preserve both authority and restraint."
+      }
     },
     {
       "id": "S07", "name": "The Second Expedition", "years": "178-180 CE", "rounds": 8,
@@ -89,7 +131,11 @@
       "legions": {"aquileia": 1, "lauriacum": 1, "carnuntum": 2, "sirmium": 2},
       "objective": {"momentum": 4, "max_total_threat": 10, "resolve": 2},
       "rule": "At the end of rounds 4 and 7, lose 1 Resolve unless you Meditated that round.",
-      "history": "War resumes. Marcus pursues an unfinished northern settlement while age, fatigue, and succession narrow his time."
+      "history": "War resumes. Marcus pursues an unfinished northern settlement while age, fatigue, and succession narrow his time.",
+      "epilogue": {
+        "victory": "The second expedition leaves Rome near the settlement Marcus sought, though time rather than the enemy is now the greater power.",
+        "defeat": "The unfinished northern design passes into other hands. The frontier survives Marcus, but not in the form he intended."
+      }
     },
     {
       "id": "S08", "name": "The Burden of the Danube", "years": "166-180 CE", "rounds": 10,
@@ -100,29 +146,33 @@
       "legions": {"aquileia": 1, "lauriacum": 2, "carnuntum": 2, "sirmium": 1},
       "objective": {"momentum": 4, "max_total_threat": 15, "senate": 3, "mercy": 2},
       "rule": "After rounds 3 and 6, reduce Fatigue and Coalition by 2, gain 1 Supply, and restore 1 to your lowest state track; then increase the highest Strength by 1. At round 8, lose 1 Resolve.",
-      "history": "A compressed full reign: epidemic, invasion, counteroffensive, revolt, renewed war, and the question of what peace will survive."
+      "history": "A compressed full reign: epidemic, invasion, counteroffensive, revolt, renewed war, and the question of what peace will survive.",
+      "epilogue": {
+        "victory": "Marcus leaves no final victory, only a frontier made governable at terrible cost. Whether that settlement survives belongs to Commodus.",
+        "defeat": "The burdens of plague, invasion, revolt, and succession exceed the emperor's remaining strength. History receives an unfinished war."
+      }
     }
   ],
   "commands": [
     {"id": "C01", "name": "Redeploy the Vexillations", "imperium": "March, then March again with one of the moved Legions.", "officium": "Gain 1 Senate; then move one Legion one connection toward Aquileia.", "tag": "movement"},
-    {"id": "C02", "name": "Secure the River", "imperium": "Pay 1 Supply: reduce Strength by 1 for two Hosts at or adjacent to bases containing Legions.", "officium": "Gain 2 Supply; lose 1 Treasury.", "tag": "logistics"},
+    {"id": "C02", "name": "Secure the River", "imperium": "Pay 1 Supply: reduce Strength by 1 for up to two Armies at or adjacent to bases containing Legions.", "officium": "Gain 2 Supply; lose 1 Treasury.", "tag": "logistics"},
     {"id": "C03", "name": "Pompeianus Commands", "imperium": "Campaign with +2 Roman total. Marcus cannot use Assent in that battle.", "officium": "Gain 1 Senate and reduce Fatigue by 1.", "tag": "general"},
     {"id": "C04", "name": "Auction the Palace", "imperium": "Gain 3 Treasury, then Campaign.", "officium": "Gain 4 Treasury; lose 1 Rome.", "tag": "finance"},
     {"id": "C05", "name": "Raise New Legions", "imperium": "Pay 3 Treasury: return one lost Legion to Aquileia.", "officium": "Pay 2 Treasury and 1 Senate: return one lost Legion to Aquileia and gain 1 Rome.", "tag": "levy"},
     {"id": "C06", "name": "Fortify Italy and the Alps", "imperium": "Reduce Raetian or Marcomanni Strength by 2; pay 1 Supply.", "officium": "Gain 2 Rome. Then lose 1 Treasury.", "tag": "defense"},
-    {"id": "C07", "name": "Divide the Coalition", "imperium": "Choose two Hosts. Reduce one Strength by 2, increase the other by 1, and reduce Coalition by 1.", "officium": "Spend 1 Senate: reduce any Host Strength by 1, gain 1 Mercy, and reduce Coalition by 2.", "tag": "diplomacy"},
+    {"id": "C07", "name": "Divide the Coalition", "imperium": "Choose two Armies. Reduce one Strength by 2, increase the other by 1, and reduce Coalition by 1.", "officium": "Spend 1 Senate: reduce any Army Strength by 1, gain 1 Mercy, and reduce Coalition by 2.", "tag": "diplomacy"},
     {"id": "C08", "name": "Forced March", "imperium": "Move up to three Legions through one extra connection; increase Fatigue by 1.", "officium": "Gain 1 Supply and 1 Resolve.", "tag": "movement"},
     {"id": "C09", "name": "Winter Quarters", "imperium": "Reduce Fatigue by 2. You may Fortify once.", "officium": "Gain 1 Resolve, 1 Supply, and 1 Senate; increase the highest Strength by 1.", "tag": "rest"},
     {"id": "C10", "name": "Address the Troops", "imperium": "Campaign. On a tie or loss, gain 1 Resolve after consequences.", "officium": "Gain 2 Resolve; lose 1 Senate unless Mercy is 3+.", "tag": "resolve"},
-    {"id": "C11", "name": "Take Hostages", "imperium": "After winning a battle, reduce Host Strength by 1 more; lose 1 Mercy.", "officium": "Gain 2 Senate if total Strength is 8 or less; otherwise gain 1 Treasury.", "tag": "settlement"},
-    {"id": "C12", "name": "Return the Prisoners", "imperium": "Spend 1 Momentum: reduce a Host at Strength 2 or less to 0 and gain 2 Mercy.", "officium": "Gain 1 Rome and 1 Mercy; lose 1 Treasury.", "tag": "mercy"},
+    {"id": "C11", "name": "Take Hostages", "imperium": "After winning a battle, reduce Army Strength by 1 more; lose 1 Mercy.", "officium": "Gain 2 Senate if total Strength is 8 or less; otherwise gain 1 Treasury.", "tag": "settlement"},
+    {"id": "C12", "name": "Return the Prisoners", "imperium": "Spend 1 Momentum: reduce an Army at Strength 2 or less to 0 and gain 2 Mercy.", "officium": "Gain 1 Rome and 1 Mercy; lose 1 Treasury.", "tag": "mercy"},
     {"id": "C13", "name": "Danube Fleet", "imperium": "Move any number of Legions between Carnuntum and Sirmium, then gain +1 in a battle at Quadi or Iazyges.", "officium": "Gain 2 Supply or 1 Treasury.", "tag": "logistics"},
     {"id": "C14", "name": "Council at Carnuntum", "imperium": "Look at the next two Crises. Return them in either order, then Fortify.", "officium": "Look at the next three Crises. Put one on the bottom.", "tag": "planning"},
     {"id": "C15", "name": "No More Than Duty", "imperium": "Campaign without increasing Fatigue this round.", "officium": "Meditate, then Petition without paying Treasury.", "tag": "stoic"},
     {"id": "C16", "name": "Clemency After Victory", "imperium": "Campaign. If you win, gain Mercy instead of Momentum and reduce Fatigue by 1.", "officium": "Spend 1 Senate: gain 1 Mercy, 1 Rome, and 1 Resolve.", "tag": "mercy"}
   ],
   "crises": [
-    {"id": "E01", "group": "A", "name": "Langobardi Cross the River", "arrival": "Increase Quadi Strength by 1.", "design": "If no Legion is at Carnuntum or with the Quadi Host, increase it by 1 again.", "pressure": {"quadi": 1}, "host": "quadi", "order": "raid"},
+    {"id": "E01", "group": "A", "name": "Langobardi Cross the River", "arrival": "Increase Quadi Strength by 1.", "design": "If no Legion is at Carnuntum or with the Quadi Army, increase it by 1 again.", "pressure": {"quadi": 1}, "host": "quadi", "order": "raid"},
     {"id": "E02", "group": "A", "name": "Eleven Envoys", "arrival": "Choose: spend 1 Senate to reduce the highest Strength by 1, or gain 1 Treasury and increase it by 1.", "design": "Envoys conceal preparations on the western frontier.", "pressure": {}, "host": "marcomannia", "order": "muster"},
     {"id": "E03", "group": "B", "name": "The Plague Returns", "arrival": "Lose 1 Rome or remove one Legion to the lost box.", "design": "If Fatigue is 4+, lose 1 Resolve.", "pressure": {}, "track_loss": {"rome": 1}, "host": "raetian_frontier", "order": "muster"},
     {"id": "E04", "group": "B", "name": "Lucius Is Dead", "arrival": "Lose 1 Resolve. Choose a space; Legions there cannot March this round.", "design": "Gain 1 Senate if you used Officium.", "pressure": {}, "track_loss": {"resolve": 1}, "host": "quadi", "order": "muster"},
@@ -131,9 +181,9 @@
     {"id": "E07", "group": "D", "name": "Ballomar's Coalition", "arrival": "Increase the highest Strength by 2.", "design": "Reduce a different Strength by 1 if you used diplomacy this round.", "pressure": {"highest": 2}, "host": "marcomannia", "order": "muster"},
     {"id": "E08", "group": "D", "name": "The Costoboci Raid South", "arrival": "Pay 2 Treasury or lose 1 Rome and 1 Senate.", "design": "The eastern routes are exposed.", "pressure": {"iazyges": 1}, "host": "iazyges", "order": "raid"},
     {"id": "E09", "group": "E", "name": "Across the Frozen Danube", "arrival": "Campaigns against Quadi or Iazyges gain +1 this round; each Roman loss also costs 1 Supply.", "design": "Increase Fatigue by 1 if you fought.", "pressure": {}, "host": "iazyges", "order": "raid"},
-    {"id": "E10", "group": "E", "name": "The Rain and the Thirst", "arrival": "Lose 2 Supply or 1 Resolve.", "design": "If you used Assent, reduce the battled Host's Strength by 1.", "pressure": {}, "track_loss": {"supply": 1}, "host": "quadi", "order": "muster"},
+    {"id": "E10", "group": "E", "name": "The Rain and the Thirst", "arrival": "Lose 2 Supply or 1 Resolve.", "design": "If you used Assent, reduce the battled Army's Strength by 1.", "pressure": {}, "track_loss": {"supply": 1}, "host": "quadi", "order": "muster"},
     {"id": "E11", "group": "F", "name": "Ariogaesus Defies Rome", "arrival": "Increase Quadi Strength by 2 unless you spend 1 Senate.", "design": "If Quadi Strength is 1 or less, gain 1 Momentum.", "pressure": {"quadi": 1}, "host": "quadi", "order": "raid"},
-    {"id": "E12", "group": "F", "name": "Horsemen of the Iazyges", "arrival": "Move one Legion away from the Iazyges Host or increase its Strength by 2.", "design": "The Enemy die gains +1 against Iazyges this round.", "pressure": {"iazyges": 1}, "host": "iazyges", "order": "raid"},
+    {"id": "E12", "group": "F", "name": "Horsemen of the Iazyges", "arrival": "Move one Legion away from the Iazyges Army or increase its Strength by 2.", "design": "The Enemy die gains +1 against Iazyges this round.", "pressure": {"iazyges": 1}, "host": "iazyges", "order": "raid"},
     {"id": "E13", "group": "G", "name": "One Hundred Thousand Captives", "arrival": "Choose: gain 2 Rome, or gain 1 Mercy and reduce Iazyges Strength by 1.", "design": "Lose 1 Supply if Iazyges is not pacified.", "pressure": {}, "host": "iazyges", "order": "muster"},
     {"id": "E14", "group": "G", "name": "Cassius Takes the Purple", "arrival": "Lose 2 Senate. You may spend 2 Treasury to lose only 1.", "design": "If Senate is 2 or less, lose 1 Rome.", "pressure": {}, "track_loss": {"senate": 1}, "host": "marcomannia", "order": "muster"},
     {"id": "E15", "group": "H", "name": "Commodus at the Front", "arrival": "Gain 1 Rome or 1 Senate. Then lose 1 Resolve unless Mercy is 3+.", "design": "If you Campaign, gain +1 Roman total and increase Fatigue by 1.", "pressure": {}, "track_loss": {"resolve": 1}, "host": "quadi", "order": "raid"},

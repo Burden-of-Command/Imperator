@@ -83,9 +83,14 @@ function startGame() {
     crisisDeck: buildCrisisDeck(scenario),
     crisis: null,
     commandUsed: false,
+    commandReplaced: false,
+    commandPending: false,
     basicOrders: [],
     actionPending: false,
     fought: 0,
+    bonusVP: 0,
+    doctrines: {contain: 0, set: 0, force: 0},
+    commandSides: {imperium: 0, officium: 0},
     meditated: false,
     assentUsed: false,
     coalition: 0,
@@ -113,6 +118,8 @@ async function beginRound() {
   state.round += 1;
   state.phase = "crisis";
   state.commandUsed = false;
+  state.commandReplaced = false;
+  state.commandPending = false;
   state.basicOrders = [];
   state.actionPending = false;
   state.fought = 0;
@@ -244,6 +251,7 @@ function renderScenario() {
   $("#scenarioRule").textContent = scenario.rule;
   const objective = scenario.objective;
   const parts = [`${state.momentum}/${objective.momentum} Momentum`];
+  if (state.bonusVP) parts.push(`${state.bonusVP} Legacy VP`);
   if (objective.max_total_threat != null) parts.push(`Strength ${totalStrength()}/${objective.max_total_threat} max`);
   if (objective.mercy) parts.push(`Mercy ${state.tracks.mercy}/${objective.mercy}`);
   if (objective.senate) parts.push(`Senate ${state.tracks.senate}/${objective.senate}`);
@@ -284,7 +292,7 @@ function renderMap() {
     const selectable = mapMode?.allowed?.includes(space.id);
     const pieces = [
       ...Array.from({length: legionCount}, () => `<span class="legion" title="Roman Legion">L</span>`),
-      ...hostIds.map(host => `<span class="host ${host}" title="${HOST_NAMES[host]} Host">${HOST_LETTERS[host]}</span>`),
+      ...hostIds.map(host => `<span class="host ${host}" title="${HOST_NAMES[host]} Army">${HOST_LETTERS[host]}</span>`),
       ...treatyIds.map(host => `<span class="host ${host} pacified" title="${HOST_NAMES[host]} treaty">${HOST_LETTERS[host]}</span>`)
     ].join("");
     const strength = space.kind === "front"
@@ -312,23 +320,28 @@ function routeHtml(a,b) {
 
 function renderCrisis() {
   if (!state.crisis) return;
-  const host = state.crisis.host === "highest" ? "Highest Host" : `${HOST_NAMES[state.crisis.host]} Host`;
+  const hostId = state.crisis.host === "highest" ? highestHost() : state.crisis.host;
+  const host = state.crisis.host === "highest" ? "Highest Army" : `${HOST_NAMES[state.crisis.host]} Army`;
+  const trait = data.army_traits[hostId];
   $("#crisisCard").innerHTML = `<div class="crisis-card crisis-${state.crisis.host}">
     <div><p class="eyebrow">${state.crisis.id} · Group ${state.crisis.group}</p>
     <h3>${state.crisis.name}</h3><p><strong>Arrival:</strong> ${state.crisis.arrival}</p>
-    <p><strong>Design:</strong> ${state.crisis.design}</p></div>
+    <p><strong>Design:</strong> ${state.crisis.design}</p>
+    <p class="army-trait"><strong>${trait.name}:</strong> ${trait.text}</p></div>
     <div class="order">${host}: ${state.crisis.order} · Coalition ${state.coalition}/${data.coalition_threshold || COALITION_THRESHOLD}</div>
   </div>`;
 }
 
 function renderCommands() {
   $("#deckCount").textContent = `${state.commandDeck.length} cards in deck`;
-  $("#commandHand").innerHTML = state.hand.map(card => `<article class="command-card tag-${card.tag} ${state.phase !== "command" ? "disabled" : ""}">
+  $("#commandHand").innerHTML = state.hand.map(card => `<article class="command-card tag-${card.tag} ${state.phase !== "command" || state.commandPending ? "disabled" : ""}">
     <header><p class="eyebrow">${card.id} · ${card.tag}</p><h4>${card.name}</h4></header>
     <button class="command-side" data-card="${card.id}" data-side="imperium"><strong>IMPERIUM</strong><span>${card.imperium}</span></button>
     <button class="command-side" data-card="${card.id}" data-side="officium"><strong>OFFICIUM</strong><span>${card.officium}</span></button>
+    <button class="replace-command" data-replace="${card.id}" ${state.commandReplaced || state.commandPending ? "disabled" : ""}>Replace this Command</button>
   </article>`).join("");
   $$(".command-side").forEach(button => button.addEventListener("click", () => useCommand(button.dataset.card, button.dataset.side)));
+  $$(".replace-command").forEach(button => button.addEventListener("click", () => replaceCommand(button.dataset.replace)));
 }
 
 function renderActions() {
@@ -384,7 +397,7 @@ function renderActions() {
     }
   } else if (state.phase === "enemy") {
     $("#actionTitle").textContent = "Enemy Design";
-    $("#actionText").textContent = "One Host acts. All other opposition remains still.";
+    $("#actionText").textContent = "One Army acts. All other opposition remains still.";
   }
 }
 
@@ -395,28 +408,47 @@ function renderGuide() {
   }
   $("#guide").classList.remove("hidden");
   const messages = {
-    crisis: ["Receive", "The Crisis reveals both the historical event and the Host order that will resolve after your actions."],
+    crisis: ["Receive", "The Crisis reveals both the historical event and the Army order that will resolve after your actions."],
     command: ["Deliberate", "Choose one half of one Command card. This is your strongest action this round."],
-    orders: ["Issue Orders", "Choose two different Basic Orders. Reposition before the visible Host order resolves."],
-    enemy: ["Enemy Design", "The named Host acts. At full Coalition pressure, one other Host surges."]
+    orders: ["Issue Orders", "Choose two different Basic Orders. Reposition before the visible Army order resolves."],
+    enemy: ["Enemy Design", "The named Army acts. At full Coalition pressure, one other Army surges."]
   };
   const [title, text] = messages[state.phase] || ["Endure", "The result is now part of the campaign."];
   $("#guide").innerHTML = `<strong>${title}.</strong> ${text}`;
 }
 
 async function useCommand(id, side) {
-  if (state.phase !== "command") return;
+  if (state.phase !== "command" || state.commandPending) return;
   const card = state.hand.find(item => item.id === id);
   if (!card) return;
-  await resolveCommand(card, side);
-  state.lastCommandId = card.id;
-  state.lastCommandSide = side;
+  state.commandPending = true;
+  renderCommands();
+  try {
+    await resolveCommand(card, side);
+    state.lastCommandId = card.id;
+    state.lastCommandSide = side;
+    state.hand = state.hand.filter(item => item.id !== id);
+    state.commandDiscard.push(card);
+    drawCommand();
+    state.commandUsed = true;
+    state.commandSides[side] += 1;
+    state.phase = "orders";
+    log(`Used <strong>${card.name}</strong> for ${side === "imperium" ? "Imperium" : "Officium"}.`);
+  } finally {
+    state.commandPending = false;
+    render();
+  }
+}
+
+function replaceCommand(id) {
+  if (state.phase !== "command" || state.commandReplaced || state.commandPending) return;
+  const card = state.hand.find(item => item.id === id);
+  if (!card) return;
   state.hand = state.hand.filter(item => item.id !== id);
   state.commandDiscard.push(card);
   drawCommand();
-  state.commandUsed = true;
-  state.phase = "orders";
-  log(`Used <strong>${card.name}</strong> for ${side === "imperium" ? "Imperium" : "Officium"}.`);
+  state.commandReplaced = true;
+  log(`Set aside <strong>${card.name}</strong> and drew a replacement.`);
   render();
 }
 
@@ -432,7 +464,7 @@ async function resolveCommand(card, side) {
     else if (id === "C07") {
       if (state.tracks.senate >= 1) {
         changeTrack("senate", -1);
-        const host = await chooseHost("Divide the Coalition", "Choose a Host to weaken.");
+        const host = await chooseHost("Divide the Coalition", "Choose an Army to weaken.");
         changeStrength(host, -1); changeTrack("mercy", 1); changeCoalition(-2);
       }
     } else if (id === "C08") { changeTrack("supply", 1); changeTrack("resolve", 1); }
@@ -449,47 +481,96 @@ async function resolveCommand(card, side) {
       ]);
       changeTrack(resource, resource === "supply" ? 2 : 1);
     } else if (id === "C14") {
-      const next = state.crisisDeck.slice(state.round, state.round + 3).map(c => c.name).join(" → ");
-      await notice("Council at Carnuntum", next ? `Coming Crises: ${next}` : "No later Crises remain.");
+      const coming = state.crisisDeck.slice(state.round, state.round + 3);
+      if (coming.length) {
+        const selected = await choose("Council at Carnuntum", "Choose one coming Crisis to place at the bottom of the deck.", coming.map(card => ({
+          label: `${card.name} — ${HOST_NAMES[card.host] || "Highest Army"} ${card.order}`,
+          value: card.id
+        })));
+        const index = state.crisisDeck.findIndex((card, cardIndex) => cardIndex >= state.round && card.id === selected);
+        if (index >= 0) {
+          const [deferred] = state.crisisDeck.splice(index, 1);
+          state.crisisDeck.push(deferred);
+          log(`<strong>${deferred.name}</strong> is deferred by the council.`);
+        }
+      } else {
+        await notice("Council at Carnuntum", "No later Crises remain.");
+      }
     } else if (id === "C15") { changeTrack("resolve", 1); await petition(true); }
     else if (id === "C16" && state.tracks.senate >= 1) {
       changeTrack("senate", -1); changeTrack("mercy", 1); changeTrack("rome", 1); changeTrack("resolve", 1);
     }
   } else {
-    if (id === "C01") await specialMarch(2, 2);
+    if (id === "C01") await redeployVexillations();
     else if (id === "C02") {
       if (state.tracks.supply >= 1) {
-        changeTrack("supply", -1);
-        const first = await chooseHost("Secure the River", "Choose the first Host."); changeStrength(first, -1);
-        const second = await chooseHost("Secure the River", "Choose the second Host.", [first]); changeStrength(second, -1);
+        const eligible = fronts.filter(eligibleFortify);
+        if (!eligible.length) {
+          await notice("Secure the River", "No Army is within reach of a defended Roman base.");
+        } else {
+          changeTrack("supply", -1);
+          const first = eligible.length === 1 ? eligible[0] : await choose(
+            "Secure the River",
+            "Choose the first Army.",
+            eligible.map(host => ({
+              label: `${HOST_NAMES[host]} — Strength ${state.strength[host]}`,
+              value: host
+            }))
+          );
+          changeStrength(first, -1);
+          const remaining = eligible.filter(host => host !== first);
+          if (remaining.length) {
+            const second = remaining.length === 1 ? remaining[0] : await choose(
+              "Secure the River",
+              "Choose the second Army.",
+              remaining.map(host => ({
+                label: `${HOST_NAMES[host]} — Strength ${state.strength[host]}`,
+                value: host
+              }))
+            );
+            changeStrength(second, -1);
+          }
+        }
       }
-    } else if (id === "C03") { state.freeCampaignBonus = 2; await campaign(true); }
+    } else if (id === "C03") { state.freeCampaignBonus = 2; await campaign(true, {noAssent: true}); }
     else if (id === "C04") { changeTrack("treasury", 3); await campaign(true); }
     else if (id === "C05") await raiseLegion(false);
     else if (id === "C06" && state.tracks.supply >= 1) {
       changeTrack("supply", -1);
-      const host = await choose("Fortify Italy", "Choose a Host.", [
+      const host = await choose("Fortify Italy", "Choose an Army.", [
         {label: "Raetian", value: "raetian_frontier"}, {label: "Marcomanni", value: "marcomannia"}
       ]);
       changeStrength(host, -2);
     } else if (id === "C07") {
-      const down = await chooseHost("Divide the Coalition", "Reduce which Host by 2?");
-      const up = await chooseHost("Divide the Coalition", "Increase which other Host?", [down]);
+      const down = await chooseHost("Divide the Coalition", "Reduce which Army by 2?");
+      const up = await chooseHost("Divide the Coalition", "Increase which other Army?", [down]);
       changeStrength(down, -2); changeStrength(up, 1); changeCoalition(-1);
     } else if (id === "C08") await specialMarch(3, 2);
     else if (id === "C09") { changeTrack("fatigue", -2); await fortify(true); }
     else if (id === "C10") { state.addressTroops = true; await campaign(true); }
     else if (id === "C11") { state.freeCampaignBonus = 0; await campaign(true, {hostages: true}); }
     else if (id === "C12") {
-      const eligible = fronts.filter(host => state.strength[host] <= 2 && state.momentum >= 1);
+      const eligible = fronts.filter(host => state.strength[host] > 0 && state.strength[host] <= 2 && state.momentum >= 1);
       if (eligible.length) {
-        const host = await chooseHost("Return the Prisoners", "Choose a Host to settle.", fronts.filter(h => !eligible.includes(h)));
+        const host = await chooseHost("Return the Prisoners", "Choose an Army to settle.", fronts.filter(h => !eligible.includes(h)));
         state.momentum -= 1; state.strength[host] = 0; state.hosts[host] = host; changeTrack("mercy", 2);
       }
     } else if (id === "C13") { await fleetMove(); state.freeCampaignBonus = 1; }
     else if (id === "C14") {
-      const next = state.crisisDeck.slice(state.round, state.round + 2).map(c => c.name).join(" → ");
-      await notice("Council at Carnuntum", next ? `Next Crises: ${next}` : "No later Crises remain.");
+      const next = state.crisisDeck.slice(state.round, state.round + 2);
+      if (next.length > 1) {
+        const first = await choose("Council at Carnuntum", "Which Crisis will come first?", next.map(card => ({
+          label: `${card.name} — ${HOST_NAMES[card.host] || "Highest Army"} ${card.order}`,
+          value: card.id
+        })));
+        if (next[1].id === first) {
+          [state.crisisDeck[state.round], state.crisisDeck[state.round + 1]] =
+            [state.crisisDeck[state.round + 1], state.crisisDeck[state.round]];
+        }
+        log(`The next Crisis is ordered: <strong>${state.crisisDeck[state.round].name}</strong>.`);
+      } else {
+        await notice("Council at Carnuntum", next.length ? `Next Crisis: ${next[0].name}` : "No later Crises remain.");
+      }
       await fortify(true);
     } else if (id === "C15") { state.noFatigueBattle = true; await campaign(true); }
     else if (id === "C16") { state.clemencyBattle = true; await campaign(true); }
@@ -560,15 +641,41 @@ async function specialMarch(capacity, range) {
   if (capacity === 3) changeTrack("fatigue", 1);
 }
 
+async function redeployVexillations() {
+  const source = await chooseSpace(
+    "Redeploy the Vexillations",
+    "Choose the first March source.",
+    Object.keys(spaces).filter(id => state.legions[id] > 0)
+  );
+  const firstDestination = await chooseSpace(
+    "Redeploy the Vexillations",
+    "Choose an adjacent destination.",
+    spaces[source].adjacent
+  );
+  const maximum = Math.min(2, state.legions[source]);
+  const count = maximum === 1 ? 1 : Number(await choose(
+    "Redeploy the Vexillations",
+    "How many Legions make the first March?",
+    [{label: "Move 1 Legion", value: "1"}, {label: "Move 2 Legions", value: "2"}]
+  ));
+  moveLegions(source, firstDestination, count);
+  const secondDestination = await chooseSpace(
+    "Redeploy the Vexillations",
+    "March one of those Legions a second time.",
+    spaces[firstDestination].adjacent
+  );
+  moveLegions(firstDestination, secondDestination, 1);
+}
+
 async function fortify(free) {
   const eligible = fronts.filter(eligibleFortify);
   const restorable = Object.keys(state.devastated).filter(space =>
     state.devastated[space] && (state.legions[space] > 0 ||
       spaces[space].adjacent.some(id => state.legions[id] > 0))
   );
-  if (!eligible.length && !restorable.length) return notice("Fortify", "No Host or devastated settlement is within reach.");
+  if (!eligible.length && !restorable.length) return notice("Fortify", "No Army or devastated settlement is within reach.");
   if (!free && state.tracks.supply < 1) return notice("Fortify", "You need 1 Supply.");
-  const target = await choose("Fortify", "Weaken a Host or restore a settlement.", [
+  const target = await choose("Fortify", "Weaken an Army or restore a settlement.", [
     ...eligible.map(host => ({
       label: `Reduce ${HOST_NAMES[host]} Strength (${state.strength[host]})`,
       value: `host:${host}`
@@ -600,8 +707,8 @@ function eligibleFortify(host) {
 
 async function campaign(free, options = {}) {
   const eligible = fronts.filter(host => state.strength[host] > 0 && state.legions[state.hosts[host]] > 0);
-  if (!eligible.length) return notice("Campaign", "No Host shares a space with a Legion.");
-  const host = await chooseHost("Campaign", "Choose the Host to battle.", fronts.filter(h => !eligible.includes(h)));
+  if (!eligible.length) return notice("Campaign", "No Army shares a space with a Legion.");
+  const host = await chooseHost("Campaign", "Choose the Army to battle.", fronts.filter(h => !eligible.includes(h)));
   if (state.scenario.id === "S06" && state.tracks.treasury < 1) return notice("Campaign", "This scenario requires 1 Treasury per Campaign.");
   if (state.scenario.id === "S06") changeTrack("treasury", -1);
   await resolveBattle(host, false, options);
@@ -632,6 +739,7 @@ async function resolveBattle(host, clash = false, options = {}) {
         disabled: committed < 2
       }
     ]);
+    state.doctrines[doctrine] += 1;
   }
   let exert = false;
   if (!clash && doctrine === "set" && state.tracks.fatigue < 6) {
@@ -652,11 +760,16 @@ async function resolveBattle(host, clash = false, options = {}) {
   if (state.crisis?.id === "E09" && ["quadi","iazyges"].includes(host)) bonus += 1;
   if (state.crisis?.id === "E15" && !clash) bonus += 1;
   let enemyBonus = state.scenario.id === "S05" && host === "iazyges" && committed < 3 ? 1 : 0;
+  if (clash && host === "iazyges" && committed < 2) enemyBonus += 1;
   if (state.crisis?.id === "E12" && host === "iazyges") enemyBonus += 1;
   let roman = committed + romanDie + bonus;
   let enemy = state.strength[host] + enemyDie + enemyBonus;
   let margin = roman - enemy;
   if (exert || doctrine === "force") changeTrack("fatigue", 1);
+  if (exert && state.scenario.id === "S03" && host === "marcomannia") {
+    changeTrack("resolve", -1);
+    log("Exertion beyond the Danube costs Marcus 1 Resolve.");
+  }
 
   if (
     !clash &&
@@ -686,7 +799,7 @@ async function resolveBattle(host, clash = false, options = {}) {
     `Rome ${roman} vs ${HOST_NAMES[host]} ${enemy}. Margin ${margin >= 0 ? "+" : ""}${margin}.` +
     (clash ? "" : ` Doctrine: ${doctrine === "contain" ? "Contain" : doctrine === "force" ? "Force Decision" : "Set Battle"}.`));
   if (clash) {
-    if (margin > 0) { changeStrength(host, -1); retreatHost(host, false); log(`The ${HOST_NAMES[host]} Host is repulsed toward home.`); }
+    if (margin > 0) { changeStrength(host, -1); retreatHost(host, false); log(`The ${HOST_NAMES[host]} Army is repulsed toward home.`); }
     else if (margin === 0) log("The Clash ends with both forces holding.");
     else if (margin >= -2) changeTrack("resolve", -1);
     else { removeLegions(space, 1); changeTrack("rome", -1); }
@@ -721,15 +834,19 @@ async function resolveBattle(host, clash = false, options = {}) {
       log("The forced decision consumes an additional Legion.");
     }
   }
+  if (margin < 0 && state.crisis?.id === "E09") {
+    changeTrack("supply", -1);
+    log("Winter losses consume an additional Supply.");
+  }
   state.freeCampaignBonus = 0;
   state.addressTroops = false;
   state.clemencyBattle = false;
   if (checkImmediateLoss()) return;
-  if (!state.assentUsed && margin < 3) {
+  if (!options.noAssent && !state.assentUsed && margin < 3) {
     const assentUsed = await offerAssent();
     if (assentUsed && state.crisis?.id === "E10") {
       changeStrength(host, -1);
-      log("The Senate's censure weakens the battled Host by 1 Strength.");
+      log("The Senate's censure weakens the battled Army by 1 Strength.");
     }
   }
   render();
@@ -767,7 +884,7 @@ async function petition(free = false) {
   ];
   if (negotiable.length) {
     options.push({
-      label: "Negotiate with a Host",
+      label: "Negotiate with an Army",
       value: "negotiate",
       disabled: state.tracks.senate < 1 && state.tracks.treasury < 1
     });
@@ -818,16 +935,29 @@ async function resolveEnemyDesign() {
   state.phase = "enemy";
   render();
   const card = state.crisis;
+  if (
+    card.id === "E01" &&
+    state.legions.carnuntum === 0 &&
+    state.legions[state.hosts.quadi] === 0
+  ) changeStrength("quadi", 1);
+  if (card.id === "E03" && state.tracks.fatigue >= 4) changeTrack("resolve", -1);
+  if (card.id === "E05" && state.strength.marcomannia + state.strength.quadi >= 8) changeTrack("rome", -1);
   if (card.id === "E04" && state.commandUsed && state.lastCommandSide === "officium") changeTrack("senate", 1);
   if (card.id === "E06" && !state.basicOrders.includes("campaign") && !state.basicOrders.includes("fortify")) changeTrack("senate", -1);
   if (card.id === "E07" && state.lastCommandId === "C07") {
-    const host = await chooseHost("Diplomatic Division", "Reduce a different Host by 1.");
+    const host = await chooseHost("Diplomatic Division", "Reduce a different Army by 1.");
     changeStrength(host, -1);
   }
   if (card.id === "E09" && state.fought) changeTrack("fatigue", 1);
   if (card.id === "E11" && state.strength.quadi <= 1) state.momentum += 1;
   if (card.id === "E13" && state.strength.iazyges > 0) changeTrack("supply", -1);
   if (card.id === "E14" && state.tracks.senate <= 2) changeTrack("rome", -1);
+  if (card.id === "E15" && state.fought) changeTrack("fatigue", 1);
+  if (card.id === "E16" && state.round === state.scenario.rounds) {
+    const pacified = fronts.filter(host => state.strength[host] === 0).length;
+    state.bonusVP += pacified;
+    if (pacified) log(`Time judges the settlements: gain ${pacified} Legacy VP.`);
+  }
   const primaryHost = card.host === "highest" ? highestHost() : card.host;
   await activateHost({...card, host: primaryHost});
   if (state.gameOver) return;
@@ -856,17 +986,25 @@ async function activateHost(card) {
   if (state.strength[host] === 0) {
     state.strength[host] = 1;
     state.hosts[host] = host;
-    log(`The treaty with the ${HOST_NAMES[host]} breaks; the Host returns at Strength 1.`);
+    log(`The treaty with the ${HOST_NAMES[host]} breaks; the Army returns at Strength 1.`);
     return;
   }
   if (card.order === "muster" && state.strength[host] < 6) {
     changeStrength(host, 1);
-    log(`The ${HOST_NAMES[host]} Host musters to Strength ${state.strength[host]}.`);
+    log(`The ${HOST_NAMES[host]} Army musters to Strength ${state.strength[host]}.`);
+    if (host === "quadi") {
+      changeCoalition(1);
+      log("Quadi kingship draws the coalition closer: +1 Coalition.");
+    }
+    if (host === "raetian_frontier" && state.strength[host] >= 4) {
+      changeTrack("supply", -1);
+      log("Alpine pressure disrupts Roman supply.");
+    }
     return;
   }
   const current = state.hosts[host];
   if (state.legions[current] > 0) {
-    log(`The ${HOST_NAMES[host]} Host attacks at ${spaces[current].name}.`);
+    log(`The ${HOST_NAMES[host]} Army attacks at ${spaces[current].name}.`);
     await resolveBattle(host, true);
     if (current === "aquileia" && state.hosts[host] === "aquileia") return loseGame("Aquileia falls.");
     return;
@@ -874,7 +1012,7 @@ async function activateHost(card) {
   const destination = PRIMARY_ROUTE[current];
   if (!destination) return;
   state.hosts[host] = destination;
-  log(`The ${HOST_NAMES[host]} Host raids from ${spaces[current].name} to ${spaces[destination].name}.`);
+  log(`The ${HOST_NAMES[host]} Army raids from ${spaces[current].name} to ${spaces[destination].name}.`);
   if (
     state.scenario.id === "S02" &&
     host === "quadi" &&
@@ -893,6 +1031,10 @@ async function activateHost(card) {
   } else if (spaces[destination].kind === "base") {
     state.devastated[destination] = true;
     changeTrack("rome", -1);
+    if (host === "marcomannia") {
+      changeTrack("rome", -1);
+      log("The Marcomanni deep incursion costs 1 additional Rome.");
+    }
     const resource = await choose(`${spaces[destination].name} Raided`, "What else is lost?", [
       {label: "Lose 1 Supply", value: "supply"}, {label: "Lose 1 Treasury", value: "treasury"}
     ]);
@@ -926,12 +1068,53 @@ async function endure() {
 function finishScenario() {
   const won = objectiveMet();
   const score = state.momentum + state.tracks.rome + state.tracks.senate + state.tracks.resolve +
-    state.tracks.treasury - state.tracks.fatigue - totalStrength() - devastatedCount();
+    state.tracks.treasury + state.bonusVP - state.tracks.fatigue - totalStrength() - devastatedCount();
   state.gameOver = true;
   state.phase = "end";
   const title = won ? "The frontier endures" : "The burden exceeds the state";
   const grade = won ? (score >= 18 ? "Decisive" : score >= 12 ? "Hard Peace" : "Pyrrhic Duty") : "Defeat";
-  showEnd(title, `${grade}. Final score ${score}.`);
+  const legacy = legacyJudgment();
+  const epilogue = won ? state.scenario.epilogue.victory : state.scenario.epilogue.defeat;
+  showEnd(title, `${grade}. Final score ${score}.`, `
+    <div class="legacy">
+      <p class="eyebrow">Historical epilogue</p>
+      <p>${epilogue}</p>
+      <p class="eyebrow">Your legacy · ${legacy.title}</p>
+      <p>${legacy.text}</p>
+      <div class="legacy-ledger">
+        <span>Imperium ${state.commandSides.imperium}</span>
+        <span>Officium ${state.commandSides.officium}</span>
+        <span>Contain ${state.doctrines.contain}</span>
+        <span>Set ${state.doctrines.set}</span>
+        <span>Force ${state.doctrines.force}</span>
+        <span>Treaties ${pacifiedCount()}</span>
+      </div>
+    </div>`);
+}
+
+function legacyJudgment() {
+  if (state.tracks.mercy >= 3 && pacifiedCount() >= 1) {
+    return {
+      title: "The Lawgiver",
+      text: "Force served settlement. Your victories mattered because restraint gave them a future."
+    };
+  }
+  if (state.commandSides.imperium >= state.commandSides.officium + 2 || state.doctrines.force >= 3) {
+    return {
+      title: "The Soldier Emperor",
+      text: "You met crisis through concentration and decision. Rome survives, though the state bears the marks of urgency."
+    };
+  }
+  if (state.commandSides.officium >= state.commandSides.imperium + 2) {
+    return {
+      title: "Guardian of the State",
+      text: "You preserved the machinery of rule while armies moved at the edge of what administration could sustain."
+    };
+  }
+  return {
+    title: "The Philosopher in Command",
+    text: "You held military necessity and civil duty in tension, accepting that no decision could preserve everything."
+  };
 }
 
 function objectiveMet() {
@@ -961,10 +1144,10 @@ function loseGame(reason) {
   return true;
 }
 
-function showEnd(title, text) {
+function showEnd(title, text, detail = "") {
   render();
   $("#modalContent").innerHTML = `<div class="modal-inner"><p class="eyebrow">Campaign complete</p><h2>${title}</h2>
-    <p>${text}</p><div class="modal-actions"><button class="primary" onclick="location.reload()">New campaign</button></div></div>`;
+    <p>${text}</p>${detail}<div class="modal-actions"><button class="primary" onclick="location.reload()">New campaign</button></div></div>`;
   $("#modal").showModal();
 }
 
@@ -1096,6 +1279,7 @@ function changeCoalition(amount) {
 function totalStrength() { return fronts.reduce((sum, host) => sum + state.strength[host], 0); }
 function totalLegions() { return Object.values(state.legions).reduce((sum, count) => sum + count, 0); }
 function devastatedCount() { return Object.values(state.devastated).filter(Boolean).length; }
+function pacifiedCount() { return fronts.filter(host => state.strength[host] === 0).length; }
 function d6() { return Math.floor(Math.random() * 6) + 1; }
 
 function phaseName() {
@@ -1110,9 +1294,10 @@ function log(text) {
 
 function showRules() {
   $("#modalContent").innerHTML = `<div class="modal-inner"><p class="eyebrow">Quick rules</p><h2>How to play</h2>
-    <p>Each round reveals a Crisis and its Host order. Choose one Command half, then two different Basic Orders. Coalition pressure can trigger one additional Host surge.</p>
+    <p>Each round reveals a Crisis and its Army order. Choose one Command half, then two different Basic Orders. Coalition pressure can trigger one additional Army surge.</p>
     <p><strong>Campaign:</strong> commit Legions and choose Contain, Set Battle, or Force Decision before rolling. Devastated bases provide no support until restored with Fortify.</p>
-    <p><strong>Victory:</strong> complete the Scenario objective while Rome, Senate, and Resolve remain above zero. Do not let a Host remain in Aquileia.</p>
+    <p><strong>Foresight:</strong> once per round, replace one Command before choosing a card. Each Army's doctrine appears on the Crisis card.</p>
+    <p><strong>Victory:</strong> complete the Scenario objective while Rome, Senate, and Resolve remain above zero. Do not let an Army remain in Aquileia.</p>
     <div class="modal-actions"><button class="primary" id="closeRules">Return</button></div></div>`;
   $("#modal").showModal();
   $("#closeRules").addEventListener("click", () => $("#modal").close());

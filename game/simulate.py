@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Coarse Monte Carlo balance model for IMPERATOR v0.4."""
+"""Coarse Monte Carlo balance model for IMPERATOR v0.5."""
 from __future__ import annotations
 
 import argparse
@@ -75,14 +75,16 @@ def activate_host(
     tracks: dict[str, int],
     devastated: set[str],
     rng: random.Random,
-) -> None:
+) -> int:
     if strength[active_host] == 0:
         strength[active_host] = 1
         hosts[active_host] = active_host
-        return
+        return 0
     if order == "muster" and strength[active_host] < 6:
         strength[active_host] += 1
-        return
+        if active_host == "raetian_frontier" and strength[active_host] >= 4:
+            tracks["supply"] -= 1
+        return 1 if active_host == "quadi" else 0
 
     current = hosts[active_host]
     if legions[current] > 0:
@@ -92,11 +94,12 @@ def activate_host(
         destination = path[1] if len(path) > 1 else current
         hosts[active_host] = destination
     if destination == current and legions[destination] == 0:
-        return
+        return 0
     if legions[destination] > 0:
         base_bonus = int(SPACES[destination]["kind"] == "base" and destination not in devastated)
         roman = legions[destination] + rng.randint(1, 6) + base_bonus
-        enemy = strength[active_host] + rng.randint(1, 6)
+        cavalry_bonus = int(active_host == "iazyges" and legions[destination] < 2)
+        enemy = strength[active_host] + rng.randint(1, 6) + cavalry_bonus
         margin = roman - enemy
         if margin > 0:
             strength[active_host] = max(0, strength[active_host] - 1)
@@ -113,8 +116,11 @@ def activate_host(
     elif SPACES[destination]["kind"] == "base":
         devastated.add(destination)
         tracks["rome"] -= 1
+        if active_host == "marcomannia":
+            tracks["rome"] -= 1
         resource = "supply" if tracks["supply"] >= tracks["treasury"] else "treasury"
         tracks[resource] -= 1
+    return 0
 
 
 def play(scenario: dict, style: str, rng: random.Random) -> Result:
@@ -343,7 +349,7 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
                     -len(route(hosts[front], "aquileia")),
                 ),
             )
-        activate_host(
+        coalition += activate_host(
             active_host, crisis["order"], strength, hosts, legions, tracks, devastated, rng
         )
         coalition += 1
@@ -361,7 +367,7 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
                 if hosts[surge_host] == surge_host and strength[surge_host] < 3
                 else "raid"
             )
-            activate_host(
+            coalition += activate_host(
                 surge_host, surge_order, strength, hosts, legions, tracks, devastated, rng
             )
         if tracks["fatigue"] >= 5:

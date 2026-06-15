@@ -551,6 +551,14 @@ select {
 .crisis-card h3 { max-width: 85%; margin-bottom: 10px; color: #f2dfc4; }
 .crisis-card p { color: #cbbca8; font-size: 14px; }
 .crisis-card strong { color: #e4b87b; }
+.crisis-card .army-trait {
+  margin: 13px -2px -2px;
+  padding: 10px 12px;
+  border: 1px solid rgba(216,173,98,.28);
+  color: #d7c8ae;
+  background: rgba(9,13,11,.35);
+  font-size: 12px;
+}
 .crisis-card .order {
   padding: 12px 15px;
   color: #f0c28c;
@@ -618,6 +626,19 @@ select {
   letter-spacing: .15em;
 }
 .command-side span { position: relative; font-size: 14px; line-height: 1.36; }
+.replace-command {
+  width: 100%;
+  padding: 8px 12px;
+  border: 0;
+  border-top: 1px solid rgba(197,164,95,.25);
+  color: #aa9c83;
+  background: rgba(5,8,6,.25);
+  font: 800 9px ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: .12em;
+  text-align: center;
+  text-transform: uppercase;
+}
+.replace-command:hover { color: #f0d48d; background: rgba(197,164,95,.1); }
 .command-card.disabled { opacity: .47; pointer-events: none; filter: saturate(.45); }
 .tag-mercy, .tag-stoic { border-color: #7d9b8c; }
 .tag-diplomacy, .tag-settlement { border-color: #b18368; }
@@ -659,6 +680,28 @@ dialog::backdrop { background: rgba(5,8,6,.82); backdrop-filter: blur(7px) satur
 .modal-inner p { color: #cfc1a9; }
 .modal-actions { display: grid; gap: 9px; margin-top: 18px; }
 .modal-actions button { text-align: left; }
+.legacy {
+  margin: 20px 0 4px;
+  padding: 18px;
+  border: 1px solid rgba(200,158,79,.4);
+  background: rgba(8,12,10,.28);
+}
+.legacy .eyebrow:not(:first-child) { margin-top: 18px; }
+.legacy-ledger {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 7px;
+  margin-top: 16px;
+}
+.legacy-ledger span {
+  padding: 8px;
+  border: 1px solid rgba(200,158,79,.23);
+  color: #d8c7a9;
+  background: rgba(255,255,255,.03);
+  font: 800 10px ui-sans-serif, system-ui, sans-serif;
+  text-align: center;
+  text-transform: uppercase;
+}
 .dice { display: flex; gap: 18px; margin: 20px 0; }
 .dice span { color: #d7bb7a; font: 850 10px ui-sans-serif, system-ui, sans-serif; letter-spacing: .12em; text-transform: uppercase; }
 .die {
@@ -701,4 +744,5 @@ dialog::backdrop { background: rgba(5,8,6,.82); backdrop-filter: blur(7px) satur
   .map { min-height: 660px; aspect-ratio: .82; overflow-x: auto; }
   .space { min-width: 94px; width: 24%; }
   .orders .secondary { flex-basis: 100%; }
+  .legacy-ledger { grid-template-columns: repeat(2, 1fr); }
 }

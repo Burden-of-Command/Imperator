@@ -5,7 +5,7 @@
 <text x="55" y="78" fill="#ad8c4b" font-family="Arial,sans-serif" font-size="18" font-weight="bold" letter-spacing="2">C11  COMMAND / SETTLEMENT</text>
 <text x="55" y="137" fill="#eee8d8" font-family="Georgia,serif" font-size="42" font-weight="bold">Take Hostages</text>
 <text x="55" y="215" fill="#ad8c4b" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">IMPERIUM</text>
-<text x="55" y="270" fill="#eee8d8" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">After winning a battle, reduce Host</tspan><tspan x="55" dy="34">Strength by 1 more; lose 1 Mercy.</tspan></text>
+<text x="55" y="270" fill="#eee8d8" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">After winning a battle, reduce Army</tspan><tspan x="55" dy="34">Strength by 1 more; lose 1 Mercy.</tspan></text>
 <text x="55" y="602" fill="#ad8c4b" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">OFFICIUM</text>
 <text x="55" y="657" fill="#eee8d8" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">Gain 2 Senate if total Strength is 8 or</tspan><tspan x="55" dy="34">less; otherwise gain 1 Treasury.</tspan></text>
 <text x="375" y="965" text-anchor="middle" fill="#ad8c4b" font-family="Arial,sans-serif" font-size="14" font-weight="bold" letter-spacing="2">THE FRONTIER AND ROME CLAIM THE SAME HOUR</text>
