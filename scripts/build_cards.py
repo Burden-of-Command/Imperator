@@ -129,6 +129,7 @@ def back_svg(kind: str) -> str:
 <text x="375" y="535" text-anchor="middle" fill="{ink}" font-family="Georgia,serif" font-size="102">M</text>
 <text x="375" y="835" text-anchor="middle" fill="{ink}" font-family="Georgia,serif" font-size="36" font-weight="bold">IMPERATOR</text>
 <text x="375" y="885" text-anchor="middle" fill="{accent}" font-family="Arial,sans-serif" font-size="19" font-weight="bold" letter-spacing="5">{name}</text>
+<text x="375" y="945" text-anchor="middle" fill="{accent}" font-family="Arial,sans-serif" font-size="12" font-weight="bold" letter-spacing="2">THE BURDEN OF COMMAND SERIES · VOLUME I</text>
 </svg>'''
 
 

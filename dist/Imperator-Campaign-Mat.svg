@@ -13,6 +13,7 @@
 <rect x="24" y="24" width="1606" height="1121" fill="none" stroke="#8b2f2b" stroke-width="4"/>
 <text x="72" y="88" class="title">IMPERATOR</text>
 <text x="74" y="125" class="sub">THE BURDEN OF THE DANUBE</text>
+<text x="1582" y="88" text-anchor="end" class="small">THE BURDEN OF COMMAND SERIES · VOLUME I</text>
 <path d="M420 390C650 335 900 345 1440 370" class="river"/>
 <text x="1335" y="354" class="small" fill="#647b83">DANUBE</text>
 <path d="M150 545H390H650H930H1220" class="road"/>

@@ -1,5 +1,7 @@
 # IMPERATOR: The Burden of the Danube
 
+**Volume I of The Burden of Command Series**
+
 A compact solo wargame about command, endurance, and political duty during the
 Marcomannic Wars, c. 166-180 CE.
 
@@ -33,7 +35,18 @@ the Senate; clemency may secure peace or give an enemy time to gather.
   and a reign-wide three-part burden make each scenario ask a different
   strategic question.
 - **Replayable scenarios:** seven historical episodes and a linked grand
-  campaign use the same compact system.
+campaign use the same compact system.
+
+## The Burden of Command Series
+
+The series explores historical leaders forced to divide scarce military power
+between geography, political legitimacy, endurance, and the terms of peace.
+Each volume preserves the compact operational engine while replacing its map,
+opposition doctrines, command dilemmas, crises, and Historical Mandates.
+
+Planned future volume: **Alfred the Great**, centered on fyrd mobilization,
+burhs, Viking armies, negotiated survival, and the political consolidation of
+Wessex.
 
 ## Contents
 
