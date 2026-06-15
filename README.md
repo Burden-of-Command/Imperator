@@ -37,12 +37,23 @@ the Senate; clemency may secure peace or give an enemy time to gather.
 Read [RULES.md](RULES.md), choose **The Gathering Storm**, and place the cubes
 as shown on its Scenario card. A first game takes about 35-50 minutes.
 
+## Web Playtest
+
+```bash
+python3 -m http.server 4173
+```
+
+Open `http://localhost:4173/web/`. The browser edition automates setup, legal
+movement, Crisis sequencing, Host orders, battles, retreats, tracks, and
+scenario scoring.
+
 ## Repository
 
 - `game/game.json` - canonical cards, scenarios, and map data
 - `game/simulate.py` - strategy-aware balance simulator
 - `scripts/build_cards.py` - individual cards and duplex-ready SVG sheets
 - `scripts/build_map.py` - A4 campaign mat and compact player aid
+- `web/` - local browser-playable guided edition
 - `RULES.md` - complete prototype rules
 - `HISTORICAL_NOTES.md` - history, terminology, and design boundaries
 - `PLAYTEST.md` - test protocol and balance targets

@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IMPERATOR: The Burden of the Danube</title>
+  <link rel="stylesheet" href="styles.css?v=0.4">
+</head>
+<body>
+  <header class="masthead">
+    <div>
+      <p class="eyebrow">Digital playtest edition</p>
+      <h1>IMPERATOR</h1>
+      <p class="subtitle">The Burden of the Danube</p>
+    </div>
+    <div class="header-actions">
+      <button id="rulesButton" class="ghost">Rules</button>
+      <button id="restartButton" class="ghost hidden">New campaign</button>
+    </div>
+  </header>
+
+  <main>
+    <section id="setupScreen" class="setup">
+      <div class="setup-copy">
+        <p class="eyebrow">Marcus Aurelius, 166-180 CE</p>
+        <h2>Hold the frontier. Preserve the state. Endure yourself.</h2>
+        <p>Move six Legions against four coalition Hosts. Every round one Crisis
+          tells you which Host will act, but Rome and the Senate demand the same
+          scarce attention.</p>
+        <div class="setup-form">
+          <label>Scenario <select id="scenarioSelect"></select></label>
+          <label class="check"><input id="guidedToggle" type="checkbox" checked> Guided play</label>
+          <button id="startButton" class="primary">Begin campaign</button>
+        </div>
+      </div>
+      <div class="setup-map">
+        <img src="../dist/Imperator-Campaign-Mat.svg" alt="Campaign map">
+      </div>
+    </section>
+
+    <section id="gameScreen" class="game hidden">
+      <div id="guide" class="guide"></div>
+
+      <section class="top-grid">
+        <article class="scenario panel">
+          <p id="scenarioKicker" class="eyebrow"></p>
+          <h2 id="scenarioName"></h2>
+          <p id="scenarioHistory"></p>
+          <p id="scenarioRule" class="rule"></p>
+          <div id="objective" class="objective"></div>
+        </article>
+        <div id="tracks" class="tracks"></div>
+      </section>
+
+      <section class="war-grid">
+        <article class="map-panel panel">
+          <div class="section-head">
+            <div>
+              <p class="eyebrow">Operational map</p>
+              <h3>The Danube Frontier</h3>
+            </div>
+            <div id="phaseBadge" class="phase-badge"></div>
+          </div>
+          <div id="map" class="map" aria-label="Campaign map"></div>
+          <p id="mapPrompt" class="prompt"></p>
+        </article>
+
+        <aside class="right-column">
+          <article class="crisis panel">
+            <p class="eyebrow">Current Crisis</p>
+            <div id="crisisCard"></div>
+          </article>
+          <article class="orders panel">
+            <p class="eyebrow">Your Decision</p>
+            <h3 id="actionTitle">Receive the Crisis</h3>
+            <p id="actionText"></p>
+            <div id="actionButtons" class="actions"></div>
+          </article>
+        </aside>
+      </section>
+
+      <section class="lower-grid">
+        <article class="panel">
+          <div class="section-head">
+            <div><p class="eyebrow">Deliberate</p><h3>Command Hand</h3></div>
+            <span id="deckCount" class="muted"></span>
+          </div>
+          <div id="commandHand" class="command-hand"></div>
+        </article>
+        <article class="panel log-panel">
+          <p class="eyebrow">Campaign Chronicle</p>
+          <h3>Log</h3>
+          <ol id="log" class="log"></ol>
+        </article>
+      </section>
+    </section>
+  </main>
+
+  <dialog id="modal"><div id="modalContent"></div></dialog>
+  <script type="module" src="app.js?v=0.4"></script>
+</body>
+</html>
