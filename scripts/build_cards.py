@@ -48,7 +48,12 @@ def card_svg(kind: str, card: dict) -> str:
         lower_width, lower_limit, lower_size, lower_gap = 41, 7, 27, 34
     elif kind == "crisis":
         kicker = f'{card["id"]}  CRISIS / GROUP {card["group"]}'
-        upper_label, lower_label = "ARRIVAL", "ENEMY DESIGN"
+        host_names = {
+            "raetian_frontier": "RAETIAN HOST", "marcomannia": "MARCOMANNI HOST",
+            "quadi": "QUADI HOST", "iazyges": "IAZYGES HOST", "highest": "HIGHEST HOST",
+        }
+        upper_label = "ARRIVAL"
+        lower_label = f'{host_names[card["host"]]}: {card["order"].upper()}'
         upper, lower = card["arrival"], card["design"]
         footer = "WHAT ARRIVES IS NOT YOURS. WHAT YOU DO IS."
         lower_width, lower_limit, lower_size, lower_gap = 41, 7, 27, 34
@@ -58,7 +63,7 @@ def card_svg(kind: str, card: dict) -> str:
         objective = card["objective"]
         bits = [f'{objective.get("momentum", 0)} Momentum']
         if "max_total_threat" in objective:
-            bits.append(f'Threat total <= {objective["max_total_threat"]}')
+            bits.append(f'Strength total <= {objective["max_total_threat"]}')
         if "mercy" in objective:
             bits.append(f'Mercy {objective["mercy"]}+')
         if "senate" in objective:
@@ -77,16 +82,21 @@ def card_svg(kind: str, card: dict) -> str:
         legion_setup = " ".join(
             f'{abbreviations[key]}{value}' for key, value in card["legions"].items() if value
         )
+        host_setup = " ".join(
+            f'{abbreviations[key]}@{abbreviations[value]}' for key, value in card["hosts"].items()
+            if key != value
+        ) or "all home"
         threat_setup = " ".join(
             f'{abbreviations[key]}{value}' for key, value in card["threat"].items()
         )
         upper = card["history"]
         lower = (
             f'Start tracks: {track_setup}. Legions: {legion_setup}. '
-            f'Threat: {threat_setup}. Objective: {"; ".join(bits)}. {card["rule"]}'
+            f'Hosts: {host_setup}. Strength: {threat_setup}. '
+            f'Objective: {"; ".join(bits)}. {card["rule"]}'
         )
         footer = "HISTORY SETS THE BURDEN. YOUR JUDGMENT SETS THE END."
-        lower_width, lower_limit, lower_size, lower_gap = 49, 10, 22, 28
+        lower_width, lower_limit, lower_size, lower_gap = 53, 11, 20, 25
 
     title_size = 42 if len(title) < 24 else 34
     return f'''<svg xmlns="http://www.w3.org/2000/svg" width="2.5in" height="3.5in" viewBox="0 0 750 1050">

@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="7.2in" height="1.8in" viewBox="0 0 720 180">
+<rect width="720" height="180" fill="#e8e3d8"/><g transform="translate(0 0)">
+<rect x="8" y="8" width="164" height="164" rx="18" fill="#5b4635" stroke="#d6bd79" stroke-width="6"/>
+<text x="90" y="91" text-anchor="middle" fill="#fff8e8" font-family="Georgia" font-size="72" font-weight="bold">R</text>
+<text x="90" y="137" text-anchor="middle" fill="#d6bd79" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="2">RAETIAN</text>
+</g><g transform="translate(180 0)">
+<rect x="8" y="8" width="164" height="164" rx="18" fill="#704039" stroke="#d6bd79" stroke-width="6"/>
+<text x="90" y="91" text-anchor="middle" fill="#fff8e8" font-family="Georgia" font-size="72" font-weight="bold">M</text>
+<text x="90" y="137" text-anchor="middle" fill="#d6bd79" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="2">MARCOMANNI</text>
+</g><g transform="translate(360 0)">
+<rect x="8" y="8" width="164" height="164" rx="18" fill="#3f5350" stroke="#d6bd79" stroke-width="6"/>
+<text x="90" y="91" text-anchor="middle" fill="#fff8e8" font-family="Georgia" font-size="72" font-weight="bold">Q</text>
+<text x="90" y="137" text-anchor="middle" fill="#d6bd79" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="2">QUADI</text>
+</g><g transform="translate(540 0)">
+<rect x="8" y="8" width="164" height="164" rx="18" fill="#4a4c68" stroke="#d6bd79" stroke-width="6"/>
+<text x="90" y="91" text-anchor="middle" fill="#fff8e8" font-family="Georgia" font-size="72" font-weight="bold">I</text>
+<text x="90" y="137" text-anchor="middle" fill="#d6bd79" font-family="Arial" font-size="13" font-weight="bold" letter-spacing="2">IAZYGES</text>
+</g></svg>

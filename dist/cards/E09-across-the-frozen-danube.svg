@@ -5,8 +5,8 @@
 <text x="55" y="78" fill="#9f493d" font-family="Arial,sans-serif" font-size="18" font-weight="bold" letter-spacing="2">E09  CRISIS / GROUP E</text>
 <text x="55" y="137" fill="#eee8d8" font-family="Georgia,serif" font-size="34" font-weight="bold">Across the Frozen Danube</text>
 <text x="55" y="215" fill="#9f493d" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">ARRIVAL</text>
-<text x="55" y="270" fill="#eee8d8" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">Campaigns at Quadi or Iazyges gain +1</tspan><tspan x="55" dy="34">this round; each Roman loss also costs 1</tspan><tspan x="55" dy="34">Supply.</tspan></text>
-<text x="55" y="602" fill="#9f493d" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">ENEMY DESIGN</text>
+<text x="55" y="270" fill="#eee8d8" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">Campaigns against Quadi or Iazyges gain</tspan><tspan x="55" dy="34">+1 this round; each Roman loss also costs</tspan><tspan x="55" dy="34">1 Supply.</tspan></text>
+<text x="55" y="602" fill="#9f493d" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">IAZYGES HOST: RAID</text>
 <text x="55" y="657" fill="#eee8d8" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">Increase Fatigue by 1 if you fought.</tspan></text>
 <text x="375" y="965" text-anchor="middle" fill="#9f493d" font-family="Arial,sans-serif" font-size="14" font-weight="bold" letter-spacing="2">WHAT ARRIVES IS NOT YOURS. WHAT YOU DO IS.</text>
 <circle cx="375" cy="995" r="7" fill="#9f493d"/>

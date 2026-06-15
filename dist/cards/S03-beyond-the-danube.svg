@@ -7,7 +7,7 @@
 <text x="55" y="215" fill="#8b2f2b" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">172 CE</text>
 <text x="55" y="270" fill="#272722" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">Marcus carries the war north, seeking</tspan><tspan x="55" dy="34">leverage against the Marcomanni.</tspan></text>
 <text x="55" y="602" fill="#8b2f2b" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">6 ROUNDS</text>
-<text x="55" y="657" fill="#272722" font-family="Georgia,serif" font-size="22"><tspan x="55" dy="0">Start tracks: R6 Se5 Re5 Tr4 Su5 F3 Me1. Legions:</tspan><tspan x="55" dy="28">Aq1 La1 Ca3 Si1. Threat: Ra1 Ma2 Qu3 Ia2.</tspan><tspan x="55" dy="28">Objective: 5 Momentum. Campaigns in Marcomannia</tspan><tspan x="55" dy="28">gain +1 Roman total, but every Exertion there</tspan><tspan x="55" dy="28">costs 1 Resolve.</tspan></text>
+<text x="55" y="657" fill="#272722" font-family="Georgia,serif" font-size="20"><tspan x="55" dy="0">Start tracks: R6 Se5 Re5 Tr4 Su5 F3 Me1. Legions: Aq1</tspan><tspan x="55" dy="25">La1 Ca3 Si1. Hosts: all home. Strength: Ra1 Ma2 Qu3</tspan><tspan x="55" dy="25">Ia2. Objective: 4 Momentum. Campaigns in Marcomannia</tspan><tspan x="55" dy="25">gain +1 Roman total, but every Exertion there costs 1</tspan><tspan x="55" dy="25">Resolve.</tspan></text>
 <text x="375" y="965" text-anchor="middle" fill="#8b2f2b" font-family="Arial,sans-serif" font-size="14" font-weight="bold" letter-spacing="2">HISTORY SETS THE BURDEN. YOUR JUDGMENT SETS THE END.</text>
 <circle cx="375" cy="995" r="7" fill="#8b2f2b"/>
 </svg>

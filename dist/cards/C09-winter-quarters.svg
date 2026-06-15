@@ -7,7 +7,7 @@
 <text x="55" y="215" fill="#ad8c4b" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">IMPERIUM</text>
 <text x="55" y="270" fill="#eee8d8" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">Reduce Fatigue by 2. You may Fortify</tspan><tspan x="55" dy="34">once.</tspan></text>
 <text x="55" y="602" fill="#ad8c4b" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">OFFICIUM</text>
-<text x="55" y="657" fill="#eee8d8" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">Gain 1 Resolve, 1 Supply, and 1 Senate;</tspan><tspan x="55" dy="34">increase the highest Threat by 1.</tspan></text>
+<text x="55" y="657" fill="#eee8d8" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">Gain 1 Resolve, 1 Supply, and 1 Senate;</tspan><tspan x="55" dy="34">increase the highest Strength by 1.</tspan></text>
 <text x="375" y="965" text-anchor="middle" fill="#ad8c4b" font-family="Arial,sans-serif" font-size="14" font-weight="bold" letter-spacing="2">THE FRONTIER AND ROME CLAIM THE SAME HOUR</text>
 <circle cx="375" cy="995" r="7" fill="#ad8c4b"/>
 </svg>

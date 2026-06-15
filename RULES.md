@@ -7,13 +7,13 @@ before its final round while keeping **Rome**, **Senate**, and **Resolve** above
 zero. You lose immediately if:
 
 - Rome, Senate, or Resolve reaches 0;
-- at Endure, any Threat is 6 without a sufficient local defense;
+- an enemy Host enters Aquileia;
 - you cannot pay a required Legion loss; or
 - a Scenario states another defeat condition.
 
 Your score is:
 
-`Objective VP + Rome + Senate + Resolve + Treasury - Fatigue - remaining Threat`
+`Objective VP + Rome + Senate + Resolve + Treasury - Fatigue - remaining Strength`
 
 ## 2. The Map
 
@@ -28,10 +28,19 @@ Four are enemy settlements or campaigning regions:
 - **Lands of the Quadi**, connected to Carnuntum and Sirmium.
 - **Plain of the Iazyges**, connected to Sirmium.
 
-Each enemy space holds one Threat cube from 0-6. Any space may hold any number
-of Legion cubes. Printed lines are the only legal movement connections. Rivers
-and roads are already represented by those lines; there are no movement points,
-terrain costs, or supply lines to count.
+Each enemy people has:
+
+- one **Host marker**, physically placed on the map; and
+- one **Strength cube**, tracked from 0-6 in its homeland.
+
+The four Hosts are Raetian, Marcomanni, Quadi, and Iazyges. A Host may move from
+its homeland into Roman bases. Its Strength travels with it; only the Host
+marker moves. This is the entire opposition army system.
+
+Any space may hold any number of Legion cubes and Hosts. Printed lines are the
+only legal movement connections. Rivers and roads are already represented by
+those lines; there are no movement points, terrain costs, facing, or supply
+lines to count.
 
 Tracks run from 0-7 unless noted:
 
@@ -46,7 +55,7 @@ Tracks run from 0-7 unless noted:
 ## 3. Setup
 
 1. Place the mat and choose a Scenario.
-2. Set tracks, Threat, Legions, round limit, and special rules from the Scenario
+2. Set tracks, Strength, Hosts, Legions, round limit, and special rules from the Scenario
    card. Location abbreviations are printed in the map legend below.
 3. Shuffle the 16 Command cards. Draw three.
 4. Build the Crisis deck from the Scenario's listed Crisis groups. Shuffle each
@@ -82,10 +91,11 @@ After resolving it, discard it. Draw back to three cards.
 
 Take two different Basic Orders. A card effect may permit repetition.
 
-- **March:** move up to two Legions together across one printed connection.
-- **Fortify:** pay 1 Supply to reduce Threat by 1 at an enemy space containing
-  a Legion or connected to a Roman base containing a Legion.
-- **Campaign:** fight one battle in an enemy space containing a Legion.
+- **March:** move up to two Legions across one printed connection each. They may
+  move together or separately. Resolve one move completely before the other.
+- **Fortify:** pay 1 Supply to reduce a Host's Strength by 1 if it shares a
+  space with a Legion or is adjacent to a Roman base containing a Legion.
+- **Campaign:** fight one battle where a Host shares a space with a Legion.
 - **Petition:** pay 1 Treasury to gain 1 Senate.
 - **Requisition:** gain 2 Supply; lose 1 Rome or 1 Senate.
 - **Meditate:** gain 1 Resolve; if no battle is fought this round, also reduce
@@ -93,48 +103,81 @@ Take two different Basic Orders. A card effect may permit repetition.
 
 ### IV. Enemy Design
 
-Resolve the Crisis card's **Design** text. Then the enemy space with the highest
-Threat at 4 or more presses the frontier: lose 1 Rome unless it contains a
-Legion or a connected Roman base contains at least two Legions. You choose if
-several fronts are tied.
+Resolve the Crisis card's **Design** text, then its single **Host Order**. This
+is the whole enemy turn.
+
+- **MUSTER:** increase that Host's Strength by 1. If already at 6, RAID instead.
+- **RAID:** if the Host already shares a space with Legions, resolve a Clash
+  without moving. Otherwise move it one connection along the shortest route to
+  Aquileia. If two routes are equally short, use the red invasion arrow.
+
+If a card says **Highest Host**, activate the Host with the highest Strength.
+Break ties in favor of the Host closest to Aquileia, then choose.
+
+After a RAID:
+
+- If the Host enters a space with Legions, resolve one **Clash**.
+- If it enters an empty Roman base, lose 1 Rome and either 1 Supply or
+  1 Treasury. Leave the Host there.
+- If it enters an empty Aquileia, you lose immediately. If Legions are there,
+  resolve a Clash; you lose if the Host remains in Aquileia afterward.
+
+No other Host moves, rolls, checks a chart, or takes an action.
 
 ### V. Endure
 
 1. If you fought, increase Fatigue by 1. If you fought twice, increase it by 2.
 2. If Fatigue is 5+, lose 1 Resolve.
-3. Lose if any Threat is 6 and neither it nor a connected Roman base contains
-   at least two Legions.
-4. Check the Scenario objective and other defeat conditions.
-5. Advance the round. If the final round ended, score the Scenario.
+3. Check the Scenario objective and other defeat conditions.
+4. Advance the round. If the final round ended, score the Scenario.
 
 ## 5. Battle
 
-1. Choose an enemy space containing at least one Legion.
+1. Choose a space containing a Host and at least one Legion.
 2. Commit any number of Legions in that space. Pay 1 Supply per committed Legion beyond
    the first.
 3. Roll one Roman die and one Enemy die.
 4. Roman total = committed Legions + Roman die + bonuses.
-5. Enemy total = current Threat + Enemy die + Scenario bonuses.
+5. Enemy total = that Host's Strength + Enemy die + Scenario bonuses.
 
-Add **+1 Roman total** if a Roman base connected to the enemy space contains at
-least one Legion. This is **Base Support**. Several bases never grant more than
-+1. A Legion in the enemy space and one behind it on the road is therefore a
-useful formation without creating a separate supply-line system.
+Add **+1 Roman total** if the battle is in a Roman base, or if a connected Roman
+base contains at least one Legion. This is **Base Support**. Several bases never
+grant more than +1.
 
 Resolve the difference:
 
-- **Rome wins by 3+:** reduce Threat by 2 and gain 1 Momentum.
-- **Rome wins by 1-2:** reduce Threat by 1 and gain 1 Momentum.
-- **Tie:** reduce Threat by 1, then lose 1 Supply or increase Fatigue by 1.
+- **Rome wins by 3+:** reduce Strength by 2, retreat the Host to its homeland,
+  and gain 1 Momentum.
+- **Rome wins by 1-2:** reduce Strength by 1, retreat the Host one connection
+  toward its homeland, and gain 1 Momentum.
+- **Tie:** reduce Strength by 1; the Host does not retreat. Lose 1 Supply or
+  increase Fatigue by 1.
 - **Rome loses by 1-2:** lose 1 Supply and 1 Resolve.
-- **Rome loses by 3+:** remove one committed Legion and lose 1 Rome.
+- **Rome loses by 3+:** remove one committed Legion and lose 1 Rome. If the
+  battle is in a Roman base, the Host remains there.
 
 Momentum is not a track. Mark each point on the Scenario card. It never exceeds
-the Scenario objective. Some objectives require Momentum in named enemy spaces;
-record those points beside that settlement.
+the Scenario objective. Some objectives require Momentum against a named Host;
+record those points beside that people.
 
 Before rolling, you may take one **Exertion**: gain +2 Roman total, then increase
 Fatigue by 1 after battle.
+
+### Clash
+
+A Clash is an enemy-initiated battle and takes only one roll:
+
+1. Commit any number of Legions already in the Host's new space. Pay no Supply.
+2. Roman total = committed Legions + Roman die + 1 if in a Roman base.
+3. Enemy total = Host Strength + Enemy die.
+4. On a Roman win, reduce Strength by 1 and retreat the Host one connection
+   toward home.
+5. On a tie, both sides remain.
+6. On a Roman loss by 1-2, lose 1 Resolve.
+7. On a Roman loss by 3+, remove one committed Legion and lose 1 Rome.
+
+A Clash grants no Momentum and causes no Fatigue. You may use Assent, but not
+Exertion or Command-card battle effects.
 
 ## 6. Stoic Choice
 
@@ -146,17 +189,20 @@ The rule rewards accepting danger, not harvesting certainty.
 
 ## 7. Peace
 
-If an enemy space is at Threat 1 or less and you have at least one Legion there, you
+If a Host is in its homeland at Strength 1 or less and you have at least one
+Legion there, you
 may use Petition as **Negotiate**:
 
 - spend 1 Senate or 1 Treasury;
-- reduce that Threat to 0;
+- reduce that Strength to 0;
 - gain 1 Mercy; and
+- turn or remove the Host marker to show a treaty;
 - leave one Legion there as its garrison. That Legion may March normally later,
-  but doing so immediately reopens the settlement at Threat 1.
+  but doing so immediately breaks the treaty: return the Host at Strength 1.
 
-Threat 0 with a Legion present is a pacified settlement. Later Crises can reopen
-it. This uses the Legion itself as the control marker; no new component is needed.
+Strength 0 with a garrison is a pacified people. If a Crisis activates a
+pacified Host, return it to its homeland at Strength 1 instead of resolving the
+printed order. Only one marker moves.
 
 ## 8. Command Deck
 
@@ -179,6 +225,8 @@ chapters set Supply to at least 2, reduce Fatigue by 2, and draw a fresh hand.
 - A track cannot exceed its printed maximum or fall below zero.
 - "Lose" is mandatory. "Spend" requires the resource; if you cannot spend it,
   you cannot choose that option.
-- Threat reductions cannot pass below zero.
-- A reopened settlement moves from Threat 0 to the stated value.
+- Strength reductions cannot pass below zero.
+- A Host always retreats by the shortest route to its own homeland.
+- A Host sharing a space with Legions does not cause another battle until Rome
+  Campaigns or that Host receives a RAID order.
 - Card text overrides this rulebook.

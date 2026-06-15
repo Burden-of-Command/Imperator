@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Coarse Monte Carlo balance model for IMPERATOR v0.2."""
+"""Coarse Monte Carlo balance model for IMPERATOR v0.3."""
 from __future__ import annotations
 
 import argparse
@@ -12,6 +12,11 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parents[1]
 DATA = json.loads((ROOT / "game/game.json").read_text())
 SCENARIOS = DATA["scenarios"]
+CRISES = DATA["crises"]
+CRISES_BY_GROUP = {
+    group: [card for card in CRISES if card["group"] == group]
+    for group in {card["group"] for card in CRISES}
+}
 SPACES = {space["id"]: space for space in DATA["spaces"]}
 FRONTS = [key for key, space in SPACES.items() if space["kind"] == "front"]
 BASES = [key for key, space in SPACES.items() if space["kind"] == "base"]
@@ -53,35 +58,48 @@ def defended(front: str, legions: dict[str, int]) -> bool:
     )
 
 
+def retreat(host: str, hosts: dict[str, str], decisive: bool = False) -> None:
+    position = hosts[host]
+    if position == host:
+        return
+    path = route(position, host)
+    hosts[host] = host if decisive else path[1]
+
+
 def play(scenario: dict, style: str, rng: random.Random) -> Result:
     tracks = dict(scenario["tracks"])
-    threat = dict(scenario["threat"])
+    strength = dict(scenario["threat"])
+    hosts = dict(scenario["hosts"])
     legions = {key: scenario["legions"].get(key, 0) for key in SPACES}
     momentum = 0
     mercy = tracks["mercy"]
     named_momentum = {front: 0 for front in FRONTS}
 
     for round_no in range(scenario["rounds"]):
-        # Crisis pressure represents the average severity of the scenario's era.
-        pressure = 1 + (scenario["difficulty"] >= 3 and rng.random() < 0.18)
-        target = rng.choice(FRONTS)
-        threat[target] = clamp(threat[target] + pressure, 0, 6)
-        if rng.random() < 0.10 + scenario["difficulty"] * 0.025:
-            tracks[rng.choice(["rome", "senate", "resolve", "treasury", "supply"])] -= 1
+        crisis = rng.choice(CRISES_BY_GROUP[scenario["groups"][round_no]])
+        for target, amount in crisis.get("pressure", {}).items():
+            if target == "highest":
+                target = max(FRONTS, key=lambda front: strength[front])
+            strength[target] = clamp(strength[target] + amount, 0, 6)
+        for track, amount in crisis.get("track_loss", {}).items():
+            if rng.random() < 0.65:
+                tracks[track] -= amount
 
         # Move a detachment along the shortest printed route to the urgent front.
         named_objectives = scenario["objective"].get("named", {})
         urgent = max(
             FRONTS,
-            key=lambda t: threat[t] - legions[t] * 0.7
+            key=lambda t: strength[t] + max(0, 4 - len(route(hosts[t], "aquileia")))
+            - legions[hosts[t]] * 0.7
             + (2 if named_momentum[t] < named_objectives.get(t, 0) else 0),
         )
-        if legions[urgent] == 0:
+        target_space = hosts[urgent]
+        if legions[target_space] == 0:
             candidates = [space for space in SPACES if legions[space] > 0]
             if candidates:
-                source = min(candidates, key=lambda space: len(route(space, urgent)))
-                path = route(source, urgent)
-                destination = path[min(2 if threat[urgent] >= 4 else 1, len(path) - 1)]
+                source = min(candidates, key=lambda space: len(route(space, target_space)))
+                path = route(source, target_space)
+                destination = path[min(2 if strength[urgent] >= 4 else 1, len(path) - 1)]
                 moved = min(2, legions[source])
                 legions[source] -= moved
                 legions[destination] += moved
@@ -97,8 +115,17 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
         )
         if civil:
             if needs_mercy and tracks["senate"] > 1:
-                mercy = clamp(mercy + 1, 0, 6)
-                tracks["senate"] -= 1
+                eligible = [
+                    front for front in FRONTS
+                    if hosts[front] == front and strength[front] <= 1 and legions[front] > 0
+                ]
+                if eligible:
+                    settled = min(eligible, key=lambda front: strength[front])
+                    strength[settled] = 0
+                    mercy = clamp(mercy + 1, 0, 6)
+                    tracks["senate"] -= 1
+                else:
+                    tracks["resolve"] = clamp(tracks["resolve"] + 1)
             elif needs_senate:
                 tracks["senate"] = clamp(tracks["senate"] + 1)
                 tracks["treasury"] -= 1
@@ -113,18 +140,18 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
             tracks["fatigue"] = max(0, tracks["fatigue"] - 2)
             if tracks["supply"] > 0:
                 tracks["supply"] -= 1
-                if legions[urgent] or any(
+                if legions[target_space] or any(
                     legions[n] and SPACES[n]["kind"] == "base"
-                    for n in SPACES[urgent]["adjacent"]
+                    for n in SPACES[target_space]["adjacent"]
                 ):
-                    threat[urgent] = max(0, threat[urgent] - 1)
+                    strength[urgent] = max(0, strength[urgent] - 1)
         else:
             # Approximate the chosen card's Imperium half.
-            if threat[urgent] >= 5 and tracks["supply"] > 0:
+            if strength[urgent] >= 5 and tracks["supply"] > 0:
                 tracks["supply"] -= 1
-                threat[urgent] -= 1
-            elif threat[urgent] >= 3:
-                threat[urgent] -= 1
+                strength[urgent] -= 1
+            elif strength[urgent] >= 3:
+                strength[urgent] -= 1
 
         # A Command effect plus two Basic Orders can produce two campaigns.
         remaining = scenario["rounds"] - round_no
@@ -134,27 +161,28 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
             battles = 2
         fought = False
         for _ in range(battles):
-            occupied_fronts = [front for front in FRONTS if legions[front] > 0]
-            if not occupied_fronts:
+            engaged_hosts = [front for front in FRONTS if legions[hosts[front]] > 0 and strength[front] > 0]
+            if not engaged_hosts:
                 break
             urgent = max(
-                occupied_fronts,
-                key=lambda t: threat[t] - legions[t] * 0.6
+                engaged_hosts,
+                key=lambda t: strength[t] - legions[hosts[t]] * 0.6
                 + (2 if named_momentum[t] < named_objectives.get(t, 0) else 0),
             )
             should_fight = (
-                threat[urgent] >= 2 or need >= remaining or style == "martial"
+                strength[urgent] >= 2 or need >= remaining or style == "martial"
             )
             if not should_fight:
                 break
             fought = True
-            committed = legions[urgent]
+            battle_space = hosts[urgent]
+            committed = legions[battle_space]
             paid = max(0, committed - 1)
             if tracks["supply"] < paid:
                 committed = max(1, tracks["supply"] + 1)
                 paid = committed - 1
             tracks["supply"] -= paid
-            expected_margin = committed + (0 if civil else 1) - threat[urgent]
+            expected_margin = committed + (0 if civil else 1) - strength[urgent]
             exert = (
                 style in ("martial", "adaptive")
                 and expected_margin < 1
@@ -164,21 +192,23 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
             command_bonus = 1 if not civil else 0
             base_support = any(
                 SPACES[n]["kind"] == "base" and legions[n] > 0
-                for n in SPACES[urgent]["adjacent"]
-            )
+                for n in SPACES[battle_space]["adjacent"]
+            ) or SPACES[battle_space]["kind"] == "base"
             roman = (
                 committed + rng.randint(1, 6) + command_bonus
                 + base_support + (2 if exert else 0)
             )
-            enemy = threat[urgent] + rng.randint(1, 6) + (scenario["difficulty"] == 4)
+            enemy = strength[urgent] + rng.randint(1, 6)
             tracks["fatigue"] += (0 if rng.random() < 0.22 else 1) + exert
             margin = roman - enemy
             if margin >= 3:
-                threat[urgent] = max(0, threat[urgent] - 2)
+                strength[urgent] = max(0, strength[urgent] - 2)
+                retreat(urgent, hosts, decisive=True)
                 momentum += 1
                 named_momentum[urgent] += 1
             elif margin >= 0:
-                threat[urgent] = max(0, threat[urgent] - 1)
+                strength[urgent] = max(0, strength[urgent] - 1)
+                retreat(urgent, hosts)
                 momentum += 1
                 named_momentum[urgent] += 1
                 if margin == 0:
@@ -187,20 +217,65 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
                 tracks["supply"] -= 1
                 tracks["resolve"] -= 1
             else:
-                legions[urgent] -= 1
+                legions[battle_space] -= 1
                 tracks["rome"] -= 1
 
             if rng.random() < 0.45 and margin < 3:
                 # Assent is used when the roll was genuinely exposed.
-                if style == "civic":
+                if style == "civic" or (style == "adaptive" and needs_mercy):
                     mercy = clamp(mercy + 1, 0, 6)
                 else:
                     tracks["resolve"] = clamp(tracks["resolve"] + 1)
             need = scenario["objective"].get("momentum", 0) - momentum
 
-        pressing = max(FRONTS, key=lambda t: threat[t])
-        if threat[pressing] >= 4 and not defended(pressing, legions):
-            tracks["rome"] -= 1
+        active_host = crisis["host"]
+        if active_host == "highest":
+            active_host = max(
+                FRONTS,
+                key=lambda front: (
+                    strength[front],
+                    -len(route(hosts[front], "aquileia")),
+                ),
+            )
+        if strength[active_host] == 0:
+            strength[active_host] = 1
+            hosts[active_host] = active_host
+        else:
+            order = crisis["order"]
+            if order == "muster" and strength[active_host] < 6:
+                strength[active_host] += 1
+            else:
+                current = hosts[active_host]
+                if legions[current] > 0:
+                    destination = current
+                else:
+                    path = route(current, "aquileia")
+                    destination = path[1] if len(path) > 1 else current
+                    hosts[active_host] = destination
+                if destination != current or legions[destination] > 0:
+                    if legions[destination] > 0:
+                        roman = (
+                            legions[destination] + rng.randint(1, 6)
+                            + (SPACES[destination]["kind"] == "base")
+                        )
+                        enemy = strength[active_host] + rng.randint(1, 6)
+                        margin = roman - enemy
+                        if margin > 0:
+                            strength[active_host] = max(0, strength[active_host] - 1)
+                            retreat(active_host, hosts)
+                        elif margin <= -3:
+                            legions[destination] -= 1
+                            tracks["rome"] -= 1
+                        elif margin < 0:
+                            tracks["resolve"] -= 1
+                        if destination == "aquileia" and hosts[active_host] == "aquileia":
+                            tracks["rome"] = 0
+                    elif destination == "aquileia":
+                        tracks["rome"] = 0
+                    elif SPACES[destination]["kind"] == "base":
+                        tracks["rome"] -= 1
+                        resource = "supply" if tracks["supply"] >= tracks["treasury"] else "treasury"
+                        tracks[resource] -= 1
         if tracks["fatigue"] >= 5:
             tracks["resolve"] -= 1
         if style != "martial" and not fought:
@@ -210,11 +285,11 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
             tracks[key] = clamp(tracks[key], 0, 6 if key == "fatigue" else 7)
         if min(tracks["rome"], tracks["senate"], tracks["resolve"]) <= 0:
             break
-        if any(threat[t] >= 6 and not defended(t, legions) for t in FRONTS) or sum(legions.values()) <= 0:
+        if sum(legions.values()) <= 0:
             break
 
     objective = scenario["objective"]
-    total_threat = sum(threat.values())
+    total_threat = sum(strength.values())
     won = (
         momentum >= objective.get("momentum", 0)
         and all(named_momentum[key] >= value for key, value in objective.get("named", {}).items())
@@ -223,7 +298,7 @@ def play(scenario: dict, style: str, rng: random.Random) -> Result:
         and tracks["resolve"] >= objective.get("resolve", 0)
         and mercy >= objective.get("mercy", 0)
         and min(tracks["rome"], tracks["senate"], tracks["resolve"]) > 0
-        and not any(threat[t] >= 6 and not defended(t, legions) for t in FRONTS)
+        and "aquileia" not in hosts.values()
     )
     score = (
         momentum + tracks["rome"] + tracks["senate"] + tracks["resolve"]

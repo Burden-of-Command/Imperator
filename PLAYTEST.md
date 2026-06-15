@@ -3,7 +3,7 @@
 ## Record Each Game
 
 1. Scenario, result, score, rounds, and strategy.
-2. Final tracks, Legion locations, total Threat, and Momentum.
+2. Final tracks, Legion and Host locations, total Strength, and Momentum.
 3. Command cards used for Imperium versus Officium.
 4. Battles, Exertions, Assents, negotiations, and Legion losses.
 5. The hardest decision and any turn with an obvious answer.
@@ -16,6 +16,8 @@
 - No starting move chosen in more than 70% of games.
 - Imperium/Officium use between 35/65 and 65/35.
 - At least one meaningful choice between routes or settlements in 80% of games.
+- Enemy Design resolves in under 20 seconds in 90% of rounds.
+- Players can predict each Host's next destination without consulting rules.
 - Median duration below 50 minutes.
 - Fewer than two rulebook lookups after the first game.
 - Fewer than 10% of losses described as predetermined.

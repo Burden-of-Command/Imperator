@@ -10,8 +10,10 @@ the Senate; clemency may secure peace or give an enemy time to gather.
 ## Design Pillars
 
 - **Small footprint:** 40 cards, one A4 campaign mat, 18 cubes, and two d6.
-- **Geographical command:** legions march between named bases, river crossings,
-  and enemy settlements before they can fight.
+- **Armies on the map:** legions and four coalition Hosts march between named
+  bases, crossings, and homelands.
+- **One-step opposition:** each Crisis activates one Host with one order:
+  Muster or Raid.
 - **One burden, two claims:** every Command card is used either for its military
   order or its civil order.
 - **History under pressure:** plague, Aquileia, the Quadi, the Iazyges,
@@ -27,7 +29,7 @@ the Senate; clemency may secure peace or give an enemy time to gather.
 - 16 Crisis cards
 - 8 Scenario cards
 - 1 compact node-map campaign mat
-- 6 legion cubes, 4 threat cubes, and 8 track cubes
+- 6 legion cubes, 4 Host markers, 4 Strength cubes, and 8 track cubes
 - 2 standard six-sided dice
 
 ## Start Here
@@ -44,6 +46,7 @@ as shown on its Scenario card. A first game takes about 35-50 minutes.
 - `RULES.md` - complete prototype rules
 - `HISTORICAL_NOTES.md` - history, terminology, and design boundaries
 - `PLAYTEST.md` - test protocol and balance targets
+- `DESIGN_TARGET.md` - evidence gates for an exceptional-game ambition
 - `dist/` - generated print-and-play files
 
 ## Build

@@ -49,8 +49,9 @@ uncontrolled result and decide what kind of inner resource can be preserved.
 Roman monuments present the wars as justified imperial victory. The Column of
 Marcus Aurelius also depicts burning settlements, captives, displacement, and
 violence. This game does not label entire peoples as a faceless "barbarian"
-enemy. Threat represents coalitions, raids, strategic pressure, and failed
-diplomacy. Mercy measures whether force is paired with restraint and settlement.
+enemy. Host Strength represents coalition size, raids, strategic pressure, and
+failed diplomacy. Mercy measures whether force is paired with restraint and
+settlement.
 
 ## Compression and Uncertainty
 

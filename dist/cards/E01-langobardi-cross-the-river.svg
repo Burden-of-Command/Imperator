@@ -5,9 +5,9 @@
 <text x="55" y="78" fill="#9f493d" font-family="Arial,sans-serif" font-size="18" font-weight="bold" letter-spacing="2">E01  CRISIS / GROUP A</text>
 <text x="55" y="137" fill="#eee8d8" font-family="Georgia,serif" font-size="34" font-weight="bold">Langobardi Cross the River</text>
 <text x="55" y="215" fill="#9f493d" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">ARRIVAL</text>
-<text x="55" y="270" fill="#eee8d8" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">Increase Quadi Threat by 1.</tspan></text>
-<text x="55" y="602" fill="#9f493d" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">ENEMY DESIGN</text>
-<text x="55" y="657" fill="#eee8d8" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">If no Legion is at Carnuntum or Quadi,</tspan><tspan x="55" dy="34">increase it by 1 again.</tspan></text>
+<text x="55" y="270" fill="#eee8d8" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">Increase Quadi Strength by 1.</tspan></text>
+<text x="55" y="602" fill="#9f493d" font-family="Arial,sans-serif" font-size="20" font-weight="bold" letter-spacing="3">QUADI HOST: RAID</text>
+<text x="55" y="657" fill="#eee8d8" font-family="Georgia,serif" font-size="27"><tspan x="55" dy="0">If no Legion is at Carnuntum or with the</tspan><tspan x="55" dy="34">Quadi Host, increase it by 1 again.</tspan></text>
 <text x="375" y="965" text-anchor="middle" fill="#9f493d" font-family="Arial,sans-serif" font-size="14" font-weight="bold" letter-spacing="2">WHAT ARRIVES IS NOT YOURS. WHAT YOU DO IS.</text>
 <circle cx="375" cy="995" r="7" fill="#9f493d"/>
 </svg>
