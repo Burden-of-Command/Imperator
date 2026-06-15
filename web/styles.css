@@ -98,6 +98,11 @@ select { padding: 12px; border: 1px solid #8c7657; border-radius: 7px; backgroun
   text-align: center; transition: box-shadow .15s, transform .15s;
 }
 .space.front { border-color: var(--red); background: #ddd3c2; clip-path: polygon(5% 0,95% 0,88% 100%,12% 100%); }
+.space.devastated { border-color: #722620; background: #c9b9a7; box-shadow: inset 0 0 0 3px rgba(114,38,32,.18); }
+.devastation {
+  display: block; margin-top: 3px; color: #862d28; font-size: 8px;
+  font-weight: 950; letter-spacing: .12em;
+}
 .space.selectable { cursor: pointer; box-shadow: 0 0 0 4px rgba(178,138,66,.55); }
 .space.selected { transform: translate(-50%, -50%) scale(1.05); box-shadow: 0 0 0 5px rgba(143,48,43,.5); }
 .space h4 { font-size: 14px; }

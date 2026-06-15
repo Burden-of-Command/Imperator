@@ -1,6 +1,7 @@
 {
   "title": "IMPERATOR: The Burden of the Danube",
-  "version": "0.3",
+  "version": "0.4",
+  "coalition_threshold": 5,
   "spaces": [
     {"id": "aquileia", "name": "Aquileia", "kind": "base", "adjacent": ["virunum"]},
     {"id": "virunum", "name": "Virunum", "kind": "base", "adjacent": ["aquileia", "lauriacum"]},
@@ -27,11 +28,11 @@
     {
       "id": "S02", "name": "Italy Invaded", "years": "c. 169-171 CE", "rounds": 7,
       "difficulty": 2, "groups": ["B", "B", "B", "C", "C", "D", "D"],
-      "tracks": {"rome": 5, "senate": 5, "resolve": 6, "treasury": 4, "supply": 5, "fatigue": 2, "mercy": 0},
+      "tracks": {"rome": 6, "senate": 5, "resolve": 6, "treasury": 4, "supply": 6, "fatigue": 2, "mercy": 0},
       "threat": {"raetian_frontier": 2, "marcomannia": 2, "quadi": 3, "iazyges": 2},
       "hosts": {"raetian_frontier": "raetian_frontier", "marcomannia": "lauriacum", "quadi": "carnuntum", "iazyges": "iazyges"},
       "legions": {"aquileia": 1, "lauriacum": 2, "carnuntum": 2, "sirmium": 1},
-      "objective": {"momentum": 4, "max_total_threat": 11, "aquileia_secure": true},
+      "objective": {"momentum": 3, "max_total_threat": 11, "aquileia_secure": true},
       "rule": "The first time the Quadi Host enters Carnuntum, lose 1 additional Rome.",
       "history": "A coalition breaks through the frontier and threatens Aquileia in northern Italy."
     },
@@ -53,25 +54,25 @@
       "threat": {"raetian_frontier": 1, "marcomannia": 3, "quadi": 3, "iazyges": 2},
       "hosts": {"raetian_frontier": "raetian_frontier", "marcomannia": "marcomannia", "quadi": "quadi", "iazyges": "iazyges"},
       "legions": {"aquileia": 1, "lauriacum": 2, "carnuntum": 2, "sirmium": 1},
-      "objective": {"momentum": 4, "named": {"quadi": 1}, "mercy": 2},
+      "objective": {"momentum": 3, "named": {"quadi": 1}, "mercy": 2},
       "rule": "Once per game after losing a battle, set both dice to 4; then lose 1 Treasury. This represents the contested rain-miracle tradition without choosing an explanation.",
       "history": "The Quadi campaign combines hard fighting, disputed kingship, thirst, weather, and propaganda."
     },
     {
       "id": "S05", "name": "The Sarmatian Plain", "years": "174-175 CE", "rounds": 7,
       "difficulty": 3, "groups": ["D", "D", "E", "E", "F", "F", "G"],
-      "tracks": {"rome": 6, "senate": 5, "resolve": 5, "treasury": 4, "supply": 5, "fatigue": 3, "mercy": 1},
-      "threat": {"raetian_frontier": 1, "marcomannia": 1, "quadi": 2, "iazyges": 4},
+      "tracks": {"rome": 6, "senate": 5, "resolve": 5, "treasury": 4, "supply": 6, "fatigue": 3, "mercy": 1},
+      "threat": {"raetian_frontier": 1, "marcomannia": 1, "quadi": 2, "iazyges": 3},
       "hosts": {"raetian_frontier": "raetian_frontier", "marcomannia": "marcomannia", "quadi": "quadi", "iazyges": "iazyges"},
       "legions": {"aquileia": 1, "lauriacum": 1, "carnuntum": 1, "sirmium": 3},
-      "objective": {"momentum": 4, "named": {"iazyges": 2}, "max_total_threat": 9},
+      "objective": {"momentum": 3, "named": {"iazyges": 2}, "max_total_threat": 9},
       "rule": "The Enemy die gains +1 on the Plain of the Iazyges unless at least three Legions are committed.",
       "history": "Roman forces confront the mobile Iazyges and seek prisoners, auxiliaries, and a durable settlement."
     },
     {
       "id": "S06", "name": "The Eastern Usurper", "years": "175 CE", "rounds": 5,
       "difficulty": 3, "groups": ["E", "F", "G", "G", "H"],
-      "tracks": {"rome": 5, "senate": 3, "resolve": 5, "treasury": 3, "supply": 4, "fatigue": 4, "mercy": 2},
+      "tracks": {"rome": 5, "senate": 4, "resolve": 5, "treasury": 4, "supply": 4, "fatigue": 3, "mercy": 2},
       "threat": {"raetian_frontier": 1, "marcomannia": 2, "quadi": 2, "iazyges": 2},
       "hosts": {"raetian_frontier": "raetian_frontier", "marcomannia": "marcomannia", "quadi": "quadi", "iazyges": "iazyges"},
       "legions": {"aquileia": 2, "lauriacum": 1, "carnuntum": 1, "sirmium": 2},
@@ -82,23 +83,23 @@
     {
       "id": "S07", "name": "The Second Expedition", "years": "178-180 CE", "rounds": 8,
       "difficulty": 4, "groups": ["E", "F", "F", "G", "G", "H", "H", "H"],
-      "tracks": {"rome": 5, "senate": 4, "resolve": 5, "treasury": 4, "supply": 5, "fatigue": 2, "mercy": 2},
-      "threat": {"raetian_frontier": 1, "marcomannia": 2, "quadi": 3, "iazyges": 3},
+      "tracks": {"rome": 5, "senate": 4, "resolve": 6, "treasury": 4, "supply": 6, "fatigue": 2, "mercy": 2},
+      "threat": {"raetian_frontier": 1, "marcomannia": 2, "quadi": 2, "iazyges": 3},
       "hosts": {"raetian_frontier": "raetian_frontier", "marcomannia": "marcomannia", "quadi": "carnuntum", "iazyges": "iazyges"},
       "legions": {"aquileia": 1, "lauriacum": 1, "carnuntum": 2, "sirmium": 2},
-      "objective": {"momentum": 5, "max_total_threat": 10, "resolve": 2},
+      "objective": {"momentum": 4, "max_total_threat": 10, "resolve": 2},
       "rule": "At the end of rounds 4 and 7, lose 1 Resolve unless you Meditated that round.",
       "history": "War resumes. Marcus pursues an unfinished northern settlement while age, fatigue, and succession narrow his time."
     },
     {
       "id": "S08", "name": "The Burden of the Danube", "years": "166-180 CE", "rounds": 10,
       "difficulty": 4, "groups": ["A", "B", "C", "D", "E", "F", "G", "G", "H", "H"],
-      "tracks": {"rome": 6, "senate": 5, "resolve": 6, "treasury": 5, "supply": 5, "fatigue": 1, "mercy": 1},
+      "tracks": {"rome": 6, "senate": 5, "resolve": 6, "treasury": 6, "supply": 6, "fatigue": 1, "mercy": 1},
       "threat": {"raetian_frontier": 2, "marcomannia": 2, "quadi": 3, "iazyges": 2},
       "hosts": {"raetian_frontier": "raetian_frontier", "marcomannia": "marcomannia", "quadi": "quadi", "iazyges": "iazyges"},
       "legions": {"aquileia": 1, "lauriacum": 2, "carnuntum": 2, "sirmium": 1},
-      "objective": {"momentum": 6, "max_total_threat": 13, "senate": 3, "mercy": 2},
-      "rule": "After rounds 3 and 6, reduce Fatigue by 1 but increase the highest Strength by 1. At round 8, lose 1 Resolve.",
+      "objective": {"momentum": 4, "max_total_threat": 15, "senate": 3, "mercy": 2},
+      "rule": "After rounds 3 and 6, reduce Fatigue and Coalition by 2, gain 1 Supply, and restore 1 to your lowest state track; then increase the highest Strength by 1. At round 8, lose 1 Resolve.",
       "history": "A compressed full reign: epidemic, invasion, counteroffensive, revolt, renewed war, and the question of what peace will survive."
     }
   ],
@@ -109,7 +110,7 @@
     {"id": "C04", "name": "Auction the Palace", "imperium": "Gain 3 Treasury, then Campaign.", "officium": "Gain 4 Treasury; lose 1 Rome.", "tag": "finance"},
     {"id": "C05", "name": "Raise New Legions", "imperium": "Pay 3 Treasury: return one lost Legion to Aquileia.", "officium": "Pay 2 Treasury and 1 Senate: return one lost Legion to Aquileia and gain 1 Rome.", "tag": "levy"},
     {"id": "C06", "name": "Fortify Italy and the Alps", "imperium": "Reduce Raetian or Marcomanni Strength by 2; pay 1 Supply.", "officium": "Gain 2 Rome. Then lose 1 Treasury.", "tag": "defense"},
-    {"id": "C07", "name": "Divide the Coalition", "imperium": "Choose two Hosts. Reduce one Strength by 2 and increase the other by 1.", "officium": "Spend 1 Senate: reduce any Host Strength by 1 and gain 1 Mercy.", "tag": "diplomacy"},
+    {"id": "C07", "name": "Divide the Coalition", "imperium": "Choose two Hosts. Reduce one Strength by 2, increase the other by 1, and reduce Coalition by 1.", "officium": "Spend 1 Senate: reduce any Host Strength by 1, gain 1 Mercy, and reduce Coalition by 2.", "tag": "diplomacy"},
     {"id": "C08", "name": "Forced March", "imperium": "Move up to three Legions through one extra connection; increase Fatigue by 1.", "officium": "Gain 1 Supply and 1 Resolve.", "tag": "movement"},
     {"id": "C09", "name": "Winter Quarters", "imperium": "Reduce Fatigue by 2. You may Fortify once.", "officium": "Gain 1 Resolve, 1 Supply, and 1 Senate; increase the highest Strength by 1.", "tag": "rest"},
     {"id": "C10", "name": "Address the Troops", "imperium": "Campaign. On a tie or loss, gain 1 Resolve after consequences.", "officium": "Gain 2 Resolve; lose 1 Senate unless Mercy is 3+.", "tag": "resolve"},

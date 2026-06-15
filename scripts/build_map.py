@@ -79,11 +79,11 @@ def main() -> None:
 <path d="M1175 805H1485" stroke="#272722"/>
 <text x="1175" y="850" class="label">MOMENTUM</text>
 <path d="M1175 873H1485" stroke="#272722"/>
-<text x="1175" y="918" class="label">LOST LEGIONS</text>
-<rect x="1340" y="886" width="145" height="42" fill="none" stroke="#272722"/>
+<text x="1175" y="912" class="label">COALITION  0  1  2  3  4  5</text>
+<text x="1175" y="946" class="label">LOST LEGIONS / DEVASTATION</text>
 <g>{"".join(tracks)}</g>
 <text x="72" y="1140" class="small">NOT EVENTS WHICH DISTURB MEN, BUT THEIR JUDGMENTS CONCERNING THEM</text>
-<text x="1582" y="1140" text-anchor="end" class="tiny">PROTOTYPE 0.3</text>
+<text x="1582" y="1140" text-anchor="end" class="tiny">PROTOTYPE 0.4</text>
 </svg>'''
     (OUT / "Imperator-Campaign-Mat.svg").write_text(svg)
 
@@ -94,18 +94,18 @@ def main() -> None:
 <path d="M55 175H695" stroke="#ad8c4b"/>
 <text x="55" y="235" fill="#ad8c4b" font-family="Arial" font-size="20" font-weight="bold">BASIC ORDERS: CHOOSE TWO DIFFERENT</text>
 <text x="55" y="290" fill="#eee8d8" font-family="Georgia" font-size="26">
-<tspan x="55">March: two Legions, one connection each.</tspan><tspan x="55" dy="40">Fortify: 1 Supply; -1 Host Strength.</tspan>
-<tspan x="55" dy="40">Campaign: battle a Host in your space.</tspan><tspan x="55" dy="40">Petition: 1 Treasury; +1 Senate.</tspan>
+<tspan x="55">March: two Legions, one connection each.</tspan><tspan x="55" dy="40">Fortify: weaken Host or restore base.</tspan>
+<tspan x="55" dy="40">Campaign: battle a Host in your space.</tspan><tspan x="55" dy="40">Petition: +1 Senate or Coalition -2.</tspan>
 <tspan x="55" dy="40">Requisition: +2 Supply; -1 Rome/Senate.</tspan><tspan x="55" dy="40">Meditate: +1 Resolve; possibly -1 Fatigue.</tspan></text>
 <path d="M55 570H695" stroke="#ad8c4b"/>
 <text x="55" y="625" fill="#ad8c4b" font-family="Arial" font-size="20" font-weight="bold">BATTLE</text>
-<text x="55" y="680" fill="#eee8d8" font-family="Georgia" font-size="25">
-<tspan x="55">Rome = Legions + d6 + bonuses</tspan><tspan x="55" dy="38">Enemy = Host Strength + d6</tspan>
-<tspan x="55" dy="55">Win 3+: -2 Strength, retreat home</tspan><tspan x="55" dy="38">Win 1-2: -1 Strength, retreat one</tspan>
-<tspan x="55" dy="38">Tie: -1 Strength; Host holds</tspan><tspan x="55" dy="38">Lose 1-2: -1 Supply, -1 Resolve</tspan>
-<tspan x="55" dy="38">Lose 3+: lose Legion, -1 Rome</tspan></text>
-<text x="375" y="965" text-anchor="middle" fill="#ad8c4b" font-family="Arial" font-size="14" letter-spacing="2">BASE SUPPORT +1 / EXERT +2</text>
-<text x="375" y="995" text-anchor="middle" fill="#ad8c4b" font-family="Arial" font-size="14" letter-spacing="2">ASSENT ONCE PER ROUND</text>
+<text x="55" y="680" fill="#eee8d8" font-family="Georgia" font-size="22">
+<tspan x="55">Rome = Legions + d6 + bonuses</tspan><tspan x="55" dy="34">Enemy = Host Strength + d6</tspan>
+<tspan x="55" dy="49">Contain: +1; no Momentum/deep retreat</tspan><tspan x="55" dy="34">Set Battle: standard; may Exert +2</tspan>
+<tspan x="55" dy="34">Force: +2, +1 Fatigue; failure loses L</tspan><tspan x="55" dy="49">Win 3+: -2 Strength, retreat home</tspan>
+<tspan x="55" dy="34">Win 1-2: -1 Strength, retreat one</tspan><tspan x="55" dy="34">Loss: pay result and doctrine risk</tspan></text>
+<text x="375" y="984" text-anchor="middle" fill="#ad8c4b" font-family="Arial" font-size="13" letter-spacing="2">COALITION 5: SECOND HOST SURGES</text>
+<text x="375" y="1010" text-anchor="middle" fill="#ad8c4b" font-family="Arial" font-size="13" letter-spacing="2">ASSENT ONCE PER ROUND</text>
 </svg>'''
     (OUT / "Imperator-Order-Reference.svg").write_text(aid)
     marker_data = [
@@ -123,7 +123,18 @@ def main() -> None:
     marker_svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="7.2in" height="1.8in" viewBox="0 0 720 180">
 <rect width="720" height="180" fill="#e8e3d8"/>{"".join(markers)}</svg>'''
     (OUT / "Imperator-Host-Markers.svg").write_text(marker_svg)
-    print("Built campaign mat, order reference, and Host markers.")
+    devastation_svg = '''<svg xmlns="http://www.w3.org/2000/svg" width="7.2in" height="1.8in" viewBox="0 0 720 180">
+<rect width="720" height="180" fill="#e8e3d8"/>
+<g fill="#c8b3a0" stroke="#7c2d28" stroke-width="5">
+<rect x="18" y="18" width="126" height="126" rx="10"/><rect x="158" y="18" width="126" height="126" rx="10"/>
+<rect x="298" y="18" width="126" height="126" rx="10"/><rect x="438" y="18" width="126" height="126" rx="10"/>
+<rect x="578" y="18" width="126" height="126" rx="10"/></g>
+<g fill="#7c2d28" font-family="Arial" font-size="13" font-weight="bold" text-anchor="middle" letter-spacing="1">
+<text x="81" y="84">DEVASTATED</text><text x="221" y="84">DEVASTATED</text><text x="361" y="84">DEVASTATED</text>
+<text x="501" y="84">DEVASTATED</text><text x="641" y="84">DEVASTATED</text></g>
+</svg>'''
+    (OUT / "Imperator-Devastation-Markers.svg").write_text(devastation_svg)
+    print("Built campaign mat, order reference, Host markers, and devastation markers.")
 
 
 if __name__ == "__main__":

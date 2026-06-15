@@ -13,7 +13,7 @@ zero. You lose immediately if:
 
 Your score is:
 
-`Objective VP + Rome + Senate + Resolve + Treasury - Fatigue - remaining Strength`
+`Objective VP + Rome + Senate + Resolve + Treasury - Fatigue - remaining Strength - Devastation`
 
 ## 2. The Map
 
@@ -36,6 +36,10 @@ Each enemy people has:
 The four Hosts are Raetian, Marcomanni, Quadi, and Iazyges. A Host may move from
 its homeland into Roman bases. Its Strength travels with it; only the Host
 marker moves. This is the entire opposition army system.
+
+The **Coalition** track runs from 0-5. It measures cooperation, shared
+opportunity, and pressure among Rome's enemies. When it fills, one additional
+Host acts, then the track returns to 0.
 
 Any space may hold any number of Legion cubes and Hosts. Printed lines are the
 only legal movement connections. Rivers and roads are already represented by
@@ -61,7 +65,7 @@ Tracks run from 0-7 unless noted:
 4. Build the Crisis deck from the Scenario's listed Crisis groups. Shuffle each
    group separately and stack later groups beneath earlier groups.
 5. Place the remaining Crisis cards aside.
-6. Put two dice nearby. Begin Round 1.
+6. Set Coalition to 0. Put two dice nearby. Begin Round 1.
 
 For a first game use **S01 The Gathering Storm**.
 
@@ -95,16 +99,19 @@ Take two different Basic Orders. A card effect may permit repetition.
   move together or separately. Resolve one move completely before the other.
 - **Fortify:** pay 1 Supply to reduce a Host's Strength by 1 if it shares a
   space with a Legion or is adjacent to a Roman base containing a Legion.
+  Alternatively, restore one devastated Roman base in or adjacent to a space
+  containing a Legion; remove its Devastated marker and gain 1 Rome.
 - **Campaign:** fight one battle where a Host shares a space with a Legion.
-- **Petition:** pay 1 Treasury to gain 1 Senate.
+- **Petition:** pay 1 Treasury to gain 1 Senate, or send envoys to reduce
+  Coalition by 2. If peace is available, you may Negotiate instead.
 - **Requisition:** gain 2 Supply; lose 1 Rome or 1 Senate.
 - **Meditate:** gain 1 Resolve; if no battle is fought this round, also reduce
   Fatigue by 1 at round end.
 
 ### IV. Enemy Design
 
-Resolve the Crisis card's **Design** text, then its single **Host Order**. This
-is the whole enemy turn.
+Resolve the Crisis card's **Design** text, then its single **Host Order**.
+Afterward increase Coalition by 1.
 
 - **MUSTER:** increase that Host's Strength by 1. If already at 6, RAID instead.
 - **RAID:** if the Host already shares a space with Legions, resolve a Clash
@@ -124,6 +131,21 @@ After a RAID:
 
 No other Host moves, rolls, checks a chart, or takes an action.
 
+If Coalition reaches 5, return it to 0 and resolve a **Coalition Surge**:
+
+1. Exclude the Host named by the Crisis.
+2. Choose the remaining Host with the highest Strength. Break ties in favor of
+   the Host closest to Aquileia.
+3. If it is in its homeland below Strength 3, it Musters. Otherwise it Raids.
+
+A surge therefore requires no card draw or behavior chart and happens at most
+once per round.
+
+When a Host Raids an empty Roman base, place a **Devastated** marker there
+after paying the normal losses. A devastated base remains connected and may
+hold Legions, but grants no Base Support. Each unrestored Devastated marker is
+worth -1 point at the end of the Scenario.
+
 ### V. Endure
 
 1. If you fought, increase Fatigue by 1. If you fought twice, increase it by 2.
@@ -136,9 +158,16 @@ No other Host moves, rolls, checks a chart, or takes an action.
 1. Choose a space containing a Host and at least one Legion.
 2. Commit any number of Legions in that space. Pay 1 Supply per committed Legion beyond
    the first.
-3. Roll one Roman die and one Enemy die.
-4. Roman total = committed Legions + Roman die + bonuses.
-5. Enemy total = that Host's Strength + Enemy die + Scenario bonuses.
+3. Choose one battle doctrine:
+   - **Contain:** add +1 Roman total. The battle grants no Momentum, and even a
+     win by 3+ retreats the Host only one connection.
+   - **Set Battle:** use the standard rules and retain the option to Exert.
+   - **Force Decision:** requires at least two committed Legions. Add +2 Roman
+     total and increase Fatigue by 1. On a tie or loss, remove one additional
+     committed Legion after resolving the normal result.
+4. Roll one Roman die and one Enemy die.
+5. Roman total = committed Legions + Roman die + bonuses.
+6. Enemy total = that Host's Strength + Enemy die + Scenario bonuses.
 
 Add **+1 Roman total** if the battle is in a Roman base, or if a connected Roman
 base contains at least one Legion. This is **Base Support**. Several bases never
@@ -160,8 +189,8 @@ Momentum is not a track. Mark each point on the Scenario card. It never exceeds
 the Scenario objective. Some objectives require Momentum against a named Host;
 record those points beside that people.
 
-Before rolling, you may take one **Exertion**: gain +2 Roman total, then increase
-Fatigue by 1 after battle.
+When using Set Battle, you may take one **Exertion** before rolling: gain +2
+Roman total, then increase Fatigue by 1 after battle.
 
 ### Clash
 

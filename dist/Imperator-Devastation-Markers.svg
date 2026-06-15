@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="7.2in" height="1.8in" viewBox="0 0 720 180">
+<rect width="720" height="180" fill="#e8e3d8"/>
+<g fill="#c8b3a0" stroke="#7c2d28" stroke-width="5">
+<rect x="18" y="18" width="126" height="126" rx="10"/><rect x="158" y="18" width="126" height="126" rx="10"/>
+<rect x="298" y="18" width="126" height="126" rx="10"/><rect x="438" y="18" width="126" height="126" rx="10"/>
+<rect x="578" y="18" width="126" height="126" rx="10"/></g>
+<g fill="#7c2d28" font-family="Arial" font-size="13" font-weight="bold" text-anchor="middle" letter-spacing="1">
+<text x="81" y="84">DEVASTATED</text><text x="221" y="84">DEVASTATED</text><text x="361" y="84">DEVASTATED</text>
+<text x="501" y="84">DEVASTATED</text><text x="641" y="84">DEVASTATED</text></g>
+</svg>
