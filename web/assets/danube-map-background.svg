@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 760">
+  <defs>
+    <filter id="grain"><feTurbulence baseFrequency=".42" numOctaves="4" seed="31"/><feColorMatrix values="0 0 0 0 .2 0 0 0 0 .13 0 0 0 0 .07 0 0 0 .15 0"/></filter>
+    <filter id="rough"><feTurbulence baseFrequency=".018" numOctaves="2" seed="11" result="n"/><feDisplacementMap in="SourceGraphic" in2="n" scale="3"/></filter>
+    <linearGradient id="paper" x2="0" y2="1"><stop stop-color="#d9c79f"/><stop offset="1" stop-color="#b99f72"/></linearGradient>
+  </defs>
+  <rect width="1200" height="760" fill="url(#paper)"/>
+  <g fill="#806d4d" opacity=".19" filter="url(#rough)">
+    <path d="M0 540l83-102 58 52 67-112 65 72 89-145 79 91 61-106 95 134 71-86 64 82 98-119 95 129 75-91 81 113v308H0z"/>
+    <path d="M0 0h1200v126c-91 24-171 18-240-8-77-29-159-31-238 2-82 34-165 35-248-3-76-35-162-39-258-12C139 127 68 119 0 95z"/>
+  </g>
+  <path d="M-30 286C89 242 169 255 253 282c91 29 162 23 241-16 87-43 172-46 268-7 85 34 168 29 246-9 74-35 139-44 222-17" fill="none" stroke="#426b78" stroke-width="34" opacity=".9" filter="url(#rough)"/>
+  <path d="M-30 286C89 242 169 255 253 282c91 29 162 23 241-16 87-43 172-46 268-7 85 34 168 29 246-9 74-35 139-44 222-17" fill="none" stroke="#d8cfad" stroke-width="3" opacity=".7"/>
+  <g fill="none" stroke="#76553a" stroke-width="4" opacity=".24"><path d="M91 659C238 570 327 532 455 488s256-92 386-177 214-117 337-137"/><path d="M180 676C321 585 425 558 546 513s233-107 336-183"/></g>
+  <g fill="#5f513b" opacity=".22"><path d="M76 558l29-53 29 53-17-7 10 26-22-10-22 10 10-26z"/><path d="M191 498l25-45 25 45-14-6 8 23-19-9-19 9 8-23z"/><path d="M1047 486l28-51 28 51-16-7 10 25-22-10-21 10 9-25z"/></g>
+  <g fill="#4b3827" font-family="Georgia,serif" font-style="italic" opacity=".16">
+    <text x="46" y="184" font-size="38">GERMANIA MAGNA</text><text x="477" y="182" font-size="35">MARCOMANNI</text><text x="790" y="186" font-size="34">QUADI</text><text x="1000" y="332" font-size="32">SARMATAE</text>
+    <text x="72" y="706" font-size="32">ITALIA</text><text x="348" y="706" font-size="31">NORICVM</text><text x="676" y="705" font-size="31">PANNONIA</text><text x="941" y="705" font-size="29">PANNONIA INFERIOR</text><text x="518" y="245" font-size="25" transform="rotate(-7 518 245)">DANVVIVS</text>
+  </g>
+  <g stroke="#7f322a" fill="none" opacity=".38"><circle cx="1100" cy="98" r="54" stroke-width="4"/><circle cx="1100" cy="98" r="42" stroke-width="2"/><text x="1100" y="108" text-anchor="middle" fill="#7f322a" stroke="none" font-family="Georgia" font-size="28">SPQR</text></g>
+  <path d="M26 26h1148v708H26z" fill="none" stroke="#69452e" stroke-width="3" opacity=".35"/>
+  <rect width="1200" height="760" filter="url(#grain)" opacity=".36"/>
+</svg>
