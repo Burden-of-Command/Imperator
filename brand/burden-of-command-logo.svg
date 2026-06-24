@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="900" viewBox="0 0 1600 900" role="img" aria-labelledby="title desc">
+  <title id="title">The Burden of Command Series Logo</title>
+  <desc id="desc">A restrained historical strategy logo with a command map emblem and series wordmark.</desc>
+  <defs>
+    <linearGradient id="field" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#161d1b"/>
+      <stop offset="1" stop-color="#24302c"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d1b06a"/>
+      <stop offset=".48" stop-color="#a9853f"/>
+      <stop offset="1" stop-color="#ead9a5"/>
+    </linearGradient>
+    <filter id="softShadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="12" stdDeviation="18" flood-color="#000000" flood-opacity=".35"/>
+    </filter>
+  </defs>
+
+  <rect width="1600" height="900" fill="url(#field)"/>
+  <rect x="56" y="56" width="1488" height="788" rx="18" fill="none" stroke="#a9853f" stroke-width="5"/>
+  <rect x="84" y="84" width="1432" height="732" rx="12" fill="none" stroke="#a9853f" stroke-width="1.5" opacity=".55"/>
+
+  <g filter="url(#softShadow)">
+    <g transform="translate(222 164)">
+      <circle cx="286" cy="286" r="222" fill="none" stroke="url(#gold)" stroke-width="10"/>
+      <circle cx="286" cy="286" r="164" fill="none" stroke="#a9853f" stroke-width="4" opacity=".75"/>
+      <path d="M286 80V492M80 286H492M139 139L433 433M433 139L139 433" stroke="#a9853f" stroke-width="4" opacity=".72"/>
+      <path d="M168 332C222 286 253 266 304 270C356 274 382 244 425 199" fill="none" stroke="#ead9a5" stroke-width="6" stroke-linecap="round"/>
+      <path d="M152 225C210 204 258 215 302 244C347 274 386 280 441 257" fill="none" stroke="#ead9a5" stroke-width="3" stroke-linecap="round" opacity=".8"/>
+      <g fill="#ead9a5" stroke="#161d1b" stroke-width="5">
+        <circle cx="168" cy="332" r="17"/>
+        <circle cx="304" cy="270" r="17"/>
+        <circle cx="425" cy="199" r="17"/>
+        <circle cx="222" cy="286" r="13"/>
+        <circle cx="382" cy="244" r="13"/>
+      </g>
+      <path d="M286 140L322 248H436L344 315L379 424L286 356L193 424L228 315L136 248H250Z" fill="none" stroke="url(#gold)" stroke-width="7" stroke-linejoin="round"/>
+    </g>
+
+    <g transform="translate(780 260)">
+      <text x="0" y="0" fill="#f1ead8" font-family="Georgia, 'Times New Roman', serif" font-size="82" font-weight="700" letter-spacing="2">THE BURDEN</text>
+      <text x="0" y="104" fill="#f1ead8" font-family="Georgia, 'Times New Roman', serif" font-size="82" font-weight="700" letter-spacing="2">OF COMMAND</text>
+      <line x1="4" y1="152" x2="610" y2="152" stroke="url(#gold)" stroke-width="5"/>
+      <text x="4" y="207" fill="#c9aa61" font-family="Arial, Helvetica, sans-serif" font-size="24" font-weight="700" letter-spacing="8">HISTORICAL SOLO WARGAMES</text>
+      <text x="4" y="258" fill="#d9ceb6" font-family="Arial, Helvetica, sans-serif" font-size="21" letter-spacing="3">POWER · DUTY · ENDURANCE · JUDGMENT</text>
+    </g>
+  </g>
+</svg>
